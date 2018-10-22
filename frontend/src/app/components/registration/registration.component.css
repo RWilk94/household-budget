@@ -1,0 +1,31 @@
+.registration-div {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  background: url('../../../assets/money.jpg') no-repeat bottom;
+  background-size: cover;
+  overflow-y: scroll;
+}
+
+.mat-input-form {
+  width: 100%;
+}
+
+.card-sign-up {
+  padding: 20px;
+  margin-top: 10vh;
+  margin-bottom: 10vh;
+}
+
+.card-title {
+  margin: 0;
+}
+
+.card-body {
+  margin: 0;
+  /*padding: 0;*/
+}
+
+@media  {
+  
+}

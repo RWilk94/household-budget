@@ -1,53 +1,55 @@
-<!--<div style="background: yellow; height: 100vh">-->
-<!--Welcome text-->
-<!--<div class="container" style="background: red">-->
-<!--<div class="d-md-flex" style="height: 90vh">-->
-<!--<div class="col-md-4 text-center text-md-left">Left</div>-->
-<!--<div class="mx-auto col-sm-8 col-md-4">Right</div>-->
-<!--</div>-->
-<!--&lt;!&ndash;Registration form&ndash;&gt;-->
-<!--</div>-->
-<!--</div>-->
+<div class="registration-div">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5 ml-auto mr-auto">
+        <div class="card card-sign-up">
+          <div class="card-title"><h1>Sign up for free!</h1></div>
+          <div class="card-body">
+            <form [formGroup]="registrationForm" #form="ngForm">
 
-<div class="container">
-  <form [formGroup]="registrationForm" #form="ngForm">
-
-    <mat-form-field class="mat-input-form">
-      <input matInput
-             placeholder="Enter your username"
-             formControlName="username"
-             required>
-      <mat-error *ngIf="registrationForm.get('username').hasError">{{getUsernameErrorMessage()}}</mat-error>
-    </mat-form-field>
-    <br>
-    <mat-form-field class="mat-input-form">
-      <input matInput
-             placeholder="Enter your email"
-             formControlName="email"
-             required>
-      <mat-error *ngIf="registrationForm.get('email').hasError">{{getEmailErrorMessage()}}</mat-error>
-    </mat-form-field>
-    <br>
-    <mat-form-field class="mat-input-form">
-      <input matInput
-             placeholder="Enter your password"
-             formControlName="password"
-             type="password"
-             required>
-      <mat-error *ngIf="registrationForm.get('password').hasError">{{getPasswordErrorMessage()}}</mat-error>
-    </mat-form-field>
-    <br>
-    <mat-form-field class="mat-input-form">
-      <input matInput
-             placeholder="Re type password"
-             formControlName="confirmPassword"
-             type="password"
-             required>
-      <mat-error *ngIf="registrationForm.get('confirmPassword').hasError">{{getConfirmPasswordErrorMessage()}}</mat-error>
-    </mat-form-field>
-    <br>
-    <button id="button-reset" type="reset" class="btn btn-secondary">Clear</button>
-    <button type="submit" class="btn btn-success">Add</button>
-
-  </form>
+              <mat-form-field class="mat-input-form">
+                <input matInput
+                       placeholder="Username"
+                       formControlName="username"
+                       required>
+                <mat-error *ngIf="registrationForm.get('username').hasError">{{getUsernameErrorMessage()}}
+                </mat-error>
+              </mat-form-field>
+              <br>
+              <mat-form-field class="mat-input-form">
+                <input matInput
+                       placeholder="Email"
+                       formControlName="email"
+                       required>
+                <mat-error *ngIf="registrationForm.get('email').hasError">{{getEmailErrorMessage()}}</mat-error>
+              </mat-form-field>
+              <br>
+              <mat-form-field class="mat-input-form">
+                <input matInput
+                       placeholder="Password"
+                       formControlName="password"
+                       type="password"
+                       required>
+                <mat-error *ngIf="registrationForm.get('password').hasError">{{getPasswordErrorMessage()}}
+                </mat-error>
+              </mat-form-field>
+              <br>
+              <mat-form-field class="mat-input-form">
+                <input matInput
+                       placeholder="Confirm password"
+                       formControlName="confirmPassword"
+                       type="password"
+                       required>
+                <mat-error *ngIf="registrationForm.get('confirmPassword').hasError">
+                  {{getConfirmPasswordErrorMessage()}}
+                </mat-error>
+              </mat-form-field>
+              <br><br>
+              <button type="submit" class="btn btn-success" style="float: right; width: 100%">Sign up</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
