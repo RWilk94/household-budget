@@ -40,7 +40,7 @@ export class RegistrationComponent implements OnInit {
 
   getConfirmPasswordErrorMessage() {
     return this.registrationForm.get('confirmPassword').hasError('required')
-      ? 'Password can not be empty.' :
+      ? 'Confirm password can not be empty.' :
       this.registrationForm.get('confirmPassword').hasError('confirmPassword')
         ? 'Password and confirm password must be the same.' :
         '';

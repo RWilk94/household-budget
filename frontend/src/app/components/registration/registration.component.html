@@ -1,55 +1,60 @@
-<div class="registration-div">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-5 ml-auto mr-auto">
-        <div class="card card-sign-up">
-          <div class="card-title"><h1>Sign up for free!</h1></div>
-          <div class="card-body">
-            <form [formGroup]="registrationForm" #form="ngForm">
-
-              <mat-form-field class="mat-input-form">
-                <input matInput
-                       placeholder="Username"
-                       formControlName="username"
-                       required>
-                <mat-error *ngIf="registrationForm.get('username').hasError">{{getUsernameErrorMessage()}}
-                </mat-error>
-              </mat-form-field>
-              <br>
-              <mat-form-field class="mat-input-form">
-                <input matInput
-                       placeholder="Email"
-                       formControlName="email"
-                       required>
-                <mat-error *ngIf="registrationForm.get('email').hasError">{{getEmailErrorMessage()}}</mat-error>
-              </mat-form-field>
-              <br>
-              <mat-form-field class="mat-input-form">
-                <input matInput
-                       placeholder="Password"
-                       formControlName="password"
-                       type="password"
-                       required>
-                <mat-error *ngIf="registrationForm.get('password').hasError">{{getPasswordErrorMessage()}}
-                </mat-error>
-              </mat-form-field>
-              <br>
-              <mat-form-field class="mat-input-form">
-                <input matInput
-                       placeholder="Confirm password"
-                       formControlName="confirmPassword"
-                       type="password"
-                       required>
-                <mat-error *ngIf="registrationForm.get('confirmPassword').hasError">
-                  {{getConfirmPasswordErrorMessage()}}
-                </mat-error>
-              </mat-form-field>
-              <br><br>
-              <button type="submit" class="btn btn-success" style="float: right; width: 100%">Sign up</button>
-            </form>
-          </div>
-        </div>
-      </div>
+<div class="red">
+  <div class="white">
+    <div class="text-center">
+      <h3 class="font-weight-bold">
+        <strong>SIGN UP</strong>
+      </h3>
     </div>
+    <br>
+
+    <form [formGroup]="registrationForm" #form="ngForm">
+      <mat-form-field class="mat-input-form">
+        <input matInput
+               placeholder="Username"
+               formControlName="username"
+               required>
+        <mat-error *ngIf="registrationForm.get('username').hasError">{{getUsernameErrorMessage()}}
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field class="mat-input-form">
+        <input matInput
+               placeholder="Email"
+               formControlName="email"
+               required>
+        <mat-error *ngIf="registrationForm.get('email').hasError">{{getEmailErrorMessage()}}</mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field class="mat-input-form">
+        <input matInput
+               placeholder="Password"
+               formControlName="password"
+               type="password"
+               required>
+        <mat-error *ngIf="registrationForm.get('password').hasError">{{getPasswordErrorMessage()}}
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field class="mat-input-form">
+        <input matInput
+               placeholder="Confirm password"
+               formControlName="confirmPassword"
+               type="password"
+               required>
+        <mat-error *ngIf="registrationForm.get('confirmPassword').hasError">
+          {{getConfirmPasswordErrorMessage()}}
+        </mat-error>
+      </mat-form-field>
+      <br><br>
+      <button type="submit" class="btn btn-success btn-lg" style="width: 100%;">Sign up</button>
+    </form>
+
+    <br>
+    <div class="col-md-12">
+      <p class="font-small white-text d-flex justify-content-end">Have an account?
+        <a href="#" class="ml-1 font-weight-bold"> Sign in</a>
+      </p>
+    </div>
+
   </div>
 </div>

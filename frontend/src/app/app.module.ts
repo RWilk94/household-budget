@@ -5,7 +5,7 @@ import {AppComponent} from './app.component';
 import {RegistrationComponent} from './components/registration/registration.component';
 import {AppRoutingModule} from "./app-routing.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatFormFieldModule, MatInputModule} from "@angular/material";
+import {MatCardModule, MatFormFieldModule, MatInputModule} from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
@@ -16,11 +16,12 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
   imports: [
     AppRoutingModule,
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
-    MatFormFieldModule, //material form
-    ReactiveFormsModule, //formGroup property in form
-    MatInputModule, //material input
-    BrowserAnimationsModule
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
