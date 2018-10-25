@@ -1,0 +1,47 @@
+/*.red {*/
+/*background: url("../../../assets/background.png") no-repeat;*/
+/*background-size: cover;*/
+/*min-width: 100vw;*/
+/*min-height: 100vh;*/
+/*display: flex;*/
+/*justify-content: center;*/
+/*align-items: center;*/
+/*}*/
+
+/*.blue {*/
+/*background: dodgerblue;*/
+/*display: flex;*/
+/*justify-content: center;*/
+/*align-items: center;*/
+/*}*/
+
+/*.white {*/
+/*padding: 24px;*/
+/*position: relative;*/
+/*display: compact;*/
+/*background: white;*/
+/*min-width: 400px;*/
+/*min-height: 400px;*/
+/*horiz-align: center;*/
+/*border-radius: 3px;*/
+/*}*/
+
+/*.mat-input-form {*/
+/*width: 100%;*/
+/*}*/
+
+/*@media screen and (max-device-width: 768px){*/
+
+/*!*.red {*!*/
+/*!*width: 100%;*!*/
+/*!*height: 100%;*!*/
+/*!*}*!*/
+
+/*.white {*/
+/*min-width: 100%;*/
+/*!*min-height: 100%;*!*/
+/*!*width: 100%;*!*/
+/*!*height: 100%;*!*/
+/*margin: 24px;*/
+/*}*/
+/*}*/
