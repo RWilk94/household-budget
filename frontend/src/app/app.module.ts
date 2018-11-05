@@ -6,9 +6,10 @@ import {RegistrationComponent} from './components/registration/registration.comp
 import {AppRoutingModule} from "./app-routing.module";
 import {StartComponent} from './components/start/start.component';
 import {LoginComponent} from './components/login/login.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {MDBBootstrapModule} from "angular-bootstrap-md";
+// import {MDBBootstrapModule} from "angular-bootstrap-md";
+import {MatFormFieldModule, MatInputModule} from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -21,8 +22,12 @@ import {MDBBootstrapModule} from "angular-bootstrap-md";
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
-    MDBBootstrapModule.forRoot(),
+    //MDBBootstrapModule.forRoot(),
     FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule
+
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,12 +1,16 @@
-<p>
-  registration works!
-</p>
-
 <div class="container">
 
-  <div class="md-form form-group">
-    <i class="fa fa-envelope prefix"></i>
-    <input mdbInputDirective type="email" class="form-control" id="form9" name="email">
-    <label for="form9">Type your e-mail</label>
-  </div>
+  <form [formGroup]="registrationForm">
+
+    <mat-form-field class="mat-input-form">
+      <input matInput
+             placeholder="username"
+             required
+             formControlName="username"
+             name="username"
+             id="username">
+    </mat-form-field>
+
+  </form>
+
 </div>

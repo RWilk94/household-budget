@@ -23,18 +23,7 @@
               "src/assets"
             ],
             "styles": [
-              {
-                "input": "node_modules/font-awesome/scss/font-awesome.scss"
-              },
-              {
-                "input": "node_modules/angular-bootstrap-md/scss/bootstrap/bootstrap.scss"
-              },
-              {
-                "input": "node_modules/angular-bootstrap-md/scss/mdb-free.scss"
-              },
-              {
-                "input": "src/styles.scss"
-              }
+              "src/styles.css"
             ],
             "scripts": [
               {
@@ -90,6 +79,9 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
+              {
+                "input": "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
+              },
               "src/styles.scss"
             ],
             "scripts": [],
