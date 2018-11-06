@@ -6,6 +6,6 @@ export class User {
   public password?: string;
   public confirmPassword?: string;
   public oldPassword?: string;
-  public created: Date;
+  public created?: Date;
 
 }

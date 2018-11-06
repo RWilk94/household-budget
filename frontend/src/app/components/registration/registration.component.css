@@ -1,0 +1,9 @@
+.container {
+  max-width: 400px;
+  max-height: 100px;
+  margin-top: 10px;
+}
+
+.mat-input-form {
+  width: 100%;
+}

@@ -10,6 +10,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 // import {MDBBootstrapModule} from "angular-bootstrap-md";
 import {MatFormFieldModule, MatInputModule} from "@angular/material";
+import {HttpClientModule} from "@angular/common/http";
+import {RegistrationService} from "./services/registration.service";
 
 @NgModule({
   declarations: [
@@ -25,11 +27,14 @@ import {MatFormFieldModule, MatInputModule} from "@angular/material";
     //MDBBootstrapModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     MatFormFieldModule,
     MatInputModule
 
   ],
-  providers: [],
+  providers: [
+    RegistrationService
+  ],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })
