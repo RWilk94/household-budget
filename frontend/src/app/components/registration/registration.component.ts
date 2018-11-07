@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AsyncValidator, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {User} from "../../models/user";
 import {CustomValidators} from "../../validators/custom-validators";
 import {RegistrationService} from "../../services/registration.service";
@@ -45,13 +45,7 @@ export class RegistrationComponent implements OnInit {
         },
         error => console.log('Error while register user ' + JSON.stringify(error))
       );
-      //TODO send user to backend
-      //console.log(this.getUser());
     }
-  }
-
-  getUser() {
-    return JSON.stringify(this.user);
   }
 
   checkFields() {

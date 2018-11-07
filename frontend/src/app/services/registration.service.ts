@@ -7,14 +7,21 @@ import {User} from "../models/user";
 })
 export class RegistrationService {
 
+  private header = new HttpHeaders({'Content-Type': 'application/json'});
+
   constructor(private http: HttpClient) {
   }
 
   register(user: User) {
     console.log('register: ' + JSON.stringify(user));
     let url = 'http://localhost:8888/registration';
-    let header = new HttpHeaders({'Content-Type': 'application/json'});
-    return this.http.post(url, JSON.stringify(user), {headers: header});
+    return this.http.post(url, user, {headers: this.header});
+  }
+
+  login(user: User) {
+    console.log('login: ' + JSON.stringify(user));
+    let url = 'http://localhost:8888/login';
+    return this.http.post(url, user, {headers: this.header});
   }
 
 }

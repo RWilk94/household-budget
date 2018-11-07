@@ -9,7 +9,7 @@ import {LoginComponent} from './components/login/login.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 // import {MDBBootstrapModule} from "angular-bootstrap-md";
-import {MatFormFieldModule, MatInputModule} from "@angular/material";
+import {MatCardModule, MatFormFieldModule, MatInputModule} from "@angular/material";
 import {HttpClientModule} from "@angular/common/http";
 import {RegistrationService} from "./services/registration.service";
 
@@ -29,8 +29,8 @@ import {RegistrationService} from "./services/registration.service";
     ReactiveFormsModule,
     HttpClientModule,
     MatFormFieldModule,
-    MatInputModule
-
+    MatInputModule,
+    MatCardModule
   ],
   providers: [
     RegistrationService
