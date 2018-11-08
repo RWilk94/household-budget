@@ -8,8 +8,7 @@ import {StartComponent} from './components/start/start.component';
 import {LoginComponent} from './components/login/login.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-// import {MDBBootstrapModule} from "angular-bootstrap-md";
-import {MatCardModule, MatFormFieldModule, MatInputModule} from "@angular/material";
+import {MatCardModule, MatFormFieldModule, MatInputModule, MatToolbarModule} from "@angular/material";
 import {HttpClientModule} from "@angular/common/http";
 import {RegistrationService} from "./services/registration.service";
 
@@ -30,7 +29,8 @@ import {RegistrationService} from "./services/registration.service";
     HttpClientModule,
     MatFormFieldModule,
     MatInputModule,
-    MatCardModule
+    MatCardModule,
+    MatToolbarModule
   ],
   providers: [
     RegistrationService
