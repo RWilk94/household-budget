@@ -1,0 +1,22 @@
+nav {
+  padding: 0;
+  margin-left: 9.5%;
+  margin-right: 9.5%;
+}
+
+h1 {
+  margin: 0;
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #fff;
+  font-size: 200%;
+}
+
+.strong-blue {
+  color: dodgerblue;
+}
+
+.btn-outline-primary {
+  margin: 0 5px;
+}

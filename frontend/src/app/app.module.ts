@@ -11,13 +11,15 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatCardModule, MatFormFieldModule, MatInputModule, MatToolbarModule} from "@angular/material";
 import {HttpClientModule} from "@angular/common/http";
 import {RegistrationService} from "./services/registration.service";
+import {ToolbarNotLoggedComponent} from './components/toolbar-not-logged/toolbar-not-logged.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegistrationComponent,
     StartComponent,
-    LoginComponent
+    LoginComponent,
+    ToolbarNotLoggedComponent
   ],
   imports: [
     AppRoutingModule,
