@@ -9,6 +9,9 @@ export class AuthGuardService implements CanActivate, CanLoad {
   }
 
   canActivate(): boolean {
+    if (this.registrationService.isLogin()) {
+      this.router.navigate(['/dashboard']);
+    }
     return !this.registrationService.isLogin();
   }
 
