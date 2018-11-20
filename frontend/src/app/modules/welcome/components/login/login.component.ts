@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {User} from "../../models/user";
+
+import {User} from "../../../shared/models/user";
 import {RegistrationService} from "../../services/registration.service";
 
 @Component({
@@ -33,9 +34,9 @@ export class LoginComponent implements OnInit {
       this.user.username = this.loginForm.get('username').value;
       this.user.password = this.loginForm.get('password').value;
 
-      this.registrationService.login(this.user).subscribe(data  => {
-        console.log('User login successfully ' + JSON.stringify(data));
-      },
+      this.registrationService.login(this.user).subscribe(data => {
+          console.log('User login successfully ' + JSON.stringify(data));
+        },
         error => console.log('Error while login ' + JSON.stringify(error))
       );
     }

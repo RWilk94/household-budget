@@ -1,14 +1,22 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
-import {RegistrationComponent} from "./components/registration/registration.component";
-import {LoginComponent} from "./components/login/login.component";
-import {StartComponent} from "./components/start/start.component";
+import {AuthGuardService} from "./modules/shared/auth/auth-guard.service";
+import {DefaultRouteResolver} from "./modules/shared/auth/default-route-resolver";
 
 const routes: Routes = [
-  //{path: '', redirectTo: '/register', pathMatch: 'full'},
-  {path: 'register', component: RegistrationComponent},
-  {path: 'login', component: LoginComponent},
-  {path: '', component: StartComponent}
+  {
+    path: 'dashboard',
+    loadChildren: './modules/dashboard/dashboard.module#DashboardModule',
+  },
+  {
+    path: '',
+    loadChildren: './modules/welcome/welcome.module#WelcomeModule',
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: '**',
+    component: DefaultRouteResolver
+  }
 ];
 
 @NgModule({

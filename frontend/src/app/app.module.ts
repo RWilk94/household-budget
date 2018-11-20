@@ -1,31 +1,34 @@
-import {BrowserModule} from '@angular/platform-browser';
+// import {BrowserModule} from '@angular/platform-browser';
 import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 
 import {AppComponent} from './app.component';
-import {RegistrationComponent} from './components/registration/registration.component';
 import {AppRoutingModule} from "./app-routing.module";
-import {StartComponent} from './components/start/start.component';
-import {LoginComponent} from './components/login/login.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+// import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatCardModule, MatFormFieldModule, MatInputModule, MatToolbarModule} from "@angular/material";
 import {HttpClientModule} from "@angular/common/http";
-import {RegistrationService} from "./services/registration.service";
-import {ToolbarNotLoggedComponent} from './components/toolbar-not-logged/toolbar-not-logged.component';
+// import {DashboardModule} from "./modules/dashboard/dashboard.module";
+import {SharedModule} from "./modules/shared/shared.module";
+// import {WelcomeModule} from "./modules/welcome/welcome.module";
+import {RouterModule} from "@angular/router";
+// import {BrowserModule} from "@angular/platform-browser";
+import {CommonModule} from "@angular/common";
+import {BrowserModule} from "@angular/platform-browser";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegistrationComponent,
-    StartComponent,
-    LoginComponent,
-    ToolbarNotLoggedComponent
   ],
   imports: [
+    RouterModule,
     AppRoutingModule,
+    // DashboardModule,
+    SharedModule,
+    // WelcomeModule,
     BrowserModule,
+    CommonModule,
     BrowserAnimationsModule,
-    //MDBBootstrapModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -34,9 +37,7 @@ import {ToolbarNotLoggedComponent} from './components/toolbar-not-logged/toolbar
     MatCardModule,
     MatToolbarModule
   ],
-  providers: [
-    RegistrationService
-  ],
+  providers: [],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })

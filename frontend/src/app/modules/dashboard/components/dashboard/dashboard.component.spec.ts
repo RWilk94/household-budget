@@ -1,20 +1,20 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {ToolbarNotLoggedComponent} from './toolbar-not-logged.component';
+import {DashboardComponent} from './dashboard.component';
 
-describe('ToolbarNotLoggedComponent', () => {
-  let component: ToolbarNotLoggedComponent;
-  let fixture: ComponentFixture<ToolbarNotLoggedComponent>;
+describe('DashboardComponent', () => {
+  let component: DashboardComponent;
+  let fixture: ComponentFixture<DashboardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ToolbarNotLoggedComponent]
+      declarations: [DashboardComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ToolbarNotLoggedComponent);
+    fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

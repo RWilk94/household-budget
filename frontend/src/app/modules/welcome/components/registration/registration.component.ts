@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {User} from "../../models/user";
-import {CustomValidators} from "../../validators/custom-validators";
+import {User} from "../../../shared/models/user";
+import {CustomValidators} from "../../../shared/validators/custom-validators";
 import {RegistrationService} from "../../services/registration.service";
 
 @Component({

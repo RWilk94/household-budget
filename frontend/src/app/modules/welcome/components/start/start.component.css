@@ -1,5 +1,5 @@
 .window {
-  background: url("../../../assets/light-bulb.jpg") no-repeat center;
+  background: url("/assets/light-bulb.jpg") no-repeat center;
   background-size: cover;
   overflow: auto;
   width: 100%;
