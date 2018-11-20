@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {User} from "../../../shared/models/user";
 import {CustomValidators} from "../../../shared/validators/custom-validators";
-import {RegistrationService} from "../../services/registration.service";
+import {RegistrationService} from "../../../shared/services/registration.service";
 
 @Component({
   selector: 'app-registration',

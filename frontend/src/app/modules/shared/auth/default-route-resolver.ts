@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
+import {RegistrationService} from "../services/registration.service";
 
 @Component({
   selector: 'default-route-resolver',
@@ -8,17 +9,11 @@ import {Router} from "@angular/router";
 })
 export class DefaultRouteResolver implements OnInit {
 
-  private login = false;
-
-  constructor(private router: Router) {
+  constructor(private router: Router, private registrationService: RegistrationService) {
   }
 
   ngOnInit() {
-    if (this.login) {
-      this.router.navigate(['/dashboard']);
-    } else {
-      this.router.navigate(['/']);
-    }
+    this.registrationService.isLogin() ? this.router.navigate(['/dashboard']) : this.router.navigate(['/']);
   }
 
 }

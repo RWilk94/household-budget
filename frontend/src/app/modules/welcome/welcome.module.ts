@@ -5,7 +5,7 @@ import {RegistrationComponent} from "./components/registration/registration.comp
 import {StartComponent} from "./components/start/start.component";
 import {ToolbarComponent} from "./components/toolbar/toolbar.component";
 import {SharedModule} from "../shared/shared.module";
-import {RegistrationService} from "./services/registration.service";
+import {RegistrationService} from "../shared/services/registration.service";
 import {WelcomeRoutingModule} from "./welcome-routing.module";
 // import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -37,7 +37,7 @@ import {CommonModule} from "@angular/common";
     ToolbarComponent
   ],
   providers: [
-    RegistrationService
+    // RegistrationService
   ],
   schemas: [NO_ERRORS_SCHEMA]
 })

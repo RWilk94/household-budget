@@ -1,20 +1,18 @@
 import {Injectable} from '@angular/core';
-import {CanActivate, CanActivateChild, Router} from "@angular/router";
+import {CanActivate, CanLoad, Router} from "@angular/router";
+import {RegistrationService} from "../services/registration.service";
 
 @Injectable()
-export class AuthGuardService implements CanActivate, CanActivateChild {
+export class AuthGuardService implements CanActivate, CanLoad {
 
-  constructor(public router: Router) {
+  constructor(public router: Router, private registrationService: RegistrationService) {
   }
 
   canActivate(): boolean {
-    this.router.navigate(["/dashboard"]);
-    return false;
+    return !this.registrationService.isLogin();
   }
 
-  canActivateChild(): boolean {
-    console.log("CanActivateChild");
-    this.router.navigate(['/welcome']);
-    return false;
+  canLoad() {
+    return this.canActivate();
   }
 }
