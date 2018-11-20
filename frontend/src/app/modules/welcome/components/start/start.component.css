@@ -1,0 +1,41 @@
+.window {
+  background: url("/assets/light-bulb.jpg") no-repeat center;
+  background-size: cover;
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+}
+
+
+.container {
+  min-height: 450px;
+}
+
+.title {
+  margin-top: 24px;
+  padding: 10px 10px;
+  /*padding: 20px;*/
+  display: block;
+  text-align:center;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+}
+
+.column {
+  width: 80%;
+  /*margin: 5px;*/
+  background: transparent;
+  border: none;
+}
+
+img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+}
+
+@media screen and (max-device-width: 500px){
+  .column {
+    width: 100%;
+  }
+}

@@ -1,0 +1,85 @@
+<div class="window">
+  <div>
+    <app-toolbar-not-logged></app-toolbar-not-logged>
+  </div>
+  <div class="container">
+
+    <mat-card class="center-mat-card">
+      <mat-card-title>
+        <p class="text-center"><strong id="title">SIGN UP</strong></p>
+      </mat-card-title>
+      <mat-card-content>
+        <form [formGroup]="registrationForm">
+
+          <mat-form-field class="mat-input-form">
+            <input matInput
+                   id="username"
+                   placeholder="Username"
+                   formControlName="username">
+            <mat-error *ngIf="registrationForm.getError('required', ['username'])">
+              Username is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="mat-input-form">
+            <input matInput
+                   id="email"
+                   placeholder="Email"
+                   formControlName="email">
+            <mat-error *ngIf="registrationForm.getError('required', ['email'])">
+              Email is required
+            </mat-error>
+            <mat-error *ngIf="registrationForm.getError('email', ['email'])">
+              Email has invalid format
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="mat-input-form">
+            <input matInput
+                   id="password"
+                   type="password"
+                   placeholder="Password"
+                   formControlName="password"
+                   (keyup)="checkFields()">
+            <mat-error *ngIf="registrationForm.getError('required', ['password'])">
+              Password is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="mat-input-form">
+            <input matInput
+                   id="confirm-password"
+                   type="password"
+                   placeholder="Confirm password"
+                   formControlName="confirmPassword">
+            <mat-error *ngIf="registrationForm.getError('required', ['confirmPassword'])">
+              Confirm password is required
+            </mat-error>
+            <mat-error *ngIf="registrationForm.getError('confirmPassword', ['confirmPassword'])">
+              Password and confirm password must be the same
+            </mat-error>
+          </mat-form-field>
+
+          <div class="container-form-buttons">
+            <button id="button-reset"
+                    type="reset"
+                    class="btn btn-secondary form-button">Clear
+            </button>
+
+            <button type="submit"
+                    [disabled]="this.registrationForm.invalid"
+                    (click)="onSubmit()"
+                    class="btn btn-success form-button">Sign up
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
+
+      <mat-card-footer>
+        <p class="text-center">
+          Already have an account? <strong><a routerLink="/login" routerLinkActive="true">Sign in</a></strong>
+        </p>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+</div>

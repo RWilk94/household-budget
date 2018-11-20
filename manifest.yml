@@ -1,0 +1,6 @@
+---
+applications:
+- name: cloud-household-budget
+  host: rwilk-household-budget
+  memory: 1024M
+  buildpack: java_buildpack

@@ -1,0 +1,54 @@
+<div class="window">
+  <div>
+    <app-toolbar-not-logged></app-toolbar-not-logged>
+  </div>
+  <div class="container">
+
+    <mat-card class="center-mat-card">
+      <mat-card-title>
+        <p class="text-center"><strong id="title">SIGN IN</strong></p>
+      </mat-card-title>
+      <mat-card-content>
+        <form [formGroup]="loginForm">
+
+          <mat-form-field class="mat-input-form">
+            <input matInput
+                   id="username"
+                   placeholder="Username"
+                   formControlName="username">
+            <mat-error *ngIf="loginForm.getError('required', ['username'])">
+              Username is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="mat-input-form">
+            <input matInput
+                   id="password"
+                   type="password"
+                   placeholder="Password"
+                   formControlName="password">
+            <mat-error *ngIf="loginForm.getError('required', ['password'])">
+              Password is required
+            </mat-error>
+          </mat-form-field>
+
+          <div class="container-form-buttons">
+            <button type="submit"
+                    [disabled]="this.loginForm.invalid"
+                    (click)="onSubmit()"
+                    class="btn btn-success form-button">
+              Sign in
+            </button>
+          </div>
+
+        </form>
+      </mat-card-content>
+      <mat-card-footer>
+        <p class="text-center">
+          Are you a new user? Sign up <strong><a routerLink="/register" routerLinkActive="true">here.</a></strong>
+        </p>
+      </mat-card-footer>
+    </mat-card>
+
+  </div>
+</div>
