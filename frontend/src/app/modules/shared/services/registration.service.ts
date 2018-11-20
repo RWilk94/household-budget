@@ -29,6 +29,7 @@ export class RegistrationService {
   }
 
   isLogin(): boolean {
+    console.log(this.cookie.get('username') + ' ' + this.cookie.get('token'));
     return this.cookie.get('username') != null
       && this.cookie.get('username') != ''
       && this.cookie.get('token') != null

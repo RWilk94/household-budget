@@ -3,6 +3,8 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 import {User} from "../../../shared/models/user";
 import {RegistrationService} from "../../../shared/services/registration.service";
+import {CookieService} from "ngx-cookie-service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -11,10 +13,12 @@ import {RegistrationService} from "../../../shared/services/registration.service
 })
 export class LoginComponent implements OnInit {
 
+  private token = {'token': ''};
   loginForm: FormGroup;
   user: User;
 
-  constructor(private formBuilder: FormBuilder, private registrationService: RegistrationService) {
+  constructor(private formBuilder: FormBuilder, private registrationService: RegistrationService, private cookie: CookieService,
+              private router: Router) {
     this.user = new User();
   }
 
@@ -36,6 +40,10 @@ export class LoginComponent implements OnInit {
 
       this.registrationService.login(this.user).subscribe(data => {
           console.log('User login successfully ' + JSON.stringify(data));
+          this.token = JSON.parse(JSON.stringify(data));
+          this.cookie.set('username', this.user.username);
+          this.cookie.set('token', this.token.token);
+          this.router.navigate(['/dashboard']);
         },
         error => console.log('Error while login ' + JSON.stringify(error))
       );
