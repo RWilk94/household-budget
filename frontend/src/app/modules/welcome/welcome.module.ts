@@ -5,23 +5,17 @@ import {RegistrationComponent} from "./components/registration/registration.comp
 import {StartComponent} from "./components/start/start.component";
 import {ToolbarComponent} from "./components/toolbar/toolbar.component";
 import {SharedModule} from "../shared/shared.module";
-import {RegistrationService} from "../shared/services/registration.service";
 import {WelcomeRoutingModule} from "./welcome-routing.module";
-// import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {MatCardModule, MatFormFieldModule, MatInputModule, MatToolbarModule} from "@angular/material";
 import {CommonModule} from "@angular/common";
-// import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-// import {BrowserModule} from "@angular/platform-browser";
 
 @NgModule({
   imports: [
     WelcomeRoutingModule,
     CommonModule,
     SharedModule,
-    // BrowserModule,
-    // BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -36,9 +30,7 @@ import {CommonModule} from "@angular/common";
     StartComponent,
     ToolbarComponent
   ],
-  providers: [
-    // RegistrationService
-  ],
+  providers: [],
   schemas: [NO_ERRORS_SCHEMA]
 })
 export class WelcomeModule {
