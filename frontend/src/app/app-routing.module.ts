@@ -19,7 +19,8 @@ const routes: Routes = [
   },
   {
     path: '**',
-    component: DefaultRouteResolver
+    component: DefaultRouteResolver,
+    pathMatch: 'full'
   }
 ];
 
