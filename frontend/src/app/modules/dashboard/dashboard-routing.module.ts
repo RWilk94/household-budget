@@ -1,16 +1,19 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
-import {DashboardComponent} from "./components/dashboard/dashboard.component";
+import {TestComponent} from "./components/test/test.component";
+import {NavigationMenuComponent} from "./components/navigation-menu/navigation-menu.component";
 
 const routes: Routes = [
   {
     path: '',
+    // outlet: 'child',
     children: [
-      {path: '', component: DashboardComponent},
-      {path: '**', component: DashboardComponent}
+      {path: '', component: NavigationMenuComponent},
+      {path: 'dashboard/test', component: TestComponent},
+      // {path: '**', component: TestComponent}
     ]
   },
-  {path: '**', component: DashboardComponent, pathMatch: 'full'}
+  {path: '**', component: TestComponent, pathMatch: 'full'}
 ];
 
 

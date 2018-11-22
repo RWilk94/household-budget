@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {NavigationMenuService} from "../../services/navigation-menu.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -7,10 +8,14 @@ import {Component, OnInit} from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() {
+  constructor(private nav: NavigationMenuService) {
   }
 
   ngOnInit() {
+  }
+
+  clickNavBar() {
+    this.nav.changeVisibilityOfNavigationMenu();
   }
 
 }

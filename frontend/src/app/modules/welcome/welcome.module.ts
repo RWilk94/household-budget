@@ -8,12 +8,14 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {MatCardModule, MatFormFieldModule, MatInputModule, MatToolbarModule} from "@angular/material";
 import {CommonModule} from "@angular/common";
+import {SharedModule} from "../shared/shared.module";
 
 @NgModule({
   imports: [
     WelcomeRoutingModule,
     CommonModule,
     FormsModule,
+    SharedModule,
     ReactiveFormsModule,
     HttpClientModule,
     MatFormFieldModule,
