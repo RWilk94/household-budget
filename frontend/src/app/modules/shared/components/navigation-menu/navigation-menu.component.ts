@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {NavigationMenuService} from "../../services/navigation-menu.service";
 import {MenuItem} from "../../models/menu-item";
+import {RegistrationService} from "../../services/registration.service";
 
 @Component({
   selector: 'app-navigation-menu',
@@ -11,7 +12,7 @@ export class NavigationMenuComponent implements OnInit, AfterViewInit {
 
   @ViewChild('appDrawer') appDrawer: ElementRef;
 
-  constructor(private navigationMenuService: NavigationMenuService) { }
+  constructor(private navigationMenuService: NavigationMenuService, public registrationService: RegistrationService) { }
 
   menuItems: MenuItem[] = [
     {

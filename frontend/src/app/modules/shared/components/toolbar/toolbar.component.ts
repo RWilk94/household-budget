@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {RegistrationService} from "../../../shared/services/registration.service";
+import {RegistrationService} from "../../services/registration.service";
 
 @Component({
   selector: 'app-toolbar',

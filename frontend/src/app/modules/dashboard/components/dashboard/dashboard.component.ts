@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NavigationMenuService} from "../../services/navigation-menu.service";
+import {NavigationMenuService} from "../../../shared/services/navigation-menu.service";
 
 @Component({
   selector: 'app-dashboard',
