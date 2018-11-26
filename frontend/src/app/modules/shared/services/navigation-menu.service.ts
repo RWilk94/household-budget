@@ -11,7 +11,6 @@ export class NavigationMenuService {
   constructor() { }
 
   changeVisibilityOfNavigationMenu() {
-    console.log('changeVisibilityOfNavigationMenu');
     this.show ? this.hideNavigationMenu() : this.showNavigationMenu();
   }
 
