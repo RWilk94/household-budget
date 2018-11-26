@@ -3,6 +3,8 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {User} from "../../../shared/models/user";
 import {CustomValidators} from "../../../shared/validators/custom-validators";
 import {RegistrationService} from "../../../shared/services/registration.service";
+import {Toast, ToasterService} from "angular2-toaster";
+import {ToastBuilder} from "../../../shared/utils/toast-builder";
 
 @Component({
   selector: 'app-registration',
@@ -14,7 +16,7 @@ export class RegistrationComponent implements OnInit {
   registrationForm: FormGroup;
   user: User;
 
-  constructor(private formBuilder: FormBuilder, private registrationService: RegistrationService) {
+  constructor(private formBuilder: FormBuilder, private registrationService: RegistrationService, private toasterService: ToasterService) {
     this.user = new User();
   }
 
@@ -41,9 +43,11 @@ export class RegistrationComponent implements OnInit {
       this.user.confirmPassword = this.registrationForm.get('confirmPassword').value;
 
       this.registrationService.register(this.user).subscribe(data => {
-          console.log('User register successfully ' + JSON.stringify(data));
+          this.displayToast(ToastBuilder.successRegisterUser());
         },
-        error => console.log('Error while register user ' + JSON.stringify(error))
+        error => {
+          this.displayToast(ToastBuilder.errorWhileRegisterUser());
+        }
       );
     }
   }
@@ -53,6 +57,10 @@ export class RegistrationComponent implements OnInit {
     if (confirmPassword !== undefined && confirmPassword !== null && confirmPassword.length !== 0) {
       this.registrationForm.get('confirmPassword').updateValueAndValidity();
     }
+  }
+
+  private displayToast(toast: Toast): void {
+    this.toasterService.pop(toast);
   }
 
 }

@@ -35,7 +35,7 @@ import {RouterModule} from "@angular/router";
       useClass: SpinnerInterceptor,
       multi: true,
       deps: [HTTPStatusService]
-    },
+    }
   ],
   exports: [SpinnerComponent, NavigationMenuComponent, ToolbarComponent]
 })
