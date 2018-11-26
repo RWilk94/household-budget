@@ -1,0 +1,35 @@
+nav {
+  padding: 0 24px 0 0;
+  flex: 0 1 auto;
+}
+
+h1 {
+  margin: 0;
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #fff;
+  font-size: 200%;
+}
+
+.strong-blue {
+  color: dodgerblue;
+}
+
+.btn-outline-primary {
+  margin: 0 5px;
+}
+
+.mat-button-with-icon {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background: none;
+  vertical-align: middle;
+  color: white;
+  outline: none;
+  border: 0;
+  cursor: pointer;
+}

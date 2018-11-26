@@ -8,7 +8,6 @@ import {HttpClientModule} from "@angular/common/http";
 import {SharedModule} from "./modules/shared/shared.module";
 import {RouterModule} from "@angular/router";
 import {CommonModule} from "@angular/common";
-import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
@@ -19,7 +18,6 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     RouterModule,
     AppRoutingModule,
     SharedModule,
-    BrowserModule,
     CommonModule,
     BrowserAnimationsModule,
     FormsModule,

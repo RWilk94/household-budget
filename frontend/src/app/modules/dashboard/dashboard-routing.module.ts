@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
+import {TestComponent} from "./components/test/test.component";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
 
 const routes: Routes = [
@@ -7,10 +8,10 @@ const routes: Routes = [
     path: '',
     children: [
       {path: '', component: DashboardComponent},
-      {path: '**', component: DashboardComponent}
+      {path: 'dashboard/test', component: TestComponent}
     ]
   },
-  {path: '**', component: DashboardComponent, pathMatch: 'full'}
+  {path: '**', component: TestComponent, pathMatch: 'full'}
 ];
 
 

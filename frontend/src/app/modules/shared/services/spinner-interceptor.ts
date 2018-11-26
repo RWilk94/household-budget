@@ -13,7 +13,6 @@ export class HTTPStatusService {
   }
 
   setHttpStatus(inFlight: boolean) {
-    console.log('setHttpStatus');
     this.requestInFlight$.next(inFlight);
   }
 
@@ -33,16 +32,13 @@ export class SpinnerInterceptor implements HttpInterceptor {
     this.status.setHttpStatus(true);
     return next.handle(request).pipe(
       map(event => {
-        console.log('map');
         this.status.setHttpStatus(true);
         return event;
       }),
       catchError(error => {
-        console.log('error');
         return Observable.throw(error())
       }),
       finalize(() => {
-        console.log('finalize');
         this.status.setHttpStatus(false);
       })
     );

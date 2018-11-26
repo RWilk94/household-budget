@@ -7,18 +7,29 @@ import {CookieService} from "ngx-cookie-service";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {HTTPStatusService, SpinnerInterceptor} from "./services/spinner-interceptor";
 import {SpinnerComponent} from './components/spinner/spinner.component';
+import {NavigationMenuComponent} from "./components/navigation-menu/navigation-menu.component";
+import {NavigationMenuItemComponent} from "./components/navigation-menu-item/navigation-menu-item.component";
+import {NavigationMenuService} from "./services/navigation-menu.service";
+import {MatIconModule, MatListModule, MatSidenavModule} from "@angular/material";
+import {ToolbarComponent} from "./components/toolbar/toolbar.component";
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    MatListModule,
+    MatIconModule,
+    MatSidenavModule,
+    RouterModule
   ],
-  declarations: [DefaultRouteResolver, SpinnerComponent],
+  declarations: [DefaultRouteResolver, SpinnerComponent, NavigationMenuComponent, NavigationMenuItemComponent, ToolbarComponent],
   providers: [
     AuthGuardService,
     RegistrationService,
     CookieService,
     HTTPStatusService,
     SpinnerComponent,
+    NavigationMenuService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: SpinnerInterceptor,
@@ -26,7 +37,7 @@ import {SpinnerComponent} from './components/spinner/spinner.component';
       deps: [HTTPStatusService]
     },
   ],
-  exports: [SpinnerComponent]
+  exports: [SpinnerComponent, NavigationMenuComponent, ToolbarComponent]
 })
 export class SharedModule {
 }

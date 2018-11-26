@@ -1,0 +1,16 @@
+<nav class="navbar navbar-dark bg-dark">
+  <div style="display:inline-flex;">
+    <button mat-button class="mat-button-with-icon" (click)="changeVisibilityOfNavMenu()">
+      <mat-icon class="mat-icon mat-icon-margin" role="img" aria-hidden="true">menu</mat-icon>
+    </button>
+    <a class="nav-link" routerLink="/">
+      <h1>
+        <strong>H</strong>
+        <strong class="strong-blue">Budget</strong>
+      </h1>
+    </a>
+  </div>
+  <form class="form-inline">
+    <button class="btn btn-outline-primary" type="button" (click)="logout()">Sign out</button>
+  </form>
+</nav>
