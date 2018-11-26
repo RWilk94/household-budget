@@ -8,6 +8,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {MatCardModule, MatFormFieldModule, MatInputModule, MatToolbarModule} from "@angular/material";
 import {CommonModule} from "@angular/common";
+import {ToasterModule} from "angular2-toaster";
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import {CommonModule} from "@angular/common";
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
-    MatToolbarModule
+    MatToolbarModule,
+    ToasterModule.forRoot(),
   ],
   declarations: [
     LoginComponent,

@@ -39,7 +39,6 @@ export class LoginComponent implements OnInit {
       this.user.password = this.loginForm.get('password').value;
 
       this.registrationService.login(this.user).subscribe(data => {
-          console.log('User login successfully ' + JSON.stringify(data));
           this.token = JSON.parse(JSON.stringify(data));
           this.cookie.set('username', this.user.username);
           this.cookie.set('token', this.token.token);
