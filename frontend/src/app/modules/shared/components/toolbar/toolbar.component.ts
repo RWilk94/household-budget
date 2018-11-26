@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {RegistrationService} from "../../services/registration.service";
+import {NavigationMenuService} from "../../services/navigation-menu.service";
 
 @Component({
   selector: 'app-toolbar',
@@ -8,13 +9,17 @@ import {RegistrationService} from "../../services/registration.service";
 })
 export class ToolbarComponent implements OnInit {
 
-  constructor(private registrationService: RegistrationService) { }
+  constructor(private registrationService: RegistrationService, private navigationMenuSercice: NavigationMenuService) { }
 
   ngOnInit() {
   }
 
   logout() {
     this.registrationService.logout();
+  }
+
+  changeVisibilityOfNavMenu() {
+    this.navigationMenuSercice.changeVisibilityOfNavigationMenu();
   }
 
 }
