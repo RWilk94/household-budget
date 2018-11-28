@@ -9,4 +9,8 @@ public interface CategoryService {
 
   List<Category> getUserCategories(User user);
 
+  Category addCategory(Category category);
+
+  void deleteCategory(Category category);
+
 }
