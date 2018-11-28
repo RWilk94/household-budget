@@ -36,5 +36,4 @@ public class CategoryController {
     categoryService.deleteCategory(category);
   }
 
-
 }
