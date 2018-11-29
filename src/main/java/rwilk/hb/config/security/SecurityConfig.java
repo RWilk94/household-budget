@@ -29,6 +29,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .authorizeRequests()
         .antMatchers(HttpMethod.POST, "/**").permitAll()
         .antMatchers(HttpMethod.GET, "/**").permitAll()
+        .antMatchers(HttpMethod.PATCH, "/**").permitAll()
+        .antMatchers(HttpMethod.PUT, "/**").permitAll()
+        .antMatchers(HttpMethod.DELETE, "/**").permitAll()
         .and()
         .addFilter(new JWTAuthenticationFilter(authenticationManager()))
         .addFilter(new JWTAuthorizationFilter(authenticationManager(), userService));

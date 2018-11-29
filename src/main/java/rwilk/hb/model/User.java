@@ -63,6 +63,7 @@ public class User implements Serializable {
   private String oldPassword;
 
   @CreationTimestamp
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   private Timestamp created;
 
 }

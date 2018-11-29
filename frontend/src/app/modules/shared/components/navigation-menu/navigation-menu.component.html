@@ -1,10 +1,11 @@
 <div class="box">
   <app-toolbar *ngIf="registrationService.isLogin()"></app-toolbar>
-  <mat-sidenav-container class="nav-menu-container" *ngIf="registrationService.isLogin()">
 
+  <mat-sidenav-container class="nav-menu-container" *ngIf="registrationService.isLogin()">
     <mat-sidenav #appDrawer class="nav-menu" [mode]="'side'" [opened]="true">
       <mat-nav-list class="mat-nav-list">
         <app-navigation-menu-item *ngFor="let item of menuItems" [menuItem]="item"></app-navigation-menu-item>
+        <app-spinner></app-spinner>
       </mat-nav-list>
     </mat-sidenav>
 
@@ -13,5 +14,4 @@
     </mat-sidenav-content>
 
   </mat-sidenav-container>
-  <router-outlet *ngIf="!registrationService.isLogin()"></router-outlet>
 </div>

@@ -1,5 +1,5 @@
 import {User} from "../../shared/models/user";
-import {Module} from "./Module";
+import {Module} from "./module";
 
 export class Category {
   id: number;

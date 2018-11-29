@@ -48,7 +48,6 @@ public class Category implements Serializable {
   @rwilk.hb.validator.Module
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
   @JoinColumn(name = "id_module", referencedColumnName = "id")
-  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   private Module module;
 
   @NotNull

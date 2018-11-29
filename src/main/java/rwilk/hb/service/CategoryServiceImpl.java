@@ -26,8 +26,8 @@ public class CategoryServiceImpl implements CategoryService {
   private ModuleRepository moduleRepository;
 
   @Override
-  public List<Category> getUserCategories(User user) {
-    return categoryRepository.findAllByUserIsNullOrUser_Username(user.getUsername());
+  public List<Category> getUserCategories(String username) {
+    return categoryRepository.findAllByUserIsNullOrUser_Username(username);
   }
 
   @Override
@@ -43,7 +43,22 @@ public class CategoryServiceImpl implements CategoryService {
   }
 
   @Override
-  public void deleteCategory(Category category) {
+  public Category updateCategory(Category category) {
+    Optional<Category> categoryOptional = categoryRepository.findById(category.getId());
+    Optional<User> userOptional = userRepository.findByUsername(category.getUser().getUsername());
+    Optional<Module> moduleOptional = moduleRepository.findByName(category.getModule().getName());
+    if (categoryOptional.isPresent() && userOptional.isPresent() && moduleOptional.isPresent()) {
+      categoryOptional.get().setModule(moduleOptional.get());
+      categoryOptional.get().setUser(userOptional.get());
+      categoryOptional.get().setName(category.getName());
+      return categoryRepository.save(categoryOptional.get());
+    }
+    return null;
+  }
 
+  @Override
+  public void deleteCategory(Long id) {
+    Optional<Category> categoryOptional = categoryRepository.findById(id);
+    categoryOptional.ifPresent(category -> categoryRepository.delete(category));
   }
 }

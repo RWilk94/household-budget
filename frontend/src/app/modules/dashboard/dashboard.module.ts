@@ -5,7 +5,18 @@ import {DashboardRoutingModule} from "./dashboard-routing.module";
 import {ToasterModule} from "angular2-toaster";
 import {CategoryComponent} from './components/category/category.component';
 import {ModuleComponent} from './components/module/module.component';
-import {MatSortModule, MatTableModule} from "@angular/material";
+import {
+  MatCardModule,
+  MatDialogModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSelectModule,
+  MatSortModule,
+  MatTableModule
+} from "@angular/material";
+import {CategoryService} from "./services/category.service";
+import {ModuleService} from "./services/module.service";
+import { DialogConfirmDeleteComponent } from './components/dialog-confirm-delete/dialog-confirm-delete.component';
 
 @NgModule({
   imports: [
@@ -13,10 +24,16 @@ import {MatSortModule, MatTableModule} from "@angular/material";
     DashboardRoutingModule,
     ToasterModule.forRoot(),
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    MatDialogModule
   ],
-  providers: [],
-  declarations: [DashboardComponent, CategoryComponent, ModuleComponent]
+  entryComponents: [DialogConfirmDeleteComponent],
+  providers: [CategoryService, ModuleService],
+  declarations: [DashboardComponent, CategoryComponent, ModuleComponent, DialogConfirmDeleteComponent]
 })
 export class DashboardModule {
 }
