@@ -2,12 +2,11 @@
 <toaster-container></toaster-container>
 
 <mat-card style="height: 100%; overflow-y: scroll">
-  <mat-card-subtitle>Categories</mat-card-subtitle>
   <mat-card-content>
+
     <mat-form-field class="filter-field">
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
     </mat-form-field>
-
     <table mat-table [dataSource]="dataSource" matSort="">
 
       <ng-container matColumnDef="{{columns[0]}}">
@@ -53,20 +52,32 @@
           <button type="button" class="btn btn-primary" *ngIf="!element.isEditing" (click)="enableElementEditMode(element)">Edit</button>
           <button type="button" class="btn btn-danger" *ngIf="!element.isEditing" (click)="showDeleteDialog(element)">Delete</button>
 
-          <button type="button" class="btn btn-success" *ngIf="element.isEditing && !element.isNew" (click)="updateExistingElement(element)">Save</button>
-          <button type="button" class="btn btn-secondary" *ngIf="element.isEditing && !element.isNew" (click)="cancelElementEditMode(element)">Cancel</button>
+          <button type="button" class="btn btn-success" *ngIf="element.isEditing && !element.isNew"
+                  (click)="updateExistingElement(element)">Save
+          </button>
+          <button type="button" class="btn btn-secondary" *ngIf="element.isEditing && !element.isNew"
+                  (click)="cancelElementEditMode(element)">Cancel
+          </button>
 
-          <button type="button" class="btn btn-success" *ngIf="element.isEditing && element.isNew" (click)="insertElement(element)">Insert</button>
-          <button type="button" class="btn btn-secondary" *ngIf="element.isEditing && element.isNew" (click)="cancelNewElementEditMode(element)">Cancel</button>
+          <button type="button" class="btn btn-success" *ngIf="element.isEditing && element.isNew" (click)="insertElement(element)">Insert
+          </button>
+          <button type="button" class="btn btn-secondary" *ngIf="element.isEditing && element.isNew"
+                  (click)="cancelNewElementEditMode(element)">Cancel
+          </button>
         </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="columns"></tr>
       <tr mat-row *matRowDef="let element; columns: columns;"></tr>
     </table>
-    <mat-paginator style="width: 100%" [pageSizeOptions]="[5, 7, 10, 20]" showFirstLastButtons></mat-paginator>
+    <div style="display: flex; padding: 16px">
+      <button type="button" [disabled]="insertedRows > 0" style="flex: 1; padding: 8px; margin: 16px; width: 100%" class="btn btn-success btn-lg btn-block"
+              (click)="createRowInTable()">
+        Create new record
+      </button>
+      <mat-paginator style="width: 100%" [pageSizeOptions]="[5, 7, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
 
-    <button type="button" class="btn btn-success" (click)="createRowInTable()">Create new record</button>
 
   </mat-card-content>
 </mat-card>

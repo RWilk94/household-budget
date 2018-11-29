@@ -26,7 +26,7 @@ export class CategoryComponent implements OnInit, AfterViewInit {
   categories: Category[] = [];
   modules: Module[] = [];
   category: Category = new Category();
-  private insertedRows = 0;
+  insertedRows = 0;
 
   columns: string[] = ['position', 'name', 'module', 'options'];
   dataSource = new MatTableDataSource<CategoryElement>(this.convertCategoriesIntoCategoryElements());
