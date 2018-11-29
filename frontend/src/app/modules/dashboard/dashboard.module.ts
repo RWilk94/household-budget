@@ -9,7 +9,7 @@ import {
   MatCardModule,
   MatDialogModule,
   MatFormFieldModule,
-  MatInputModule,
+  MatInputModule, MatPaginatorModule,
   MatSelectModule,
   MatSortModule,
   MatTableModule
@@ -29,7 +29,8 @@ import { DialogConfirmDeleteComponent } from './components/dialog-confirm-delete
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
-    MatDialogModule
+    MatDialogModule,
+    MatPaginatorModule
   ],
   entryComponents: [DialogConfirmDeleteComponent],
   providers: [CategoryService, ModuleService],

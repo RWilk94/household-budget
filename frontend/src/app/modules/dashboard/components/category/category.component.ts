@@ -1,6 +1,6 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {CategoryService} from "../../services/category.service";
-import {MatDialog, MatSort, MatTableDataSource} from "@angular/material";
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {Category} from "../../models/category";
 import {Module} from "../../models/module";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
@@ -17,9 +17,10 @@ import {DialogConfirmDeleteComponent} from "../dialog-confirm-delete/dialog-conf
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.css']
 })
-export class CategoryComponent implements OnInit {
+export class CategoryComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   form: FormGroup;
 
   categories: Category[] = [];
@@ -36,6 +37,7 @@ export class CategoryComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
     this.moduleService.getModules().subscribe(modules => this.modules = modules, error => console.log(error));
 
     this.dataSource.sortingDataAccessor = (item, property) => {
@@ -54,6 +56,13 @@ export class CategoryComponent implements OnInit {
       module: new FormControl(this.category.module)
     });
     this.refresh();
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.filterPredicate =
+      (category: CategoryElement, filter: string) =>
+        category.name.toLowerCase().includes(filter.toLowerCase())
+        || category.module.name.toString().toLowerCase().includes(filter.toLowerCase());
   }
 
   enableElementEditMode(element: CategoryElement) {
@@ -86,8 +95,8 @@ export class CategoryComponent implements OnInit {
       category.user = new User();
       category.user.username = this.cookie.get('username');
       this.categoryService.updateCategory(category).subscribe(category => {
-        console.log(category);
         this.displayToast(ToastBuilder.successUpdateCategory());
+        element.isEditing = false;
       }, error => console.log(error));
     }
   }
@@ -141,10 +150,14 @@ export class CategoryComponent implements OnInit {
       element.position = this.dataSource.data.length + 1;
       element.isEditing = true;
       element.isNew = true;
+      element.name = '';
+      element.module = new Module();
+      element.module.name = '';
 
       let dataSource = this.dataSource.data;
       dataSource.push(element);
       this.dataSource.data = dataSource;
+      this.dataSource.paginator.lastPage();
     } else {
       this.displayToast(ToastBuilder.warningTemplateForRecordAlreadyAdded());
     }
@@ -156,11 +169,11 @@ export class CategoryComponent implements OnInit {
       this.categories = categories;
       this.dataSource.data = this.convertCategoriesIntoCategoryElements();
       this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     }, error => console.log(error));
   }
 
   private convertCategoriesIntoCategoryElements() {
-    console.log(this.categories.length);
     let categoryElements: CategoryElement[] = [];
     for (let i = 0; i < this.categories.length; i++) {
       let element: CategoryElement = new CategoryElement();
@@ -186,6 +199,10 @@ export class CategoryComponent implements OnInit {
 
   private displayToast(toast: Toast): void {
     this.toasterService.pop(toast);
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   compareModules(m1: Module, m2: Module): boolean {

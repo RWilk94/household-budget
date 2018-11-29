@@ -15,3 +15,7 @@ table {
   border: none;
   cursor: pointer;
 }
+
+.filter-field {
+  width: 100%;
+}

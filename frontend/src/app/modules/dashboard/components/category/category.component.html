@@ -1,9 +1,13 @@
 <link rel="stylesheet" type="text/css" href="https://npmcdn.com/angular2-toaster@6.1.0/toaster.css"/>
 <toaster-container></toaster-container>
 
-<mat-card style="height: 100%; overflow: scroll">
+<mat-card style="height: 100%; overflow-y: scroll">
   <mat-card-subtitle>Categories</mat-card-subtitle>
   <mat-card-content>
+    <mat-form-field class="filter-field">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+
     <table mat-table [dataSource]="dataSource" matSort="">
 
       <ng-container matColumnDef="{{columns[0]}}">
@@ -59,8 +63,8 @@
 
       <tr mat-header-row *matHeaderRowDef="columns"></tr>
       <tr mat-row *matRowDef="let element; columns: columns;"></tr>
-
     </table>
+    <mat-paginator style="width: 100%" [pageSizeOptions]="[5, 7, 10, 20]" showFirstLastButtons></mat-paginator>
 
     <button type="button" class="btn btn-success" (click)="createRowInTable()">Create new record</button>
 
