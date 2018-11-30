@@ -8,11 +8,11 @@ import {ModuleComponent} from './components/module/module.component';
 import {
   MatCardModule,
   MatDialogModule,
-  MatFormFieldModule,
+  MatFormFieldModule, MatIconModule,
   MatInputModule, MatPaginatorModule,
   MatSelectModule,
   MatSortModule,
-  MatTableModule
+  MatTableModule, MatTooltipModule
 } from "@angular/material";
 import {CategoryService} from "./services/category.service";
 import {ModuleService} from "./services/module.service";
@@ -30,7 +30,9 @@ import { DialogConfirmDeleteComponent } from './components/dialog-confirm-delete
     MatSelectModule,
     MatInputModule,
     MatDialogModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatIconModule,
+    MatTooltipModule
   ],
   entryComponents: [DialogConfirmDeleteComponent],
   providers: [CategoryService, ModuleService],

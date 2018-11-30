@@ -28,7 +28,9 @@ export class CategoryComponent implements OnInit, AfterViewInit {
   category: Category = new Category();
   insertedRows = 0;
 
-  columns: string[] = ['position', 'name', 'module', 'options'];
+  columns = ['position', 'name', 'module', 'options'];
+  width = [{width: 7.5}, {width: 55}, {width: 22.5}, {width: 15}];
+
   dataSource = new MatTableDataSource<CategoryElement>(this.convertCategoriesIntoCategoryElements());
 
   constructor(private categoryService: CategoryService, private moduleService: ModuleService, private formBuilder: FormBuilder,
@@ -190,7 +192,7 @@ export class CategoryComponent implements OnInit, AfterViewInit {
     if (element.name === null || element.name === undefined || element.name.length === 0) {
       this.displayToast(ToastBuilder.errorEmptyName());
       return false;
-    } else if (element.module === null || element.module === undefined) {
+    } else if (element.module === null || element.module === undefined || element.module.name === '') {
       this.displayToast(ToastBuilder.errorEmptyModule());
       return false;
     }
