@@ -1,0 +1,34 @@
+table {
+  width: 100%;
+  height: border-box;
+  overflow: visible;
+  table-layout: fixed;
+}
+
+.btn {
+  margin: 5px;
+  font-size: 12px;
+}
+
+#options-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.filter-field {
+  width: 100%;
+}
+
+.th-header {
+  color: white;
+  font-weight: bold;
+}
+
+.mat-icon {
+  margin: 4px;
+  padding: 0;
+  cursor: pointer;
+  height: 100%;
+  vertical-align: middle;
+}

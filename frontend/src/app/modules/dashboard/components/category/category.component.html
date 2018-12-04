@@ -1,0 +1,87 @@
+<link rel="stylesheet" type="text/css" href="https://npmcdn.com/angular2-toaster@6.1.0/toaster.css"/>
+<toaster-container></toaster-container>
+
+<mat-card style="height: 100%; overflow: auto; margin: 0; padding: 0 8px;">
+  <mat-card-content>
+
+    <mat-form-field class="filter-field">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+
+    <table mat-table [dataSource]="dataSource" matSort="">
+
+      <ng-container matColumnDef="{{columns[0]}}">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header" width="{{width[0].width}}%">No.</th>
+        <td mat-cell *matCellDef="let element" width="{{width[0].width}}%">
+          {{element.position}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="{{columns[1]}}">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header" width="{{width[1].width}}%">Name</th>
+        <td mat-cell *matCellDef="let element" width="{{width[1].width}}%">
+          <ng-container *ngIf="!element.isEditing">{{element.name}}</ng-container>
+
+          <mat-form-field *ngIf="element.isEditing" style="width: 95%;">
+            <input matInput value="{{element.name}}" (blur)="updateElementNameOnBlur($event.target.value, element)" maxlength="255">
+          </mat-form-field>
+
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="{{columns[2]}}">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header" width="{{width[2].width}}%">Module</th>
+        <td mat-cell *matCellDef="let element" width="{{width[2].width}}%">
+          <ng-container *ngIf="!element.isEditing">{{element.module.name}}</ng-container>
+
+          <mat-form-field *ngIf="element.isEditing" style="width: 95%;">
+            <mat-select [compareWith]="compareModules" [(value)]="element.module">
+              <mat-option *ngFor="let module of modules" [value]="module">
+                {{module.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="{{columns[3]}}">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header width="{{width[3].width}}%">
+          <button id="options-button" class="th-header">
+            <b matTooltip="You can edit custom categories only.">Options</b>
+            <mat-icon class="mat-icon" style="color: green;" matTooltip="Add record" (click)="createRowInTable()">add</mat-icon>
+          </button>
+        </th>
+
+        <td mat-cell *matCellDef="let element" width="{{width[3].width}}%">
+          <mat-icon class="mat-icon" *ngIf="!element.isEditing" (click)="enableElementEditMode(element)" style="color: dodgerblue;"
+                    matTooltip="Edit">edit
+          </mat-icon>
+          <mat-icon class="mat-icon" *ngIf="!element.isEditing" (click)="showDeleteDialog(element)" style="color: red;" matTooltip="Delete">
+            delete
+          </mat-icon>
+
+          <mat-icon class="mat-icon" *ngIf="element.isEditing && !element.isNew"
+                    (click)="updateExistingElement(element)" style="color: green;" matTooltip="Save">save
+          </mat-icon>
+          <mat-icon class="mat-icon" *ngIf="element.isEditing && !element.isNew"
+                    (click)="cancelElementEditMode(element)" style="color: grey;" matTooltip="Cancel">cancel
+          </mat-icon>
+
+          <mat-icon class="mat-icon" *ngIf="element.isEditing && element.isNew" (click)="insertElement(element)" style="color: green;"
+                    matTooltip="Insert">save
+          </mat-icon>
+          <mat-icon class="mat-icon" *ngIf="element.isEditing && element.isNew"
+                    (click)="cancelNewElementEditMode(element)" style="color: grey;" matTooltip="Cancel">cancel
+          </mat-icon>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columns" style="color: white; background:dodgerblue;"></tr>
+      <tr mat-row *matRowDef="let element; columns: columns;"></tr>
+    </table>
+
+    <mat-paginator style="width: 100%" [pageSizeOptions]="[10, 7, 20]" showFirstLastButtons></mat-paginator>
+
+  </mat-card-content>
+</mat-card>
