@@ -15,6 +15,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import java.io.Serializable;
@@ -40,6 +41,7 @@ public class User implements Serializable {
   @SequenceGenerator(name = "userSG", sequenceName = "userSEQ", allocationSize = 1)
   private Long id;
 
+  @NotBlank
   @Username
   @Size(min = 3, max = 63)
   @Column(unique = true, nullable = false)

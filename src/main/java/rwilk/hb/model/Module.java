@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -30,6 +31,7 @@ public class Module implements Serializable {
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "moduleSG")
   private Long id;
 
+  @NotBlank
   @Size(min = 3, max = 255)
   @Column(unique = true, nullable = false)
   private String name;

@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -38,6 +39,7 @@ public class Category implements Serializable {
 
   @Size(min = 1, max = 255)
   @Column(nullable = false)
+  @NotBlank
   private String name;
 
   @rwilk.hb.validator.User

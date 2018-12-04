@@ -1,3 +1,64 @@
-<p>
-  spending works!
-</p>
+<link rel="stylesheet" type="text/css" href="https://npmcdn.com/angular2-toaster@6.1.0/toaster.css"/>
+<toaster-container></toaster-container>
+
+<mat-card style="height: 100%; overflow: auto; margin: 0; padding: 0">
+  <mat-card-content>
+
+    <table mat-table [dataSource]="dataSource" matSort="">
+
+      <ng-container matColumnDef="{{columns[0]}}">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header" width="{{width[0]}}%">No.</th>
+        <td mat-cell *matCellDef="let element" width="{{width[0]}}%">
+          {{element.position}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="{{columns[1]}}">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header" width="{{width[1]}}%">Name</th>
+        <td mat-cell *matCellDef="let element" width="{{width[1]}}%">
+          {{element.name}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="{{columns[2]}}">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header" width="{{width[2]}}%">Module</th>
+        <td mat-cell *matCellDef="let element" width="{{width[2]}}%">
+          {{element.module}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="{{columns[3]}}">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header" width="{{width[3]}}%">Category</th>
+        <td mat-cell *matCellDef="let element" width="{{width[3]}}%">
+          {{element.category}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="{{columns[4]}}">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header" width="{{width[4]}}%">Date</th>
+        <td mat-cell *matCellDef="let element" width="{{width[4]}}%">
+          {{element.date}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="{{columns[5]}}">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header" width="{{width[5]}}%">Value</th>
+        <td mat-cell *matCellDef="let element" width="{{width[5]}}%">
+          {{element.value}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="{{columns[6]}}">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header" width="{{width[6]}}%">Options</th>
+        <td mat-cell *matCellDef width="{{width[6]}}%">
+          Options
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columns" style="color: white; background:dodgerblue;"></tr>
+      <tr mat-row *matRowDef="let element; columns: columns;"></tr>
+
+    </table>
+
+  </mat-card-content>
+</mat-card>

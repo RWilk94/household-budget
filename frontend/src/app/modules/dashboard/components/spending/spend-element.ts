@@ -8,7 +8,6 @@ export class SpendElement {
   category: Category;
   date: Date;
   value: number;
-  isCustom: boolean; //says if category is added by user or by system
   isEditing: boolean;
   isNew: boolean;
 }
