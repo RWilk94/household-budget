@@ -39,10 +39,12 @@ public class Spend implements Serializable {
   @Size(min = 3, max = 512)
   private String name;
 
+  @rwilk.hb.validator.Category
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
   @JoinColumn(name = "id_category", referencedColumnName = "id")
   private Category category;
 
+  @rwilk.hb.validator.User
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
   @JoinColumn(name = "id_user", nullable = false, referencedColumnName = "id")
   private User user;
