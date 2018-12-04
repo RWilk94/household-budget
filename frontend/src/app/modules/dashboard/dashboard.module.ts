@@ -17,6 +17,7 @@ import {
 import {CategoryService} from "./services/category.service";
 import {ModuleService} from "./services/module.service";
 import { DialogConfirmDeleteComponent } from './components/dialog-confirm-delete/dialog-confirm-delete.component';
+import { SpendingComponent } from './components/spending/spending.component';
 
 @NgModule({
   imports: [
@@ -36,7 +37,7 @@ import { DialogConfirmDeleteComponent } from './components/dialog-confirm-delete
   ],
   entryComponents: [DialogConfirmDeleteComponent],
   providers: [CategoryService, ModuleService],
-  declarations: [DashboardComponent, CategoryComponent, ModuleComponent, DialogConfirmDeleteComponent]
+  declarations: [DashboardComponent, CategoryComponent, ModuleComponent, DialogConfirmDeleteComponent, SpendingComponent]
 })
 export class DashboardModule {
 }

@@ -8,7 +8,7 @@
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
     </mat-form-field>
 
-    <table mat-table [dataSource]="dataSource" matSort="">
+    <table mat-table [dataSource]="dataSource" matSort="" fxLayout="column wrap">
 
       <ng-container matColumnDef="{{columns[0]}}">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header" width="{{width[0].width}}%">No.</th>
