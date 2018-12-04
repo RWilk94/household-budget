@@ -192,6 +192,9 @@ export class CategoryComponent implements OnInit, AfterViewInit {
     if (element.name === null || element.name === undefined || element.name.length === 0) {
       this.displayToast(ToastBuilder.errorEmptyName());
       return false;
+    } else if (element.name.length < 1 || element.name.length > 255) {
+      this.displayToast(ToastBuilder.errorIncorrectCategoryName());
+      return false;
     } else if (element.module === null || element.module === undefined || element.module.name === '') {
       this.displayToast(ToastBuilder.errorEmptyModule());
       return false;

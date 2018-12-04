@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -23,7 +24,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "categories")
+@Table(name = "categories", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "id_user", "id_module"}))
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -35,8 +36,8 @@ public class Category implements Serializable {
   @SequenceGenerator(name = "categorySG", sequenceName = "categorySEQ", allocationSize = 1)
   private Long id;
 
-  @Size(min = 3, max = 255)
-  @Column(unique = true, nullable = false)
+  @Size(min = 1, max = 255)
+  @Column(nullable = false)
   private String name;
 
   @rwilk.hb.validator.User

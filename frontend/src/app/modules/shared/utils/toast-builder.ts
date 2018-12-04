@@ -28,6 +28,14 @@ export class ToastBuilder {
     };
   }
 
+  static errorIncorrectCategoryName() : Toast {
+    return {
+      type: 'error',
+      title: 'Category name must have at least 1 character and max 255 characters.',
+      body: ''
+    };
+  }
+
   static errorEmptyModule() : Toast {
     return {
       type: 'error',

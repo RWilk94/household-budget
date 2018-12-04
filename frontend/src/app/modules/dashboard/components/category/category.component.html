@@ -23,7 +23,7 @@
           <ng-container *ngIf="!element.isEditing">{{element.name}}</ng-container>
 
           <mat-form-field *ngIf="element.isEditing" style="width: 95%;">
-            <input matInput value="{{element.name}}" (blur)="updateElementNameOnBlur($event.target.value, element)">
+            <input matInput value="{{element.name}}" (blur)="updateElementNameOnBlur($event.target.value, element)" maxlength="255">
           </mat-form-field>
 
         </td>
