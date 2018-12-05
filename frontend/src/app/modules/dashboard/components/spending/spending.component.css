@@ -1,0 +1,13 @@
+#options-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.mat-icon {
+  margin: 4px;
+  padding: 0;
+  cursor: pointer;
+  height: 100%;
+  vertical-align: middle;
+}

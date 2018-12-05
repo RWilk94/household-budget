@@ -10,7 +10,7 @@ import javax.validation.Payload;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.FIELD, ElementType.PARAMETER })
-@Constraint(validatedBy = ModuleValidator.class)
+@Constraint(validatedBy = CategoryValidator.class)
 public @interface Category {
 
   String message() default "{Invalid category.}";

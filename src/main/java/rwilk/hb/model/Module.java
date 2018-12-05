@@ -27,8 +27,8 @@ import lombok.NoArgsConstructor;
 public class Module implements Serializable {
 
   @Id
-  @SequenceGenerator(name = "moduleSG", sequenceName = "moduleSEQ")
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "moduleSG")
+  @SequenceGenerator(name = "moduleSG", sequenceName = "moduleSEQ", allocationSize = 1)
   private Long id;
 
   @NotBlank
