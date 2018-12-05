@@ -56,7 +56,7 @@
         </th>
 
         <td mat-cell *matCellDef="let element" width="{{width[3].width}}%">
-          <ng-container *ngIf="element.isCustom">
+          <ng-container *ngIf="element.isCustom || element.isNew">
             <mat-icon class="mat-icon" *ngIf="!element.isEditing" (click)="enableElementEditMode(element)"
                       style="color: dodgerblue;"
                       matTooltip="Edit">edit

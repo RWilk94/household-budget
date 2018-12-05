@@ -1,16 +1,19 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {MAT_DATE_FORMATS, MatTableDataSource} from "@angular/material";
+import {MAT_DATE_FORMATS, MatDialog, MatTableDataSource} from "@angular/material";
 import {SpendElement} from "./spend-element";
 import {Spend} from "../../models/spend";
 import {CategoryService} from "../../services/category.service";
 import {ModuleService} from "../../services/module.service";
-import {ToasterService} from "angular2-toaster";
+import {Toast, ToasterService} from "angular2-toaster";
 import {Module} from "../../models/module";
 import {Category} from "../../models/category";
 import {CookieService} from "ngx-cookie-service";
 import {SpendingService} from "../../services/spending.service";
 import {FormGroup} from "@angular/forms";
 import {User} from "../../../shared/models/user";
+import {DialogConfirmDeleteComponent} from "../dialog-confirm-delete/dialog-confirm-delete.component";
+import {ToastBuilder} from "../../../shared/utils/toast-builder";
+import {CategoryElement} from "../category/category-element";
 
 export const MY_FORMATS = {
   parse: {
@@ -49,7 +52,8 @@ export class SpendingComponent implements OnInit, AfterViewInit {
               private moduleService: ModuleService,
               private spendingService: SpendingService,
               private toasterService: ToasterService,
-              private cookie: CookieService) {
+              private cookie: CookieService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -79,8 +83,11 @@ export class SpendingComponent implements OnInit, AfterViewInit {
   }
 
   cancelElementEditMode(element: SpendElement) {
-    let objects = this.convertSpendingIntoSpendElements([this.spending[element.position - 1]]);
-    this.dataSource.data[element.position - 1] = objects.pop();
+    let originalRow = this.spending[element.position - 1];
+    this.dataSource.data[element.position - 1].name = originalRow.name;
+    this.dataSource.data[element.position - 1].module = originalRow.category.module;
+    this.dataSource.data[element.position - 1].category = originalRow.category;
+    this.dataSource.data[element.position - 1].value = originalRow.value;
     element.isEditing = false;
   }
 
@@ -89,40 +96,70 @@ export class SpendingComponent implements OnInit, AfterViewInit {
   }
 
   updateExistingElement(element: SpendElement) {
-    let spend = this.spending[element.position - 1];
-    spend.category = element.category;
-    spend.date = element.date;
-    spend.name = element.name;
-    spend.user = new User();
-    spend.user.username = this.cookie.get('username');
-    spend.value = element.value;
-    this.spendingService.updateSpend(spend).subscribe(spend => {
-      console.log(spend);
-      element.isEditing = false;
-    }, error => console.log(error));
+    console.log(JSON.stringify(element));
+    if (this.validateSpendingElement(element)) {
+      let spend = this.spending[element.position - 1];
+      spend.category = element.category;
+      spend.date = element.date;
+      spend.name = element.name;
+      spend.user = new User();
+      spend.user.username = this.cookie.get('username');
+      spend.value = element.value;
+      this.spendingService.updateSpend(spend).subscribe(spend => {
+        console.log(spend);
+        this.displayToast(ToastBuilder.successUpdateItem());
+        element.isEditing = false;
+      }, error => {
+        this.displayToast(ToastBuilder.errorWhileUpdatingItem());
+        console.log(error);
+      });
+    }
   }
 
   insertElement(element: SpendElement) {
-    let spend = new Spend();
-    spend.category = element.category;
-    spend.date = element.date;
-    spend.name = element.name;
-    spend.user = new User();
-    spend.user.username = this.cookie.get('username');
-    spend.value = element.value;
-    this.spendingService.addSpend(spend).subscribe(result => {
-      console.log(result);
-    }, error => console.log(error));
+    if (this.validateSpendingElement(element)) {
+      let spend = new Spend();
+      spend.category = element.category;
+      spend.date = element.date;
+      spend.name = element.name;
+      spend.user = new User();
+      spend.user.username = this.cookie.get('username');
+      spend.value = element.value;
+      this.spendingService.addSpend(spend).subscribe(result => {
+        this.displayToast(ToastBuilder.successInsertItem());
+        this.spending[element.position - 1] = result;
+        element.isNew = false;
+        element.isEditing = false;
+      }, error => {
+        this.displayToast(ToastBuilder.errorWhileInsertingItem());
+        console.log(error);
+      });
+    }
   }
 
   showDeleteDialog(element: SpendElement): void {
     console.log('showDeleteDialog');
-    //TODO
+    const dialogRef = this.dialog.open(DialogConfirmDeleteComponent, {
+      width: '250px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined && result === true) {
+        this.deleteElement(element);
+      }
+    });
   }
 
   deleteElement(element: SpendElement) {
     console.log('deleteElement');
-    //TODO
+    let spend = this.spending[element.position - 1];
+    this.spendingService.deleteSpend(spend).subscribe(data => {
+      this.displayToast(ToastBuilder.successDeleteItem());
+      this.refresh();
+    }, error => {
+      this.displayToast(ToastBuilder.errorWhileDeletingItem());
+      console.log(error);
+    });
   }
 
   filterCategoriesByModule(element: SpendElement) {
@@ -177,6 +214,29 @@ export class SpendingComponent implements OnInit, AfterViewInit {
     return [];
   }
 
+  private validateSpendingElement(element: SpendElement): boolean {
+    if (element.name === null || element.name === undefined || element.name.length === 0) {
+      this.displayToast(ToastBuilder.errorEmptyName());
+      return false;
+    } else if (element.name.length < 1 || element.name.length > 255) {
+      this.displayToast(ToastBuilder.errorIncorrectName());
+      return false;
+    } else if (element.module === null || element.module === undefined || element.module.name === '') {
+      this.displayToast(ToastBuilder.errorEmptyModule());
+      return false;
+    } else if (element.category === null || element.category === undefined || element.category.name === '') {
+      this.displayToast(ToastBuilder.errorEmptyCategory());
+      return false;
+    } else if (element.date === null || element.date === undefined) {
+      this.displayToast(ToastBuilder.errorEmptyDate());
+      return false;
+    } else if (element.value === null || element.value === undefined || element.value < 0 || element.value.toString().length === 0) {
+      this.displayToast(ToastBuilder.errorWrongValue());
+      return false;
+    }
+    return true;
+  }
+
   updateSpendNameOnBlur(name: any, element) {
     this.dataSource.data[element.position - 1].name = name;
   }
@@ -189,6 +249,10 @@ export class SpendingComponent implements OnInit, AfterViewInit {
 
   updateSpendValueOnBlur(value: number, element) {
     this.dataSource.data[element.position - 1].value = value;
+  }
+
+  private displayToast(toast: Toast): void {
+    this.toasterService.pop(toast);
   }
 
   compareModules(m1: Module, m2: Module): boolean {
