@@ -22,7 +22,7 @@ export class NavigationMenuComponent implements OnInit, AfterViewInit {
     },
     {
       displayName: 'Spending',
-      iconName: 'explore',
+      iconName: 'payment',
       route: 'dashboard/spending'
     },
     {

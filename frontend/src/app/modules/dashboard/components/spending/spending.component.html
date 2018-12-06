@@ -55,7 +55,7 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header" width="{{width[4]}}%">Date</th>
         <td mat-cell *matCellDef="let element" width="{{width[4]}}%">
           <ng-container *ngIf="!element.isEditing">
-            {{element.date | date: 'dd-MM-yyyy'}}
+            {{element.date | date: 'dd.MM.yyyy'}}
           </ng-container>
           <mat-form-field *ngIf="element.isEditing" style="width: 95%">
             <input matInput [matDatepicker]="datePicker" placeholder="Choose a date"  (dateChange)="updateSpendDateOnBlur($event.target.value, element)" [value]="element.date" disabled>

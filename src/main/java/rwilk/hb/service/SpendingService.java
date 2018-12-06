@@ -14,4 +14,8 @@ public interface SpendingService {
 
   void deleteSpend(Long id);
 
+  List<Spend> getUserSpendingFromCurrentMonth(String username);
+
+  List<Spend> getUserSpendingFromLastMonth(String username);
+
 }

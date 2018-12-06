@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {MAT_DATE_FORMATS, MatDialog, MatTableDataSource} from "@angular/material";
+import {DateAdapter, MAT_DATE_FORMATS, MatDialog, MatTableDataSource} from "@angular/material";
 import {SpendElement} from "./spend-element";
 import {Spend} from "../../models/spend";
 import {CategoryService} from "../../services/category.service";
@@ -13,7 +13,6 @@ import {FormGroup} from "@angular/forms";
 import {User} from "../../../shared/models/user";
 import {DialogConfirmDeleteComponent} from "../dialog-confirm-delete/dialog-confirm-delete.component";
 import {ToastBuilder} from "../../../shared/utils/toast-builder";
-import {CategoryElement} from "../category/category-element";
 
 export const MY_FORMATS = {
   parse: {
@@ -53,7 +52,9 @@ export class SpendingComponent implements OnInit, AfterViewInit {
               private spendingService: SpendingService,
               private toasterService: ToasterService,
               private cookie: CookieService,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private dateAdapter: DateAdapter<Date>) {
+    this.dateAdapter.setLocale('pl');
   }
 
   ngOnInit() {

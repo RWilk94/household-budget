@@ -41,4 +41,15 @@ public class SpendingController {
     spendingService.deleteSpend(id);
   }
 
+  @RequestMapping(value = "/{username}/currentMonth", method = RequestMethod.GET)
+  public List<Spend> getSpendingFromCurrentMonth(@PathVariable String username) {
+    return spendingService.getUserSpendingFromCurrentMonth(username);
+  }
+
+  @RequestMapping(value = "/{username}/lastMonth", method = RequestMethod.GET)
+  public List<Spend> getSpendingFromLastMonth(@PathVariable String username) {
+    return spendingService.getUserSpendingFromLastMonth(username);
+  }
+
+
 }
