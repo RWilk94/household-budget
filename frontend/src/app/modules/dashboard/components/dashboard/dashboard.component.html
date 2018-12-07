@@ -1,17 +1,22 @@
 <div fxLayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
   <mat-card class="info">
-    <mat-card-content>Wydatki w tym miesiącu: <b style="color: dodgerblue">100</b></mat-card-content>
+    <mat-card-content>Wydatki w tym miesiącu: <b style="color: dodgerblue">{{currentMonthSpending}}</b></mat-card-content>
   </mat-card>
   <mat-card class="info">
-    <mat-card-content>Wydatki w listopadzie: <b style="color: dodgerblue">200</b></mat-card-content>
+    <mat-card-content>Wydatki w poprzednim miesiącu: <b style="color: dodgerblue">{{lastMonthSpending}}</b></mat-card-content>
   </mat-card>
 </div>
 
 <div fxLayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
   <mat-card class="info">
-    <mat-card-content>Wydatki na przestrzeni miesięcy</mat-card-content>
+    <mat-card-subtitle>Bieżące wydatki</mat-card-subtitle>
+    <mat-card-content></mat-card-content>
   </mat-card>
   <mat-card class="info">
-    <mat-card-content>Wydatki wg. modułów</mat-card-content>
+    <mat-card-subtitle>Zestawienie wydatków</mat-card-subtitle>
+    <mat-card-content>
+      <canvas id="canvas">{{chart}}</canvas>
+    </mat-card-content>
   </mat-card>
+
 </div>

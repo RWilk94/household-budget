@@ -89,7 +89,8 @@ public class SpendingServiceImpl implements SpendingService {
     return spendingRepository.findAllByDateIsBetweenAndUser_Username(firstDay, lastDay, username);
   }
 
-  public List<MonthSpending> getUserMonthSpending(String username) {
+  @Override
+  public List<MonthSpending> getLastYearSpending(String username) {
     List<Object> objects = spendingRepository.findAllSpending(username);
     List<MonthSpending> monthSpending = new ArrayList<>();
     for (Object o : objects) {

@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.Date;
 
 import static rwilk.hb.config.security.SecurityConstants.*;
@@ -53,9 +54,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                           HttpServletResponse response,
                                           FilterChain chain,
                                           Authentication authResult) throws IOException, ServletException {
-    ZonedDateTime expirationTimeUTC = ZonedDateTime.now(ZoneOffset.UTC).plus(EXPIRATION_TIME, ChronoUnit.SECONDS);
+    Calendar calendar = Calendar.getInstance();
+    calendar.add(Calendar.DAY_OF_MONTH, 1);
     String token = Jwts.builder().setSubject(((User) authResult.getPrincipal()).getUsername())
-        .setExpiration(Date.from(expirationTimeUTC.toInstant()))
+        .setExpiration(calendar.getTime())
         .signWith(SignatureAlgorithm.HS256, SECRET)
         .compact();
 

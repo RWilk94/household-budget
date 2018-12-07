@@ -16,13 +16,16 @@ public interface SpendingRepository extends JpaRepository<Spend, Long> {
 
   List<Spend> findAllByUserIsNullOrUser_Username(String username);
 
+  //TODO add group by module and category
   List<Spend> findAllByDateIsBetweenAndUser_Username(Calendar firstDay, Calendar lastDay, String username);
 
   @Query(nativeQuery = true,
       value = "SELECT to_char(s.date, 'MM') as month, extract(year from s.date) as year, sum(s.value) as sum "
           + "FROM spending s, users u "
           + "WHERE s.date > (current_date - interval '11 months') AND s.id_user = u.id AND u.username = :username "
-          + "GROUP BY 1, 2")
+          + "GROUP BY 1, 2 "
+          + "ORDER BY 2, 1"
+  )
   List<Object> findAllSpending(@Param("username") String username);
 
 }

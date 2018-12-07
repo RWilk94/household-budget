@@ -3,12 +3,14 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
 import {Observable} from "rxjs";
 import {Spend} from "../models/spend";
+import {MonthSpending} from "../models/month-spending";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpendingService {
 
+  // private url = 'https://rwilk-household-budget.cfapps.io/api/spending/';
   private url = 'http://localhost:8080/api/spending/';
   private header = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.cookie.get('token')});
 
@@ -28,5 +30,13 @@ export class SpendingService {
 
   deleteSpend(spend: Spend) {
     return this.http.delete(this.url + spend.id, {headers: this.header});
+  }
+
+  getLastYearSpending(username: string) {
+    return this.http.get<MonthSpending[]>(this.url + username + '/lastYear', {headers: this.header});
+  }
+
+  getCurrentMonthSpendingByCategory(username: string) {
+    return this.http.get<Spend[]>(this.url + username + "/currentMonth", {headers: this.header});
   }
 }

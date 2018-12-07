@@ -2,6 +2,7 @@ package rwilk.hb.service;
 
 import java.util.List;
 
+import rwilk.hb.model.MonthSpending;
 import rwilk.hb.model.Spend;
 
 public interface SpendingService {
@@ -17,5 +18,7 @@ public interface SpendingService {
   List<Spend> getUserSpendingFromCurrentMonth(String username);
 
   List<Spend> getUserSpendingFromLastMonth(String username);
+
+  List<MonthSpending> getLastYearSpending(String username);
 
 }
