@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import rwilk.hb.model.CategorySpending;
 import rwilk.hb.model.MonthSpending;
 import rwilk.hb.model.Spend;
 import rwilk.hb.service.SpendingService;
@@ -43,12 +44,12 @@ public class SpendingController {
   }
 
   @RequestMapping(value = "/{username}/currentMonth", method = RequestMethod.GET)
-  public List<Spend> getSpendingFromCurrentMonth(@PathVariable String username) {
+  public List<CategorySpending> getSpendingFromCurrentMonth(@PathVariable String username) {
     return spendingService.getUserSpendingFromCurrentMonth(username);
   }
 
   @RequestMapping(value = "/{username}/lastMonth", method = RequestMethod.GET)
-  public List<Spend> getSpendingFromLastMonth(@PathVariable String username) {
+  public List<CategorySpending> getSpendingFromLastMonth(@PathVariable String username) {
     return spendingService.getUserSpendingFromLastMonth(username);
   }
 

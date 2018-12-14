@@ -1,5 +1,5 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {DateAdapter, MAT_DATE_FORMATS, MatDialog, MatTableDataSource} from "@angular/material";
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {DateAdapter, MAT_DATE_FORMATS, MatDialog, MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {SpendElement} from "./spend-element";
 import {Spend} from "../../models/spend";
 import {CategoryService} from "../../services/category.service";
@@ -36,6 +36,8 @@ export const MY_FORMATS = {
 })
 export class SpendingComponent implements OnInit, AfterViewInit {
 
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   form: FormGroup;
 
   spending: Spend[] = [];
@@ -58,6 +60,26 @@ export class SpendingComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      switch (property) {
+        case 'name': {
+          return item.name.toUpperCase();
+        }
+        case 'module': {
+          return item.module.name.toUpperCase();
+        }
+        case 'category': {
+          return item.category.name.toUpperCase();
+        }
+        default: {
+          return item[property];
+        }
+      }
+    };
+
     this.moduleService.getModules().subscribe(
       modules => this.modules = modules,
       error => console.log(error));
@@ -192,6 +214,8 @@ export class SpendingComponent implements OnInit, AfterViewInit {
       spending => {
         this.spending = spending;
         this.dataSource.data = this.convertSpendingIntoSpendElements(this.spending);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       },
       error => console.log(error)
     );

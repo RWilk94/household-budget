@@ -1,15 +1,18 @@
 package rwilk.hb.service;
 
 import java.time.YearMonth;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
+import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import rwilk.hb.model.Category;
+import rwilk.hb.model.CategorySpending;
 import rwilk.hb.model.MonthSpending;
 import rwilk.hb.model.Spend;
 import rwilk.hb.model.User;
@@ -68,25 +71,63 @@ public class SpendingServiceImpl implements SpendingService {
   }
 
   @Override
-  public List<Spend> getUserSpendingFromCurrentMonth(String username) {
-    Calendar firstDay = Calendar.getInstance();
+  public List<CategorySpending> getUserSpendingFromCurrentMonth(String username) {
+    Calendar firstDay = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
     firstDay.set(Calendar.DATE, 1);
+    firstDay.set(Calendar.HOUR, 0);
+    firstDay.set(Calendar.MINUTE, 0);
+    firstDay.set(Calendar.SECOND, 0);
+    firstDay.set(Calendar.MILLISECOND, 0);
     YearMonth yearMonth = YearMonth.now();
-    Calendar lastDay = Calendar.getInstance();
+    Calendar lastDay = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
     lastDay.set(Calendar.DATE, yearMonth.lengthOfMonth());
-    return spendingRepository.findAllByDateIsBetweenAndUser_Username(firstDay, lastDay, username);
+    lastDay.set(Calendar.HOUR, 0);
+    lastDay.set(Calendar.MINUTE, 0);
+    lastDay.set(Calendar.SECOND, 0);
+    lastDay.set(Calendar.MILLISECOND, 0);
+    List<Object> objects =
+        spendingRepository.findAllByDateIsBetweenAndUser_UsernameAndGroupByCategory(firstDay, lastDay, username);
+    List<CategorySpending> categorySpending = new ArrayList<>();
+    for (Object o : objects) {
+      Object[] obj = (Object[]) o;
+      categorySpending.add(CategorySpending.builder()
+          .name(String.valueOf(obj[0]))
+          .sum(Long.valueOf(String.valueOf(obj[1])))
+          .build());
+    }
+    return categorySpending;
   }
 
   @Override
-  public List<Spend> getUserSpendingFromLastMonth(String username) {
-    Calendar firstDay = Calendar.getInstance();
+  public List<CategorySpending> getUserSpendingFromLastMonth(String username) {
+    Calendar firstDay = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
     firstDay.set(Calendar.DATE, 1);
     firstDay.add(Calendar.MONTH, -1);
+    firstDay.set(Calendar.HOUR, 0);
+    firstDay.set(Calendar.MINUTE, 0);
+    firstDay.set(Calendar.SECOND, 0);
+    firstDay.set(Calendar.MILLISECOND, 0);
+
     YearMonth yearMonth = YearMonth.of(firstDay.get(Calendar.YEAR), firstDay.get(Calendar.MONTH));
-    Calendar lastDay = Calendar.getInstance();
+    Calendar lastDay = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
     lastDay.add(Calendar.MONTH, -1);
     lastDay.set(Calendar.DATE, yearMonth.lengthOfMonth());
-    return spendingRepository.findAllByDateIsBetweenAndUser_Username(firstDay, lastDay, username);
+    lastDay.set(Calendar.HOUR, 0);
+    lastDay.set(Calendar.MINUTE, 0);
+    lastDay.set(Calendar.SECOND, 0);
+    lastDay.set(Calendar.MILLISECOND, 0);
+
+    List<Object> objects =
+        spendingRepository.findAllByDateIsBetweenAndUser_UsernameAndGroupByCategory(firstDay, lastDay, username);
+    List<CategorySpending> categorySpending = new ArrayList<>();
+    for (Object o : objects) {
+      Object[] obj = (Object[]) o;
+      categorySpending.add(CategorySpending.builder()
+          .name(String.valueOf(obj[0]))
+          .sum(Long.valueOf(String.valueOf(obj[1])))
+          .build());
+    }
+    return categorySpending;
   }
 
   @Override

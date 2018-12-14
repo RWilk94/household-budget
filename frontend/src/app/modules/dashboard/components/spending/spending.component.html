@@ -111,10 +111,10 @@
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="columns" style="color: white; background:dodgerblue;"></tr>
+      <tr mat-header-row *matHeaderRowDef="columns; sticky: true" style="color: white; background:dodgerblue;"></tr>
       <tr mat-row *matRowDef="let element; columns: columns;"></tr>
 
     </table>
-
+    <mat-paginator class="mat-paginator-sticky" [pageSizeOptions]="[10, 7, 20]" showFirstLastButtons></mat-paginator>
   </mat-card-content>
 </mat-card>

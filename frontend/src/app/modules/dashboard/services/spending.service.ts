@@ -4,6 +4,7 @@ import {CookieService} from "ngx-cookie-service";
 import {Observable} from "rxjs";
 import {Spend} from "../models/spend";
 import {MonthSpending} from "../models/month-spending";
+import {CategorySpending} from "../models/category-spending";
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,10 @@ export class SpendingService {
   }
 
   getCurrentMonthSpendingByCategory(username: string) {
-    return this.http.get<Spend[]>(this.url + username + "/currentMonth", {headers: this.header});
+    return this.http.get<CategorySpending[]>(this.url + username + "/currentMonth", {headers: this.header});
+  }
+
+  getLastMonthSpendingByCategory(username: string) {
+    return this.http.get<CategorySpending[]>(this.url + username + "/lastMonth", {headers: this.header});
   }
 }

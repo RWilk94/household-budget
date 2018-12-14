@@ -10,7 +10,12 @@
       </h1>
     </a>
   </div>
-  <form class="form-inline">
-    <button class="btn btn-outline-primary" type="button" (click)="logout()">Sign out</button>
-  </form>
+  <div style="display: inline-flex">
+    <ng-container>
+      <h5 class="center-text">Witaj <strong style="margin-right: 16px" class="strong-blue">{{username}}</strong></h5>
+    </ng-container>
+    <form class="form-inline">
+      <button class="btn btn-outline-primary" type="button" (click)="logout()">Sign out</button>
+    </form>
+  </div>
 </nav>
