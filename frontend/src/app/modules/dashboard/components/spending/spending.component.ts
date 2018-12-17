@@ -267,9 +267,7 @@ export class SpendingComponent implements OnInit, AfterViewInit {
   }
 
   updateSpendDateOnBlur(date: Date, element) {
-    console.log(date);
     this.dataSource.data[element.position - 1].date = date;
-    console.log(this.dataSource.data[element.position - 1].date);
   }
 
   updateSpendValueOnBlur(value: number, element) {

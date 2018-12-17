@@ -30,7 +30,9 @@ public interface SpendingRepository extends JpaRepository<Spend, Long> {
   @Query(nativeQuery = true,
       value = "SELECT to_char(s.date, 'MM') as month, extract(year from s.date) as year, sum(s.value) as sum "
           + "FROM spending s, users u "
-          + "WHERE s.date > (current_date - interval '11 months') AND s.id_user = u.id AND u.username = :username "
+          + "WHERE s.date >= (current_date - interval '11 months') "
+          + "AND s.date < date_trunc('month', now() + interval '1 month') "
+          + "AND s.id_user = u.id AND u.username = :username "
           + "GROUP BY 1, 2 "
           + "ORDER BY 2, 1"
   )

@@ -25,8 +25,8 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.spendingService.getLastYearSpending(this.cookieService.get('username')).subscribe(data => {
-      console.log(this.cookieService.get('username'));
-      console.log(JSON.stringify(data));
+      // console.log(this.cookieService.get('username'));
+      // console.log(JSON.stringify(data));
       if (data.length > 0) {
         this.generateSummaryOfSpendingChart(data);
         this.setCurrentMonthSpending(data[data.length - 1]);
@@ -39,21 +39,21 @@ export class DashboardComponent implements OnInit {
     });
 
     this.spendingService.getLastMonthSpendingByCategory(this.cookieService.get('username')).subscribe(data => {
+      // console.log(data.length + 'lastMonthCategoryChart');
       this.generateSpendingByCategoryChart(this.lastMonthCategoryChart, 'lastMonthCategoryChart', data);
     });
 
   }
 
   generateSummaryOfSpendingChart(data: MonthSpending[]) {
-    console.log(data);
     let dataArray = [];
     let labels: string[] = [];
     data.forEach(monthSpend => {
       dataArray.push(monthSpend.sum);
       labels.push(monthSpend.month + '/' + monthSpend.year);
     });
+    // console.log(dataArray.length + ' ' + labels.length);
     // let colors = ['red', 'green', 'blue', 'yellow'];
-
     this.chart = new Chart('chart', {
       type: 'bar',
       data: {
@@ -67,6 +67,13 @@ export class DashboardComponent implements OnInit {
         responsible: true,
         legend: {
           display: false
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              min: 0
+            }
+          }]
         }
       }
     });
@@ -101,7 +108,7 @@ export class DashboardComponent implements OnInit {
 
   private setCurrentMonthSpending(monthSpending: MonthSpending) {
     let date = new Date();
-    if (date.getMonth() == monthSpending.month - 1 && date.getFullYear() == monthSpending.year) {
+    if (monthSpending !== undefined && date.getMonth() == monthSpending.month - 1 && date.getFullYear() == monthSpending.year) {
       this.currentMonthSpending = monthSpending.sum;
     } else {
       this.currentMonthSpending = 0;
@@ -110,8 +117,7 @@ export class DashboardComponent implements OnInit {
 
   private setLastMonthSpending(monthSpending: MonthSpending) {
     let date = new Date();
-    console.log(date + ' + ' + JSON.stringify(monthSpending) + ' + ' + date.getMonth());
-    if (date.getMonth() - 1 == monthSpending.month - 1 && date.getFullYear() == monthSpending.year) {
+    if (monthSpending !== undefined && date.getMonth() - 1 == monthSpending.month - 1 && date.getFullYear() == monthSpending.year) {
       this.lastMonthSpending = monthSpending.sum;
     } else {
       this.lastMonthSpending = 0;

@@ -1,10 +1,10 @@
 package rwilk.hb.service;
 
 import java.time.YearMonth;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.TimeZone;
 
@@ -100,6 +100,7 @@ public class SpendingServiceImpl implements SpendingService {
 
   @Override
   public List<CategorySpending> getUserSpendingFromLastMonth(String username) {
+    Locale.setDefault(new Locale("en_GB"));
     Calendar firstDay = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
     firstDay.set(Calendar.DATE, 1);
     firstDay.add(Calendar.MONTH, -1);
@@ -108,7 +109,7 @@ public class SpendingServiceImpl implements SpendingService {
     firstDay.set(Calendar.SECOND, 0);
     firstDay.set(Calendar.MILLISECOND, 0);
 
-    YearMonth yearMonth = YearMonth.of(firstDay.get(Calendar.YEAR), firstDay.get(Calendar.MONTH));
+    YearMonth yearMonth = YearMonth.of(firstDay.get(Calendar.YEAR), firstDay.get(Calendar.MONTH)+1);
     Calendar lastDay = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
     lastDay.add(Calendar.MONTH, -1);
     lastDay.set(Calendar.DATE, yearMonth.lengthOfMonth());
