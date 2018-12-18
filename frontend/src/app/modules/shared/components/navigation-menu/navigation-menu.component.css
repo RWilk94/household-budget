@@ -1,0 +1,17 @@
+.box {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
+.nav-menu-container {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.nav-menu {
+  width: 240px;
+}
+
+

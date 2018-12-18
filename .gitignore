@@ -24,3 +24,5 @@
 /nbdist/
 /.nb-gradle/
 frontend/package-lock\.json
+
+src/main/resources/static/

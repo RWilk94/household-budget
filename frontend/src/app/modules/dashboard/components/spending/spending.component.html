@@ -1,0 +1,120 @@
+<link rel="stylesheet" type="text/css" href="https://npmcdn.com/angular2-toaster@6.1.0/toaster.css"/>
+<toaster-container></toaster-container>
+
+<mat-card style="height: 100%; overflow: auto; margin: 0; padding: 0">
+  <mat-card-content>
+
+    <table mat-table [dataSource]="dataSource" matSort="">
+
+      <ng-container matColumnDef="{{columns[0]}}">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header" width="{{width[0]}}%">No.</th>
+        <td mat-cell *matCellDef="let element" width="{{width[0]}}%">
+          {{element.position}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="{{columns[1]}}">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header" width="{{width[1]}}%">Name</th>
+        <td mat-cell *matCellDef="let element" width="{{width[1]}}%">
+          <ng-container *ngIf="!element.isEditing">{{element.name}} </ng-container>
+          <mat-form-field *ngIf="element.isEditing" style="width: 95%">
+            <input matInput value="{{element.name}}" maxlength="255" (blur)="updateSpendNameOnBlur($event.target.value, element)">
+          </mat-form-field>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="{{columns[2]}}">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header" width="{{width[2]}}%">Module</th>
+        <td mat-cell *matCellDef="let element" width="{{width[2]}}%">
+          <ng-container *ngIf="!element.isEditing">{{element.module.name}}</ng-container>
+          <mat-form-field *ngIf="element.isEditing"  style="width: 95%">
+            <mat-select [compareWith]="compareModules" [(value)]="element.module">
+              <mat-option *ngFor="let module of modules" [value]="module">
+                {{module.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="{{columns[3]}}">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header" width="{{width[3]}}%">Category</th>
+        <td mat-cell *matCellDef="let element" width="{{width[3]}}%">
+          <ng-container *ngIf="!element.isEditing">{{element.category.name}}</ng-container>
+          <mat-form-field *ngIf="element.isEditing" style="width: 95%">
+            <mat-select [compareWith]="compareCategories" [(value)]="element.category">
+              <mat-option *ngFor="let category of filterCategoriesByModule(element)" [value]="category">
+                {{category.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="{{columns[4]}}">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header" width="{{width[4]}}%">Date</th>
+        <td mat-cell *matCellDef="let element" width="{{width[4]}}%">
+          <ng-container *ngIf="!element.isEditing">
+            {{element.date | date: 'dd.MM.yyyy'}}
+          </ng-container>
+          <mat-form-field *ngIf="element.isEditing" style="width: 95%">
+            <input matInput [matDatepicker]="datePicker" placeholder="Choose a date"  (dateChange)="updateSpendDateOnBlur($event.target.value, element)" [value]="element.date" disabled>
+            <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+            <mat-datepicker #datePicker disabled="false"></mat-datepicker>
+          </mat-form-field>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="{{columns[5]}}">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header" width="{{width[5]}}%">Value</th>
+        <td mat-cell *matCellDef="let element" width="{{width[5]}}%">
+          <ng-container *ngIf="!element.isEditing">{{element.value}} </ng-container>
+          <mat-form-field *ngIf="element.isEditing" style="width: 95%">
+            <input matInput value="{{element.value}}" maxlength="255" type="number" (blur)="updateSpendValueOnBlur($event.target.value, element)">
+          </mat-form-field>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="{{columns[6]}}">
+        <th mat-header-cell *matHeaderCellDef class="th-header" width="{{width[6]}}%">
+          <button id="options-button" class="th-header">
+            <b>Options</b>
+            <mat-icon class="mat-icon" style="color: green;" matTooltip="Add record" (click)="createRowInTable()">
+              add
+            </mat-icon>
+          </button>
+        </th>
+        <td mat-cell *matCellDef="let element" width="{{width[6]}}%">
+          <mat-icon class="mat-icon" *ngIf="!element.isEditing" (click)="enableElementEditMode(element)"
+                    style="color: dodgerblue;"
+                    matTooltip="Edit">edit
+          </mat-icon>
+          <mat-icon class="mat-icon" *ngIf="!element.isEditing" (click)="showDeleteDialog(element)"
+                    style="color: red;" matTooltip="Delete">
+            delete
+          </mat-icon>
+
+          <mat-icon class="mat-icon" *ngIf="element.isEditing && !element.isNew"
+                    (click)="updateExistingElement(element)" style="color: green;" matTooltip="Save">save
+          </mat-icon>
+          <mat-icon class="mat-icon" *ngIf="element.isEditing && !element.isNew"
+                    (click)="cancelElementEditMode(element)" style="color: grey;" matTooltip="Cancel">cancel
+          </mat-icon>
+
+          <mat-icon class="mat-icon" *ngIf="element.isEditing && element.isNew" (click)="insertElement(element)"
+                    style="color: green;"
+                    matTooltip="Insert">save
+          </mat-icon>
+          <mat-icon class="mat-icon" *ngIf="element.isEditing && element.isNew"
+                    (click)="cancelNewElementEditMode(element)" style="color: grey;" matTooltip="Cancel">cancel
+          </mat-icon>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columns; sticky: true" style="color: white; background:dodgerblue;"></tr>
+      <tr mat-row *matRowDef="let element; columns: columns;"></tr>
+
+    </table>
+    <mat-paginator class="mat-paginator-sticky" [pageSizeOptions]="[10, 7, 20]" showFirstLastButtons></mat-paginator>
+  </mat-card-content>
+</mat-card>

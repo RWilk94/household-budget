@@ -1,1 +1,3 @@
-<router-outlet></router-outlet>
+<app-navigation-menu *ngIf="registrationService.isLogin()"></app-navigation-menu>
+<router-outlet *ngIf="!registrationService.isLogin()"></router-outlet>
+<app-spinner></app-spinner>

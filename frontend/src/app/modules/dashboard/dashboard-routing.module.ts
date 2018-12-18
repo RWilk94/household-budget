@@ -1,16 +1,21 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
-import {AuthGuardService} from "../shared/auth/auth-guard.service";
+import {ModuleComponent} from "./components/module/module.component";
+import {CategoryComponent} from "./components/category/category.component";
+import {SpendingComponent} from "./components/spending/spending.component";
 
 const routes: Routes = [
   {
     path: '',
-    // canActivateChild: [AuthGuardService],
     children: [
-      {path: '', component: DashboardComponent}
+      {path: '', component: DashboardComponent},
+      {path: 'spending', component: SpendingComponent},
+      {path: 'module', component: ModuleComponent},
+      {path: 'category', component: CategoryComponent}
     ]
-  }
+  },
+  {path: '**', component: DashboardComponent, pathMatch: 'full'}
 ];
 
 

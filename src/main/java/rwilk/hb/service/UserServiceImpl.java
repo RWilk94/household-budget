@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public JWTUser loadApplicationUserByUsername(String username) {
-    Optional<User> user = userRepository.findUserByUsername(username);
+    Optional<User> user = userRepository.findByUsername(username);
     if (user.isPresent()) {
       return new JWTUser(user.get().getUsername(), /*"{passwordEncoder}"*/ user.get().getPassword());
     }
