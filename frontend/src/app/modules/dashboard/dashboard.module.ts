@@ -23,6 +23,8 @@ import {ModuleService} from "./services/module.service";
 import {DialogConfirmDeleteComponent} from './components/dialog-confirm-delete/dialog-confirm-delete.component';
 import {SpendingComponent} from './components/spending/spending.component';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MatMomentDateModule} from "@angular/material-moment-adapter";
+import {adapterFactory} from "angular-calendar/date-adapters/date-fns";
+import {CalendarModule, DateAdapter} from "angular-calendar";
 
 @NgModule({
   imports: [
@@ -40,7 +42,11 @@ import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MatMomentDateModule} from "@angular/mat
     MatIconModule,
     MatTooltipModule,
     MatDatepickerModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    }),
   ],
   entryComponents: [DialogConfirmDeleteComponent],
   providers: [
