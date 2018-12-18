@@ -14,6 +14,6 @@ import lombok.NoArgsConstructor;
 public class CategorySpending implements Serializable {
 
   private String name;
-  private long sum;
+  private Double sum;
 
 }

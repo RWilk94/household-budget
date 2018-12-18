@@ -92,7 +92,7 @@ public class SpendingServiceImpl implements SpendingService {
       Object[] obj = (Object[]) o;
       categorySpending.add(CategorySpending.builder()
           .name(String.valueOf(obj[0]))
-          .sum(Long.valueOf(String.valueOf(obj[1])))
+          .sum(Double.valueOf(String.valueOf(obj[1])))
           .build());
     }
     return categorySpending;
@@ -125,7 +125,7 @@ public class SpendingServiceImpl implements SpendingService {
       Object[] obj = (Object[]) o;
       categorySpending.add(CategorySpending.builder()
           .name(String.valueOf(obj[0]))
-          .sum(Long.valueOf(String.valueOf(obj[1])))
+          .sum(Double.valueOf(String.valueOf(obj[1])))
           .build());
     }
     return categorySpending;
