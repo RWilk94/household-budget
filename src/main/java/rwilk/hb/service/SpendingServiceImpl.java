@@ -140,7 +140,7 @@ public class SpendingServiceImpl implements SpendingService {
       monthSpending.add(MonthSpending.builder()
           .month(Integer.valueOf(String.valueOf(obj[0])))
           .year(Double.valueOf(String.valueOf(obj[1])).intValue())
-          .sum(Long.valueOf(String.valueOf(obj[2])))
+          .sum(Double.valueOf(String.valueOf(obj[2])))
           .build());
     }
     return monthSpending;

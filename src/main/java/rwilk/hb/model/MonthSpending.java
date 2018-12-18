@@ -15,6 +15,6 @@ public class MonthSpending implements Serializable {
 
   private int month;
   private int year;
-  private long sum;
+  private Double sum;
 
 }

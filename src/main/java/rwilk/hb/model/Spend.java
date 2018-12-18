@@ -58,5 +58,5 @@ public class Spend implements Serializable {
   private boolean isSpend;
 
   @NotNull
-  private Long value;
+  private Double value;
 }
