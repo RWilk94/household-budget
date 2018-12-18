@@ -8,7 +8,7 @@
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
     </mat-form-field>
 
-    <table mat-table [dataSource]="dataSource" matSort="">
+    <table mat-table [dataSource]="dataSource" matSort="" fxLayout="column wrap">
 
       <ng-container matColumnDef="{{columns[0]}}">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header" width="{{width[0].width}}%">No.</th>
@@ -23,7 +23,8 @@
           <ng-container *ngIf="!element.isEditing">{{element.name}}</ng-container>
 
           <mat-form-field *ngIf="element.isEditing" style="width: 95%;">
-            <input matInput value="{{element.name}}" (blur)="updateElementNameOnBlur($event.target.value, element)" maxlength="255">
+            <input matInput value="{{element.name}}" (blur)="updateElementNameOnBlur($event.target.value, element)"
+                   maxlength="255">
           </mat-form-field>
 
         </td>
@@ -49,31 +50,37 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header width="{{width[3].width}}%">
           <button id="options-button" class="th-header">
             <b matTooltip="You can edit custom categories only.">Options</b>
-            <mat-icon class="mat-icon" style="color: green;" matTooltip="Add record" (click)="createRowInTable()">add</mat-icon>
+            <mat-icon class="mat-icon" style="color: green;" matTooltip="Add record" (click)="createRowInTable()">add
+            </mat-icon>
           </button>
         </th>
 
         <td mat-cell *matCellDef="let element" width="{{width[3].width}}%">
-          <mat-icon class="mat-icon" *ngIf="!element.isEditing" (click)="enableElementEditMode(element)" style="color: dodgerblue;"
-                    matTooltip="Edit">edit
-          </mat-icon>
-          <mat-icon class="mat-icon" *ngIf="!element.isEditing" (click)="showDeleteDialog(element)" style="color: red;" matTooltip="Delete">
-            delete
-          </mat-icon>
+          <ng-container *ngIf="element.isCustom || element.isNew">
+            <mat-icon class="mat-icon" *ngIf="!element.isEditing" (click)="enableElementEditMode(element)"
+                      style="color: dodgerblue;"
+                      matTooltip="Edit">edit
+            </mat-icon>
+            <mat-icon class="mat-icon" *ngIf="!element.isEditing" (click)="showDeleteDialog(element)"
+                      style="color: red;" matTooltip="Delete">
+              delete
+            </mat-icon>
 
-          <mat-icon class="mat-icon" *ngIf="element.isEditing && !element.isNew"
-                    (click)="updateExistingElement(element)" style="color: green;" matTooltip="Save">save
-          </mat-icon>
-          <mat-icon class="mat-icon" *ngIf="element.isEditing && !element.isNew"
-                    (click)="cancelElementEditMode(element)" style="color: grey;" matTooltip="Cancel">cancel
-          </mat-icon>
+            <mat-icon class="mat-icon" *ngIf="element.isEditing && !element.isNew"
+                      (click)="updateExistingElement(element)" style="color: green;" matTooltip="Save">save
+            </mat-icon>
+            <mat-icon class="mat-icon" *ngIf="element.isEditing && !element.isNew"
+                      (click)="cancelElementEditMode(element)" style="color: grey;" matTooltip="Cancel">cancel
+            </mat-icon>
 
-          <mat-icon class="mat-icon" *ngIf="element.isEditing && element.isNew" (click)="insertElement(element)" style="color: green;"
-                    matTooltip="Insert">save
-          </mat-icon>
-          <mat-icon class="mat-icon" *ngIf="element.isEditing && element.isNew"
-                    (click)="cancelNewElementEditMode(element)" style="color: grey;" matTooltip="Cancel">cancel
-          </mat-icon>
+            <mat-icon class="mat-icon" *ngIf="element.isEditing && element.isNew" (click)="insertElement(element)"
+                      style="color: green;"
+                      matTooltip="Insert">save
+            </mat-icon>
+            <mat-icon class="mat-icon" *ngIf="element.isEditing && element.isNew"
+                      (click)="cancelNewElementEditMode(element)" style="color: grey;" matTooltip="Cancel">cancel
+            </mat-icon>
+          </ng-container>
         </td>
       </ng-container>
 

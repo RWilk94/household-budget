@@ -97,7 +97,7 @@ export class CategoryComponent implements OnInit, AfterViewInit {
       category.user = new User();
       category.user.username = this.cookie.get('username');
       this.categoryService.updateCategory(category).subscribe(category => {
-        this.displayToast(ToastBuilder.successUpdateCategory());
+        this.displayToast(ToastBuilder.successUpdateItem());
         element.isEditing = false;
       }, error => console.log(error));
     }
@@ -193,7 +193,7 @@ export class CategoryComponent implements OnInit, AfterViewInit {
       this.displayToast(ToastBuilder.errorEmptyName());
       return false;
     } else if (element.name.length < 1 || element.name.length > 255) {
-      this.displayToast(ToastBuilder.errorIncorrectCategoryName());
+      this.displayToast(ToastBuilder.errorIncorrectName());
       return false;
     } else if (element.module === null || element.module === undefined || element.module.name === '') {
       this.displayToast(ToastBuilder.errorEmptyModule());

@@ -12,6 +12,30 @@ export class ToastBuilder {
     };
   }
 
+  static errorWhileUpdatingItem() : Toast {
+    return {
+      type: 'error',
+      title: 'Error while updating item',
+      body: ''
+    };
+  }
+
+  static errorWhileInsertingItem() : Toast {
+    return {
+      type: 'error',
+      title: 'Error while inserting item',
+      body: ''
+    };
+  }
+
+  static errorWhileDeletingItem() : Toast {
+    return {
+      type: 'error',
+      title: 'Error while deleting item',
+      body: ''
+    };
+  }
+
   static errorWhileRegisterUser() : Toast {
     return {
       type: 'error',
@@ -28,10 +52,10 @@ export class ToastBuilder {
     };
   }
 
-  static errorIncorrectCategoryName() : Toast {
+  static errorIncorrectName() : Toast {
     return {
       type: 'error',
-      title: 'Category name must have at least 1 character and max 255 characters.',
+      title: 'Name must have at least 1 character and max 255 characters.',
       body: ''
     };
   }
@@ -44,10 +68,34 @@ export class ToastBuilder {
     };
   }
 
-  static successUpdateCategory(): Toast {
+  static errorEmptyCategory() : Toast {
+    return {
+      type: 'error',
+      title: 'Category can not be empty',
+      body: ''
+    };
+  }
+
+  static errorWrongValue() : Toast {
+    return {
+      type: 'error',
+      title: 'Value must be greater than 0',
+      body: ''
+    };
+  }
+
+  static errorEmptyDate() : Toast {
+    return {
+      type: 'error',
+      title: 'Date can not be empty',
+      body: ''
+    };
+  }
+
+  static successUpdateItem(): Toast {
     return {
       type: 'success',
-      title: 'Category updated successfully',
+      title: 'Item updated successfully',
       body: ''
     };
   }

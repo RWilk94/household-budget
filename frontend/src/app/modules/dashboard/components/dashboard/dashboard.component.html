@@ -1,1 +1,35 @@
-Dashboard component works.
+<div fxLayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
+  <mat-card class="info">
+    <mat-card-content>Wydatki w obecnym miesiącu:
+      <ng-container *ngIf="currentMonthSpending != -1"><b style="color: dodgerblue">{{currentMonthSpending}}</b></ng-container>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="info">
+    <mat-card-content>Wydatki w poprzednim miesiącu:
+      <ng-container *ngIf="lastMonthSpending != -1"><b style="color: dodgerblue">{{lastMonthSpending}}</b>
+      </ng-container>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div fxLayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
+  <mat-card class="info">
+    <mat-card-subtitle>Zestawienie wydatków z obecnego miesiąca</mat-card-subtitle>
+    <mat-card-content>
+      <canvas id="currentMonthCategoryChart">{{currentMonthCategoryChart}}</canvas>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="info">
+    <mat-card-subtitle>Zestawienie wydatków z poprzedniego miesiąca</mat-card-subtitle>
+    <mat-card-content>
+      <canvas id="lastMonthCategoryChart">{{lastMonthCategoryChart}}</canvas>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<mat-card class="info">
+  <mat-card-subtitle>Zestawienie wydatków</mat-card-subtitle>
+  <mat-card-content>
+    <canvas id="chart">{{chart}}</canvas>
+  </mat-card-content>
+</mat-card>

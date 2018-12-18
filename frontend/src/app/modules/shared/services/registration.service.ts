@@ -10,7 +10,8 @@ import {Router} from "@angular/router";
 export class RegistrationService {
 
   private header = new HttpHeaders({'Content-Type': 'application/json'});
-  private link = 'https://rwilk-household-budget.cfapps.io';
+  // private link = 'https://rwilk-household-budget.cfapps.io';
+  private link = 'http://localhost:8080';
 
   constructor(private http: HttpClient,
               private cookie: CookieService,

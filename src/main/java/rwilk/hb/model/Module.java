@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -26,10 +27,11 @@ import lombok.NoArgsConstructor;
 public class Module implements Serializable {
 
   @Id
-  @SequenceGenerator(name = "moduleSG", sequenceName = "moduleSEQ")
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "moduleSG")
+  @SequenceGenerator(name = "moduleSG", sequenceName = "moduleSEQ", allocationSize = 1)
   private Long id;
 
+  @NotBlank
   @Size(min = 3, max = 255)
   @Column(unique = true, nullable = false)
   private String name;

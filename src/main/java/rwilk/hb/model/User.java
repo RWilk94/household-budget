@@ -1,10 +1,7 @@
 package rwilk.hb.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import org.hibernate.annotations.CreationTimestamp;
+import java.io.Serializable;
+import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,10 +12,14 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import java.io.Serializable;
-import java.sql.Timestamp;
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -40,6 +41,7 @@ public class User implements Serializable {
   @SequenceGenerator(name = "userSG", sequenceName = "userSEQ", allocationSize = 1)
   private Long id;
 
+  @NotBlank
   @Username
   @Size(min = 3, max = 63)
   @Column(unique = true, nullable = false)
@@ -64,6 +66,6 @@ public class User implements Serializable {
 
   @CreationTimestamp
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-  private Timestamp created;
+  private Calendar created;
 
 }

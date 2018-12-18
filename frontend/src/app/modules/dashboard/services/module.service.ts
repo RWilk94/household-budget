@@ -9,7 +9,8 @@ import {CookieService} from "ngx-cookie-service";
 })
 export class ModuleService {
 
-  private url = 'https://rwilk-household-budget.cfapps.io/api/modules/';
+  // private url = 'https://rwilk-household-budget.cfapps.io/api/modules/';
+  private url = 'http://localhost:8080/api/modules/';
   private header = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.cookie.get('token')});
 
   constructor(private http: HttpClient, private cookie: CookieService) { }

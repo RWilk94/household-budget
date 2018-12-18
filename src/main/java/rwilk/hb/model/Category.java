@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -33,11 +34,12 @@ public class Category implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "categorySG")
-  @SequenceGenerator(name = "categorySG", sequenceName = "categorySEQ", allocationSize = 1)
+  @SequenceGenerator(name = "categorySG", sequenceName = "categorySEQ", allocationSize = 1, initialValue = 100)
   private Long id;
 
   @Size(min = 1, max = 255)
   @Column(nullable = false)
+  @NotBlank
   private String name;
 
   @rwilk.hb.validator.User

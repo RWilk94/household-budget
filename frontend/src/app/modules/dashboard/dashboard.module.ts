@@ -7,16 +7,22 @@ import {CategoryComponent} from './components/category/category.component';
 import {ModuleComponent} from './components/module/module.component';
 import {
   MatCardModule,
+  MatDatepickerModule,
   MatDialogModule,
-  MatFormFieldModule, MatIconModule,
-  MatInputModule, MatPaginatorModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule,
+  MatPaginatorModule,
   MatSelectModule,
   MatSortModule,
-  MatTableModule, MatTooltipModule
+  MatTableModule,
+  MatTooltipModule
 } from "@angular/material";
 import {CategoryService} from "./services/category.service";
 import {ModuleService} from "./services/module.service";
-import { DialogConfirmDeleteComponent } from './components/dialog-confirm-delete/dialog-confirm-delete.component';
+import {DialogConfirmDeleteComponent} from './components/dialog-confirm-delete/dialog-confirm-delete.component';
+import {SpendingComponent} from './components/spending/spending.component';
+import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MatMomentDateModule} from "@angular/material-moment-adapter";
 
 @NgModule({
   imports: [
@@ -32,11 +38,17 @@ import { DialogConfirmDeleteComponent } from './components/dialog-confirm-delete
     MatDialogModule,
     MatPaginatorModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDatepickerModule,
+    MatMomentDateModule
   ],
   entryComponents: [DialogConfirmDeleteComponent],
-  providers: [CategoryService, ModuleService],
-  declarations: [DashboardComponent, CategoryComponent, ModuleComponent, DialogConfirmDeleteComponent]
+  providers: [
+    CategoryService,
+    ModuleService,
+    {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}}
+  ],
+  declarations: [DashboardComponent, CategoryComponent, ModuleComponent, DialogConfirmDeleteComponent, SpendingComponent]
 })
 export class DashboardModule {
 }
