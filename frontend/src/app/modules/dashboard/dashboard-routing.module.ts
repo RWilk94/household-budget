@@ -4,6 +4,7 @@ import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {ModuleComponent} from "./components/module/module.component";
 import {CategoryComponent} from "./components/category/category.component";
 import {SpendingComponent} from "./components/spending/spending.component";
+import {AddSpendComponent} from "./components/add-spend/add-spend.component";
 
 const routes: Routes = [
   {
@@ -12,7 +13,9 @@ const routes: Routes = [
       {path: '', component: DashboardComponent},
       {path: 'spending', component: SpendingComponent},
       {path: 'module', component: ModuleComponent},
-      {path: 'category', component: CategoryComponent}
+      {path: 'category', component: CategoryComponent},
+      // {path: 'onSubmit-spend', component: AddSpendComponent},
+      {path: 'onSubmit-spend/:id', component: AddSpendComponent}
     ]
   },
   {path: '**', component: DashboardComponent, pathMatch: 'full'}

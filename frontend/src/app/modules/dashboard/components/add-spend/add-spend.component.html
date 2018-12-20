@@ -1,0 +1,82 @@
+<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/css/bootstrap-select.min.css">-->
+<!-- Latest compiled and minified CSS -->
+<!---->
+
+<!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">-->
+
+<mat-card>
+  <mat-card-content>
+
+    <input type="text"
+           class="form-control"
+           id="name"
+           placeholder="Name"
+           [(ngModel)]="spend.name">
+
+    <ng-select [items]="cities"
+               bindLabel="name"
+               placeholder="Select city"
+               [(ngModel)]="selectedCity">
+    </ng-select>
+
+
+    <!--<select class="selectpicker" style="width: 95%">-->
+      <!--&lt;!&ndash;<option *ngFor="let module of modules">{{module.name}}</option>&ndash;&gt;-->
+      <!--<option>Mustard</option>-->
+      <!--<option>Ketchup</option>-->
+      <!--<option>Barbecue</option>-->
+    <!--</select>-->
+
+    <!--<mat-form-field style="width: 95%">-->
+    <!--<mat-select [compareWith]="compareModules" [(value)]="spend.category.module" placeholder="Module">-->
+    <!--<mat-option *ngFor="let module of modules" [value]="module">-->
+    <!--{{module.name}}-->
+    <!--</mat-option>-->
+    <!--</mat-select>-->
+    <!--</mat-form-field>-->
+
+    <!--<mat-form-field style="width: 95%">-->
+    <!--<mat-select [compareWith]="compareCategories" [(value)]="spend.category" placeholder="Category">-->
+    <!--<mat-option *ngFor="let category of filterCategoriesByModule(spend)" [value]="category">-->
+    <!--{{category.name}}-->
+    <!--</mat-option>-->
+    <!--</mat-select>-->
+    <!--</mat-form-field>-->
+
+    <mat-form-field style="width: 95%">
+      <input matInput [matDatepicker]="datePicker" placeholder="Choose a date" [value]="spend.date" disabled
+             (dateChange)="updateSpendDateOnBlur($event.target.value)">
+      <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+      <mat-datepicker #datePicker disabled="false"></mat-datepicker>
+    </mat-form-field>
+
+    <!--<mat-form-field style="width: 95%">-->
+    <!--<input matInput-->
+    <!--value="{{spend.value}}"-->
+    <!--maxlength="255" type="number" placeholder="Value">-->
+    <!--</mat-form-field>-->
+
+    <input type="text" class="form-control"
+           id="value"
+           placeholder="Value"
+           [(ngModel)]="spend.value">
+
+
+    <!--</form>-->
+    <div class="container-form-buttons">
+      <button type="button" id="button-reset"
+              class="btn btn-secondary form-button"
+              routerLink="/dashboard/module">
+        Cancel
+      </button>
+
+      <button type="submit" (click)="onSubmit()"
+              class="btn btn-success form-button">
+        Save
+      </button>
+    </div>
+
+  </mat-card-content>
+</mat-card>
+
+

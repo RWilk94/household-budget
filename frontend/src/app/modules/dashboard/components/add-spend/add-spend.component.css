@@ -1,0 +1,10 @@
+.container-form-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.form-button {
+  width: 100%;
+  margin: 5px;
+}

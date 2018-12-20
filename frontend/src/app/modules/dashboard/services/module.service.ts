@@ -3,11 +3,14 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Module} from "../models/module";
 import {CookieService} from "ngx-cookie-service";
+import {Spend} from "../models/spend";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModuleService {
+
+  spend: Spend;
 
   // private url = 'https://rwilk-household-budget.cfapps.io/api/modules/';
   private url = 'http://localhost:8080/api/modules/';

@@ -38,6 +38,12 @@ public class SpendingServiceImpl implements SpendingService {
   }
 
   @Override
+  public Spend getSpendingById(Long id) {
+    Optional<Spend> spend = spendingRepository.findById(id);
+    return spend.orElse(null);
+  }
+
+  @Override
   public Spend addSpend(Spend spend) {
     Optional<User> userOptional = userRepository.findByUsername(spend.getUser().getUsername());
     Optional<Category> categoryOptional = categoryRepository.findById(spend.getCategory().getId());
