@@ -1,10 +1,5 @@
-<!--<link rel="stylesheet" type="text/css" href="https://npmcdn.com/angular2-toaster@6.1.0/toaster.css"/>-->
-<!--<toaster-container></toaster-container>-->
-<ng-template #modalContent let-close="close">
-  <app-add-spend></app-add-spend>
-</ng-template>
-
-
+<link rel="stylesheet" type="text/css" href="https://npmcdn.com/angular2-toaster@6.1.0/toaster.css"/>
+<toaster-container></toaster-container>
 
 <context-menu #basicMenu>
   <ng-template contextMenuItem (execute)="addEvent()">
@@ -48,10 +43,8 @@
   [@.disabled]="true"
   [viewDate]="viewDate"
   [events]="events"
-  [refresh]="refresh"
   [activeDayIsOpen]="activeDayIsOpen"
   (dayClicked)="dayClicked($event.day)"
   [contextMenu]="basicMenu"
   (eventClicked)="handleEvent('Clicked', $event.event)">
 </mwl-calendar-month-view>
-

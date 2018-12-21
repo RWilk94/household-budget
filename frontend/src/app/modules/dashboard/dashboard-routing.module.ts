@@ -14,8 +14,8 @@ const routes: Routes = [
       {path: 'spending', component: SpendingComponent},
       {path: 'module', component: ModuleComponent},
       {path: 'category', component: CategoryComponent},
-      // {path: 'onSubmit-spend', component: AddSpendComponent},
-      {path: 'onSubmit-spend/:id', component: AddSpendComponent}
+      {path: 'add-spend', component: AddSpendComponent},
+      {path: 'add-spend/:id', component: AddSpendComponent}
     ]
   },
   {path: '**', component: DashboardComponent, pathMatch: 'full'}

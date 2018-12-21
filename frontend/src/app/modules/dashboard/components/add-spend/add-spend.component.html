@@ -1,8 +1,7 @@
-<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/css/bootstrap-select.min.css">-->
-<!-- Latest compiled and minified CSS -->
-<!---->
-
-<!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">-->
+<link rel="stylesheet" type="text/css" href="https://npmcdn.com/angular2-toaster@6.1.0/toaster.css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism.css"/>
+<toaster-container></toaster-container>
 
 <mat-card>
   <mat-card-content>
@@ -12,65 +11,59 @@
            id="name"
            placeholder="Name"
            [(ngModel)]="spend.name">
+    <br>
 
-    <ng-select [items]="cities"
+    <ng-select [items]="modulesSelectItem"
                bindLabel="name"
-               placeholder="Select city"
-               [(ngModel)]="selectedCity">
+               placeholder="Select module"
+               [(ngModel)]="selectedModule"
+               (ngModelChange)="selectModuleNgModelChange()">
     </ng-select>
+    <br>
 
+    <ng-select
+      [items]="categoriesSelectItem"
+      bindLabel="name"
+      placeholder="Select category"
+      [(ngModel)]="selectedCategory"
+      (ngModelChange)="selectCategoryNgModelChange()">
+    </ng-select>
+    <br>
 
-    <!--<select class="selectpicker" style="width: 95%">-->
-      <!--&lt;!&ndash;<option *ngFor="let module of modules">{{module.name}}</option>&ndash;&gt;-->
-      <!--<option>Mustard</option>-->
-      <!--<option>Ketchup</option>-->
-      <!--<option>Barbecue</option>-->
-    <!--</select>-->
+    <div class="input-group">
+      <input class="form-control"
+             placeholder="Select date"
+             [readonly]=true
+             name="dp"
+             [(ngModel)]="date"
+             (ngModelChange)="selectDateNgModelChange()"
+             ngbDatepicker #d="ngbDatepicker">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary calendar"
+                (click)="d.toggle()"
+                type="button">
+        </button>
+      </div>
+    </div>
+    <br>
 
-    <!--<mat-form-field style="width: 95%">-->
-    <!--<mat-select [compareWith]="compareModules" [(value)]="spend.category.module" placeholder="Module">-->
-    <!--<mat-option *ngFor="let module of modules" [value]="module">-->
-    <!--{{module.name}}-->
-    <!--</mat-option>-->
-    <!--</mat-select>-->
-    <!--</mat-form-field>-->
-
-    <!--<mat-form-field style="width: 95%">-->
-    <!--<mat-select [compareWith]="compareCategories" [(value)]="spend.category" placeholder="Category">-->
-    <!--<mat-option *ngFor="let category of filterCategoriesByModule(spend)" [value]="category">-->
-    <!--{{category.name}}-->
-    <!--</mat-option>-->
-    <!--</mat-select>-->
-    <!--</mat-form-field>-->
-
-    <mat-form-field style="width: 95%">
-      <input matInput [matDatepicker]="datePicker" placeholder="Choose a date" [value]="spend.date" disabled
-             (dateChange)="updateSpendDateOnBlur($event.target.value)">
-      <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
-      <mat-datepicker #datePicker disabled="false"></mat-datepicker>
-    </mat-form-field>
-
-    <!--<mat-form-field style="width: 95%">-->
-    <!--<input matInput-->
-    <!--value="{{spend.value}}"-->
-    <!--maxlength="255" type="number" placeholder="Value">-->
-    <!--</mat-form-field>-->
-
-    <input type="text" class="form-control"
+    <input type="text"
+           class="form-control"
            id="value"
            placeholder="Value"
            [(ngModel)]="spend.value">
+    <br>
 
-
-    <!--</form>-->
     <div class="container-form-buttons">
       <button type="button" id="button-reset"
               class="btn btn-secondary form-button"
+              style="margin-right: 5px"
               routerLink="/dashboard/module">
         Cancel
       </button>
 
       <button type="submit" (click)="onSubmit()"
+              style="margin-left: 5px"
               class="btn btn-success form-button">
         Save
       </button>

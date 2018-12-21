@@ -27,7 +27,7 @@ import {adapterFactory} from "angular-calendar/date-adapters/date-fns";
 import {CalendarModule, DateAdapter} from "angular-calendar";
 import { ContextMenuModule } from 'ngx-contextmenu';
 import { AddSpendComponent } from './components/add-spend/add-spend.component';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgbDatepickerModule, NgbModalModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {BrowserModule} from "@angular/platform-browser";
@@ -60,6 +60,8 @@ import {BrowserModule} from "@angular/platform-browser";
     }),
     NgbModalModule,
     NgSelectModule,
+    NgbDatepickerModule,
+    NgbModule
   ],
   entryComponents: [DialogConfirmDeleteComponent],
   providers: [

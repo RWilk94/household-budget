@@ -1,77 +1,90 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Spend} from "../../models/spend";
 import {ModuleService} from "../../services/module.service";
 import {Router} from "@angular/router";
 import {SpendingService} from "../../services/spending.service";
 import {CookieService} from "ngx-cookie-service";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {Module} from "../../models/module";
 import {Category} from "../../models/category";
 import {CategoryService} from "../../services/category.service";
+import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
+import {ToastBuilder} from "../../../shared/utils/toast-builder";
+import {Toast, ToasterService} from "angular2-toaster";
+import {User} from "../../../shared/models/user";
 
 @Component({
   selector: 'app-add-spend',
   templateUrl: './add-spend.component.html',
   styleUrls: ['./add-spend.component.css']
 })
-export class AddSpendComponent implements OnInit, AfterViewInit {
+export class AddSpendComponent implements OnInit {
 
   spend: Spend = new Spend();
-  spendForm: FormGroup;
 
   modules: Module[] = [];
+  modulesSelectItem: any = [];
+  selectedModule: any;
+
   categories: Category[] = [];
+  categoriesSelectItem: any = [];
+  selectedCategory: any;
+
+  date: NgbDateStruct;
+
+  private id;
 
   constructor(private spendingService: SpendingService,
               private moduleService: ModuleService,
               private categoryService: CategoryService,
-              private formBuilder: FormBuilder,
               private router: Router,
-              private cookie: CookieService) {
+              private cookie: CookieService,
+              private toasterService: ToasterService) {
     this.spend.category = new Category();
     this.spend.category.module = new Module();
   }
 
   ngOnInit() {
-      let id: string = this.router.url.toString().substring(this.router.url.toString().lastIndexOf("/") + 1);
-      this.spendingService.getSpendingById(this.cookie.get('username'), Number.parseInt(id)).subscribe(spend => {
+    this.id = this.router.url.toString().substring(this.router.url.toString().lastIndexOf("/") + 1);
+    if (!Number.isNaN(Number.parseInt(this.id))) {
+      this.spendingService.getSpendingById(this.cookie.get('username'), Number.parseInt(this.id)).subscribe(spend => {
         this.spend = spend;
+        this.setSelectedCategory();
+        this.setSelectedModule();
+        let date = new Date(this.spend.date);
+        this.date = {year: date.getUTCFullYear(), month: date.getUTCMonth(), day: date.getUTCDate()};
       });
+    } else {
+      this.spend.user = new User();
+      this.spend.user.username = this.cookie.get('username');
+    }
 
     this.moduleService.getModules().subscribe(modules => {
       this.modules = modules;
+      this.mapModulesIntoModuleSelect();
     }, error => console.log(error));
 
     this.categoryService.getCategories(this.cookie.get('username')).subscribe(categories => {
       this.categories = categories;
+      this.mapCategoriesIntoCategorySelect();
     }, error => console.log(error));
-
-    // this.spendForm = this.formBuilder.group({
-    //   name: new FormControl(this.spend.name),
-    //   // category: new FormControl(this.spend.category),
-    //   //date: new FormControl(this.spend.date),
-    //   value: new FormControl(this.spend.value)
-    // });
-
-    //this.spendForm.setValue({'value': this.spend.value});
-  }
-
-  ngAfterViewInit() {
-    // this.spendForm.controls['name'].setValue(this.spend.name); // =this.spend.name;
-    // this.spendForm.controls['value'].setValue(this.spend.value); // =this.spend.name;
   }
 
   onSubmit() {
-    console.log('onSubmit');
-    // if (this.spendForm.valid) {
-    //   this.spend.name = this.spendForm.get('name').value;
-    //   console.log(this.spendForm.get('name').value);
-      // this.spend.category = this.spendForm.get('category').value;
-      // this.spend.date = this.spendForm.get('date').value;
-      // this.spend.value = this.spendForm.get('value').value;
-      console.log('spend');
-      console.log(JSON.stringify(this.spend));
-    // }
+    if (this.validateSpend(this.spend) && !Number.isNaN(Number.parseInt(this.id))) {
+      this.spendingService.updateSpend(this.spend).subscribe(spend => {
+        this.displayToast(ToastBuilder.successUpdateItem());
+      }, error => {
+        console.log(error);
+        this.displayToast(ToastBuilder.errorWhileUpdatingItem());
+      });
+    } else if (this.validateSpend(this.spend) && Number.isNaN(Number.parseInt(this.id))) {
+      this.spendingService.addSpend(this.spend).subscribe(spend => {
+        this.displayToast(ToastBuilder.successInsertItem());
+      }, error => {
+        console.log(error);
+        this.displayToast(ToastBuilder.errorWhileInsertingItem());
+      });
+    }
   }
 
   compareModules(m1: Module, m2: Module): boolean {
@@ -87,23 +100,75 @@ export class AddSpendComponent implements OnInit, AfterViewInit {
   }
 
   updateSpendDateOnBlur(date: Date) {
-    this.spend.date= date;
+    this.spend.date = date;
   }
 
-  filterCategoriesByModule(spend: Spend) {
-    if (spend.category.module.name !== '') {
-      return this.categories.filter(category => category.module.name === spend.category.module.name);
+  mapModulesIntoModuleSelect(): any {
+    this.modulesSelectItem = this.modules.map(module => {
+      return {id: module.id, name: module.name}
+    });
+  }
+
+  setSelectedModule() {
+    this.selectedModule = {id: this.spend.category.module.id, name: this.spend.category.module.name};
+  }
+
+  selectModuleNgModelChange() {
+    this.selectedCategory = null;
+    this.mapCategoriesIntoCategorySelect();
+    this.spend.category = new Category();
+  }
+
+  mapCategoriesIntoCategorySelect() {
+    this.categoriesSelectItem = this.categories
+      .filter(category => this.selectedModule !== undefined && this.selectedModule !== null
+        && this.selectedModule.id !== undefined && this.selectedModule.id !== null
+        && category.module.id === this.selectedModule.id && category.module.name === this.selectedModule.name)
+      .map(category => {
+        return {id: category.id, name: category.name}
+      });
+  }
+
+  setSelectedCategory() {
+    this.selectedCategory = {id: this.spend.category.id, name: this.spend.category.name};
+  }
+
+  selectCategoryNgModelChange() {
+    this.spend.category = this.categories.filter(category => this.selectedCategory !== undefined && this.selectedCategory !== null
+      && this.selectedCategory.id !== undefined && this.selectedCategory.id !== null
+      && category.id === this.selectedCategory.id && category.name === this.selectedCategory.name)[0];
+  }
+
+  selectDateNgModelChange() {
+    this.spend.date = new Date(this.date.year, this.date.month - 1, this.date.day);
+    this.spend.date.setHours(Math.abs(this.spend.date.getTimezoneOffset()) / 60);
+  }
+
+  private validateSpend(element: Spend): boolean {
+    if (element.name === null || element.name === undefined || element.name.length === 0) {
+      this.displayToast(ToastBuilder.errorEmptyName());
+      return false;
+    } else if (element.name.length < 1 || element.name.length > 255) {
+      this.displayToast(ToastBuilder.errorIncorrectName());
+      return false;
+    } else if (element.category === null || element.category === undefined || element.category.name === '') {
+      this.displayToast(ToastBuilder.errorEmptyCategory());
+      return false;
+    } else if (element.category.module === null || element.category.module === undefined || element.category.module.name === '') {
+      this.displayToast(ToastBuilder.errorEmptyModule());
+      return false;
+    } else if (element.date === null || element.date === undefined) {
+      this.displayToast(ToastBuilder.errorEmptyDate());
+      return false;
+    } else if (element.value === null || element.value === undefined || element.value < 0 || element.value.toString().length === 0) {
+      this.displayToast(ToastBuilder.errorWrongValue());
+      return false;
     }
-    return [];
+    return true;
   }
 
-  selectedCity: any;
-  cities = [
-    {id: 1, name: 'Vilnius'},
-    {id: 2, name: 'Kaunas'},
-    {id: 3, name: 'Pavilnys', disabled: true},
-    {id: 4, name: 'Pabradė'},
-    {id: 5, name: 'Klaipėda'}
-  ];
+  private displayToast(toast: Toast): void {
+    this.toasterService.pop(toast);
+  }
 
 }
