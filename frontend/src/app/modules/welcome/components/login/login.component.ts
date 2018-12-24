@@ -5,6 +5,7 @@ import {User} from "../../../shared/models/user";
 import {RegistrationService} from "../../../shared/services/registration.service";
 import {CookieService} from "ngx-cookie-service";
 import {Router} from "@angular/router";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ export class LoginComponent implements OnInit {
   private token = {'token': ''};
   loginForm: FormGroup;
   user: User;
+  alert: Alert;
 
   constructor(private formBuilder: FormBuilder, private registrationService: RegistrationService, private cookie: CookieService,
               private router: Router) {
@@ -44,9 +46,21 @@ export class LoginComponent implements OnInit {
           this.cookie.set('token', this.token.token);
           this.router.navigate(['/dashboard']);
         },
-        error => console.log('Error while login ' + JSON.stringify(error))
+        error => this.handleError(error)
       );
     }
   }
 
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 401) {
+      this.alert = {
+        type: 'danger',
+        message: 'Wrong username or password.',
+      };
+    }
+  }
+
+  closeAlert() {
+    this.alert = undefined;
+  }
 }

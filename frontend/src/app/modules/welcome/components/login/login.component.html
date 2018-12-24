@@ -9,6 +9,10 @@
         <p class="text-center"><strong id="title">SIGN IN</strong></p>
       </mat-card-title>
       <mat-card-content>
+        <p *ngIf="alert !== undefined">
+          <ngb-alert [type]="alert.type" (close)="closeAlert()">{{ alert.message }}</ngb-alert>
+        </p>
+
         <form [formGroup]="loginForm">
 
           <mat-form-field class="mat-input-form">

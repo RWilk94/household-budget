@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import rwilk.hb.exception.UserAlreadyExistsException;
+
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
@@ -48,6 +50,16 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         .message("Record already exists.")
         .timeStamp(System.currentTimeMillis())
         .details(exception.getMostSpecificCause().toString())
+        .build();
+    return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+  }
+
+  @ExceptionHandler
+  public ResponseEntity<Object> handleUserAlreadyExistsException(UserAlreadyExistsException exception) {
+    ErrorResponse response = ErrorResponse.builder()
+        .status(HttpStatus.BAD_REQUEST.value())
+        .message(exception.getMessage())
+        .timeStamp(System.currentTimeMillis())
         .build();
     return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
   }
