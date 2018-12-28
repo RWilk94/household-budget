@@ -11,6 +11,7 @@ import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
 import {ToastBuilder} from "../../../shared/utils/toast-builder";
 import {Toast, ToasterService} from "angular2-toaster";
 import {User} from "../../../shared/models/user";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-add-spend',
@@ -30,6 +31,7 @@ export class AddSpendComponent implements OnInit {
   selectedCategory: any;
 
   date: NgbDateStruct;
+  alert: Alert;
 
   private id;
 
@@ -72,14 +74,20 @@ export class AddSpendComponent implements OnInit {
   onSubmit() {
     if (this.validateSpend(this.spend) && !Number.isNaN(Number.parseInt(this.id))) {
       this.spendingService.updateSpend(this.spend).subscribe(spend => {
-        this.displayToast(ToastBuilder.successUpdateItem());
+        this.alert = {
+          type: 'success',
+          message: 'Record updated successfully.',
+        };
       }, error => {
         console.log(error);
         this.displayToast(ToastBuilder.errorWhileUpdatingItem());
       });
     } else if (this.validateSpend(this.spend) && Number.isNaN(Number.parseInt(this.id))) {
       this.spendingService.addSpend(this.spend).subscribe(spend => {
-        this.displayToast(ToastBuilder.successInsertItem());
+        this.alert = {
+          type: 'success',
+          message: 'Record added successfully.',
+        };
       }, error => {
         console.log(error);
         this.displayToast(ToastBuilder.errorWhileInsertingItem());
@@ -169,6 +177,10 @@ export class AddSpendComponent implements OnInit {
 
   private displayToast(toast: Toast): void {
     this.toasterService.pop(toast);
+  }
+
+  closeAlert() {
+    this.alert = undefined;
   }
 
 }
