@@ -21,6 +21,11 @@ export class NavigationMenuComponent implements OnInit, AfterViewInit {
       route: 'dashboard'
     },
     {
+      displayName: 'Calendar',
+      iconName: 'date_range',
+      route: 'dashboard/calendar'
+    },
+    {
       displayName: 'Spending',
       iconName: 'payment',
       route: 'dashboard/spending'
@@ -29,11 +34,6 @@ export class NavigationMenuComponent implements OnInit, AfterViewInit {
       displayName: 'Settings',
       iconName: 'settings',
       children: [
-        {
-          displayName: 'Modules',
-          iconName: 'group_work',
-          route: 'dashboard/module'
-        },
         {
           displayName: 'Categories',
           iconName: 'category',

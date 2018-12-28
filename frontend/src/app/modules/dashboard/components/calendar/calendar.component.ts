@@ -35,10 +35,10 @@ const ACTION_DELETE = 'Delete';
 
 @Component({
   selector: 'app-module',
-  templateUrl: './module.component.html',
-  styleUrls: ['./module.component.css']
+  templateUrl: './calendar.component.html',
+  styleUrls: ['./calendar.component.css']
 })
-export class ModuleComponent implements OnInit {
+export class CalendarComponent implements OnInit {
 
   private spending: Spend[] = [];
   private modules: Module[] = [];

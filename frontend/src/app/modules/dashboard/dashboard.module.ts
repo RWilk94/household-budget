@@ -4,7 +4,7 @@ import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {DashboardRoutingModule} from "./dashboard-routing.module";
 import {ToasterModule} from "angular2-toaster";
 import {CategoryComponent} from './components/category/category.component';
-import {ModuleComponent} from './components/module/module.component';
+import {CalendarComponent} from './components/calendar/calendar.component';
 import {
   MatCardModule,
   MatDatepickerModule,
@@ -69,7 +69,7 @@ import {BrowserModule} from "@angular/platform-browser";
     ModuleService,
     {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}}
   ],
-  declarations: [DashboardComponent, CategoryComponent, ModuleComponent, DialogConfirmDeleteComponent, SpendingComponent, AddSpendComponent]
+  declarations: [DashboardComponent, CategoryComponent, CalendarComponent, DialogConfirmDeleteComponent, SpendingComponent, AddSpendComponent]
 })
 export class DashboardModule {
 }
