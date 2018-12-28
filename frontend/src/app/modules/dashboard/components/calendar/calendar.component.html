@@ -1,0 +1,50 @@
+<link rel="stylesheet" type="text/css" href="https://npmcdn.com/angular2-toaster@6.1.0/toaster.css"/>
+<toaster-container></toaster-container>
+
+<context-menu #basicMenu>
+  <ng-template contextMenuItem (execute)="addEvent()">
+    Add event
+  </ng-template>
+</context-menu>
+
+<div class="row text-center" style="max-width: 100%">
+  <div class="col-md-4">
+    <div class="btn-group">
+      <div
+        class="btn btn-primary"
+        mwlCalendarPreviousView
+        [view]="view"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="activeDayIsOpen = false">
+        Previous
+      </div>
+      <div
+        class="btn btn-outline-secondary"
+        mwlCalendarToday
+        [(viewDate)]="viewDate">
+        Today
+      </div>
+      <div
+        class="btn btn-primary"
+        mwlCalendarNextView
+        [view]="view"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="activeDayIsOpen = false">
+        Next
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+  </div>
+</div>
+
+<mwl-calendar-month-view
+  [@.disabled]="true"
+  [viewDate]="viewDate"
+  [events]="events"
+  [activeDayIsOpen]="activeDayIsOpen"
+  (dayClicked)="dayClicked($event.day)"
+  [contextMenu]="basicMenu"
+  (eventClicked)="handleEvent('Clicked', $event.event)">
+</mwl-calendar-month-view>

@@ -127,7 +127,11 @@ export class SpendingComponent implements OnInit, AfterViewInit {
       spend.name = element.name;
       spend.user = new User();
       spend.user.username = this.cookie.get('username');
-      spend.value = element.value;
+
+      let val = Number(element.value);
+      spend.value = Number(val.toFixed(2));
+      element.value = Number(spend.value);
+
       this.spendingService.updateSpend(spend).subscribe(spend => {
         console.log(spend);
         this.displayToast(ToastBuilder.successUpdateItem());
@@ -147,7 +151,11 @@ export class SpendingComponent implements OnInit, AfterViewInit {
       spend.name = element.name;
       spend.user = new User();
       spend.user.username = this.cookie.get('username');
-      spend.value = element.value;
+
+      let val = Number(element.value);
+      spend.value = Number(val.toFixed(2));
+      element.value = Number(spend.value);
+
       this.spendingService.addSpend(spend).subscribe(result => {
         this.displayToast(ToastBuilder.successInsertItem());
         this.spending[element.position - 1] = result;

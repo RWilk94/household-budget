@@ -25,8 +25,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.spendingService.getLastYearSpending(this.cookieService.get('username')).subscribe(data => {
-      // console.log(this.cookieService.get('username'));
-      // console.log(JSON.stringify(data));
       if (data.length > 0) {
         this.generateSummaryOfSpendingChart(data);
         this.setCurrentMonthSpending(data[data.length - 1]);
@@ -49,11 +47,9 @@ export class DashboardComponent implements OnInit {
     let dataArray = [];
     let labels: string[] = [];
     data.forEach(monthSpend => {
-      dataArray.push(monthSpend.sum);
+      dataArray.push(Math.round(monthSpend.sum * 100) / 100);
       labels.push(monthSpend.month + '/' + monthSpend.year);
     });
-    // console.log(dataArray.length + ' ' + labels.length);
-    // let colors = ['red', 'green', 'blue', 'yellow'];
     this.chart = new Chart('chart', {
       type: 'bar',
       data: {

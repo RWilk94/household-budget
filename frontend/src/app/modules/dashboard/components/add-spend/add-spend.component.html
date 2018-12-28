@@ -1,0 +1,75 @@
+<link rel="stylesheet" type="text/css" href="https://npmcdn.com/angular2-toaster@6.1.0/toaster.css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism.css"/>
+<toaster-container></toaster-container>
+
+<mat-card>
+  <mat-card-content>
+
+    <input type="text"
+           class="form-control"
+           id="name"
+           placeholder="Name"
+           [(ngModel)]="spend.name">
+    <br>
+
+    <ng-select [items]="modulesSelectItem"
+               bindLabel="name"
+               placeholder="Select module"
+               [(ngModel)]="selectedModule"
+               (ngModelChange)="selectModuleNgModelChange()">
+    </ng-select>
+    <br>
+
+    <ng-select
+      [items]="categoriesSelectItem"
+      bindLabel="name"
+      placeholder="Select category"
+      [(ngModel)]="selectedCategory"
+      (ngModelChange)="selectCategoryNgModelChange()">
+    </ng-select>
+    <br>
+
+    <div class="input-group">
+      <input class="form-control"
+             placeholder="Select date"
+             [readonly]=true
+             name="dp"
+             [(ngModel)]="date"
+             (ngModelChange)="selectDateNgModelChange()"
+             ngbDatepicker #d="ngbDatepicker">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary calendar"
+                (click)="d.toggle()"
+                type="button">
+        </button>
+      </div>
+    </div>
+    <br>
+
+    <input type="text"
+           class="form-control"
+           id="value"
+           placeholder="Value"
+           [(ngModel)]="spend.value">
+    <br>
+
+    <div class="container-form-buttons">
+      <button type="button" id="button-reset"
+              class="btn btn-secondary form-button"
+              style="margin-right: 5px"
+              routerLink="/dashboard/module">
+        Cancel
+      </button>
+
+      <button type="submit" (click)="onSubmit()"
+              style="margin-left: 5px"
+              class="btn btn-success form-button">
+        Save
+      </button>
+    </div>
+
+  </mat-card-content>
+</mat-card>
+
+

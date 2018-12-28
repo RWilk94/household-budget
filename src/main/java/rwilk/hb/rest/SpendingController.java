@@ -1,6 +1,7 @@
 package rwilk.hb.rest;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -26,6 +27,11 @@ public class SpendingController {
   @RequestMapping(value = "/{username}", method = RequestMethod.GET)
   public List<Spend> getSpending(@PathVariable String username) {
     return spendingService.getUserSpending(username);
+  }
+
+  @RequestMapping(value = "/{username}/{id}", method = RequestMethod.GET)
+  public Spend getSpendingById(@PathVariable String username, @PathVariable Long id) {
+    return spendingService.getSpendingById(id);
   }
 
   @RequestMapping(value = "/", method = RequestMethod.PUT)
