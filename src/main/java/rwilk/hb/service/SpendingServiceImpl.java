@@ -106,7 +106,7 @@ public class SpendingServiceImpl implements SpendingService {
 
   @Override
   public List<CategorySpending> getUserSpendingFromLastMonth(String username) {
-    Locale.setDefault(new Locale("en_GB"));
+//    Locale.setDefault(new Locale("en_GB"));
     Calendar firstDay = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
     firstDay.set(Calendar.DATE, 1);
     firstDay.add(Calendar.MONTH, -1);

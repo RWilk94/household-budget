@@ -82,7 +82,6 @@ export class CalendarComponent implements OnInit {
   }
 
   dayClicked({date, events}: { date: Date; events: CalendarEvent[] }): void {
-    console.log('dayClicked');
     if (isSameMonth(date, this.viewDate)) {
       this.viewDate = date;
       this.activeDayIsOpen = !((isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) || events.length === 0);
@@ -110,7 +109,9 @@ export class CalendarComponent implements OnInit {
     }
   }
 
-  addEvent(): void {
+  addEvent(date: Date): void {
+    console.log(date);
+    this.spendingService.date = date;
     this.router.navigate(['/dashboard/add-spend/']);
   }
 

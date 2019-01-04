@@ -12,8 +12,8 @@ import {CategorySpending} from "../../models/category-spending";
 })
 export class DashboardComponent implements OnInit {
 
-  currentMonthSpending: number = -1;
-  lastMonthSpending: number = -1;
+  currentMonthSpending: number = 0;
+  lastMonthSpending: number = 0;
 
   chart: any;
   currentMonthCategoryChart: any;
@@ -27,20 +27,18 @@ export class DashboardComponent implements OnInit {
     this.spendingService.getLastYearSpending(this.cookieService.get('username')).subscribe(data => {
       if (data.length > 0) {
         this.generateSummaryOfSpendingChart(data);
-        this.setCurrentMonthSpending(data[data.length - 1]);
-        this.setLastMonthSpending(data[data.length - 2]);
       }
     }, error => console.log(error));
 
     this.spendingService.getCurrentMonthSpendingByCategory(this.cookieService.get('username')).subscribe(data => {
+      this.setCurrentMonthSpending(data);
       this.generateSpendingByCategoryChart(this.currentMonthCategoryChart, 'currentMonthCategoryChart', data);
     });
 
     this.spendingService.getLastMonthSpendingByCategory(this.cookieService.get('username')).subscribe(data => {
-      // console.log(data.length + 'lastMonthCategoryChart');
+      this.setLastMonthSpending(data);
       this.generateSpendingByCategoryChart(this.lastMonthCategoryChart, 'lastMonthCategoryChart', data);
     });
-
   }
 
   generateSummaryOfSpendingChart(data: MonthSpending[]) {
@@ -102,22 +100,12 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  private setCurrentMonthSpending(monthSpending: MonthSpending) {
-    let date = new Date();
-    if (monthSpending !== undefined && date.getMonth() == monthSpending.month - 1 && date.getFullYear() == monthSpending.year) {
-      this.currentMonthSpending = monthSpending.sum;
-    } else {
-      this.currentMonthSpending = 0;
-    }
+  private setCurrentMonthSpending(categorySpending: CategorySpending[]) {
+    categorySpending.forEach(category => this.currentMonthSpending += category.sum);
   }
 
-  private setLastMonthSpending(monthSpending: MonthSpending) {
-    let date = new Date();
-    if (monthSpending !== undefined && date.getMonth() - 1 == monthSpending.month - 1 && date.getFullYear() == monthSpending.year) {
-      this.lastMonthSpending = monthSpending.sum;
-    } else {
-      this.lastMonthSpending = 0;
-    }
+  private setLastMonthSpending(categorySpending: CategorySpending[]) {
+    categorySpending.forEach(category => this.lastMonthSpending += category.sum);
   }
 
 }

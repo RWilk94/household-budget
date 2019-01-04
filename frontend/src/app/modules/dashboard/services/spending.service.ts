@@ -11,7 +11,7 @@ import {CategorySpending} from "../models/category-spending";
 })
 export class SpendingService {
 
-  spend: Spend;
+  date: Date;
 
   // private url = 'https://rwilk-household-budget.cfapps.io/api/spending/';
   private url = 'http://localhost:8080/api/spending/';

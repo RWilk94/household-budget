@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {Spend} from "../../models/spend";
 import {ModuleService} from "../../services/module.service";
 import {Router} from "@angular/router";
@@ -11,14 +11,13 @@ import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
 import {ToastBuilder} from "../../../shared/utils/toast-builder";
 import {Toast, ToasterService} from "angular2-toaster";
 import {User} from "../../../shared/models/user";
-import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-add-spend',
   templateUrl: './add-spend.component.html',
   styleUrls: ['./add-spend.component.css']
 })
-export class AddSpendComponent implements OnInit {
+export class AddSpendComponent implements OnInit, AfterViewInit {
 
   spend: Spend = new Spend();
 
@@ -56,13 +55,19 @@ export class AddSpendComponent implements OnInit {
         this.date = {year: date.getUTCFullYear(), month: date.getUTCMonth(), day: date.getUTCDate()};
       });
     } else {
-      this.spend.user = new User();
-      this.spend.user.username = this.cookie.get('username');
+
     }
 
     this.moduleService.getModules().subscribe(modules => {
       this.modules = modules;
       this.mapModulesIntoModuleSelect();
+
+      this.spend.user = new User();
+      this.spend.user.username = this.cookie.get('username');
+      let date = new Date();
+      this.date = {year: date.getUTCFullYear(), month: date.getUTCMonth(), day: date.getUTCDate()};
+      this.selectDateNgModelChange();
+
     }, error => console.log(error));
 
     this.categoryService.getCategories(this.cookie.get('username')).subscribe(categories => {
@@ -71,27 +76,36 @@ export class AddSpendComponent implements OnInit {
     }, error => console.log(error));
   }
 
+  ngAfterViewInit(): void {
+    // this.spend.user = new User();
+    // this.spend.user.username = this.cookie.get('username');
+    // let date = new Date();
+    // this.date = {year: date.getUTCFullYear(), month: date.getUTCMonth(), day: date.getUTCDate()};
+  }
+
   onSubmit() {
-    if (this.validateSpend(this.spend) && !Number.isNaN(Number.parseInt(this.id))) {
-      this.spendingService.updateSpend(this.spend).subscribe(spend => {
-        this.alert = {
-          type: 'success',
-          message: 'Record updated successfully.',
-        };
-      }, error => {
-        console.log(error);
-        this.displayToast(ToastBuilder.errorWhileUpdatingItem());
-      });
-    } else if (this.validateSpend(this.spend) && Number.isNaN(Number.parseInt(this.id))) {
-      this.spendingService.addSpend(this.spend).subscribe(spend => {
-        this.alert = {
-          type: 'success',
-          message: 'Record added successfully.',
-        };
-      }, error => {
-        console.log(error);
-        this.displayToast(ToastBuilder.errorWhileInsertingItem());
-      });
+    if (this.validateSpend(this.spend)) {
+      if (!Number.isNaN(Number.parseInt(this.id))) {
+        this.spendingService.updateSpend(this.spend).subscribe(spend => {
+          this.alert = {
+            type: 'success',
+            message: 'Record updated successfully.',
+          };
+        }, error => {
+          console.log(error);
+          this.displayToast(ToastBuilder.errorWhileUpdatingItem());
+        });
+      } else if (Number.isNaN(Number.parseInt(this.id))) {
+        this.spendingService.addSpend(this.spend).subscribe(spend => {
+          this.alert = {
+            type: 'success',
+            message: 'Record added successfully.',
+          };
+        }, error => {
+          console.log(error);
+          this.displayToast(ToastBuilder.errorWhileInsertingItem());
+        });
+      }
     }
   }
 
@@ -148,6 +162,7 @@ export class AddSpendComponent implements OnInit {
   }
 
   selectDateNgModelChange() {
+    console.log('selectDateNgModelChange');
     this.spend.date = new Date(this.date.year, this.date.month - 1, this.date.day);
     this.spend.date.setHours(Math.abs(this.spend.date.getTimezoneOffset()) / 60);
   }
