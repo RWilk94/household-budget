@@ -1,4 +1,4 @@
-import { browser, by, element } from 'protractor';
+import {browser, by, element} from 'protractor';
 
 export class AppPage {
 
@@ -90,6 +90,10 @@ export class AppPage {
     return browser.get('/dashboard/spending');
   }
 
+  navigateToDashboardPage() {
+    return browser.get('/dashboard/');
+  }
+
   getEditIcon() {
     return element.all(by.className('mat-icon material-icons ng-star-inserted')).first();
   }
@@ -112,5 +116,9 @@ export class AppPage {
 
   getDialogConfirmButton() {
     return element(by.className('btn btn-danger'));
+  }
+
+  getSignOutButton() {
+    return element(by.id('sign-out'));
   }
 }

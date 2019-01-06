@@ -64,7 +64,13 @@ describe('workspace-project App', () => {
     page.getDialogConfirmButton().click().then(() => {
       browser.sleep(5000);
     });
-    //TODO any expect
+  });
+
+  it('should display home page after logout', () => {
+    page.navigateToDashboardPage();
+    page.getSignOutButton().click();
+    const EC = protractor.ExpectedConditions;
+    browser.wait(EC.urlContains('http://localhost:41951/'), 5000);
   });
 
 });

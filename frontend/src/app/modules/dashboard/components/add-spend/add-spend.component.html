@@ -38,7 +38,7 @@
              placeholder="Select date"
              [readonly]=true
              name="dp"
-             ngModel="{{date}}"
+             [(ngModel)]="date"
              (ngModelChange)="selectDateNgModelChange()"
              ngbDatepicker #d="ngbDatepicker">
       <div class="input-group-append">
