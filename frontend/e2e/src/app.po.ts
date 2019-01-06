@@ -31,7 +31,7 @@ export class AppPage {
   }
 
   getFirstDayFromCalendar() {
-    return element.all(by.className('cal-cell-top ng-star-inserted')).first();
+    return element.all(by.className('fill-height ng-star-inserted')).first();
   }
 
   getAddEventFromDropdown() {
