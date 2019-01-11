@@ -56,8 +56,7 @@ export class AddSpendComponent implements OnInit {
     } else {
       this.spend.user = new User();
       this.spend.user.username = this.cookie.get('username');
-      let date = new Date();
-      this.date = {year: date.getUTCFullYear(), month: date.getUTCMonth() + 1, day: date.getUTCDate()};
+      this.date = this.spendingService.calendarDate;
     }
 
     this.moduleService.getModules().subscribe(modules => {

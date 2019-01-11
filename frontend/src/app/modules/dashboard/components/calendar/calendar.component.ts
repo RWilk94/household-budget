@@ -71,6 +71,13 @@ export class CalendarComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.spendingService.calendarDate !== undefined && this.spendingService.calendarDate !== null) {
+      this.viewDate = new Date(
+        this.spendingService.calendarDate.year,
+        this.spendingService.calendarDate.month-1,
+        this.spendingService.calendarDate.day);
+    }
+
     this.spendingService.getSpending(this.cookieService.get('username')).subscribe(spending => {
       this.spending = spending;
       this.convertSpendingIntoCalendarEvents(spending);
@@ -111,7 +118,7 @@ export class CalendarComponent implements OnInit {
 
   addEvent(date: Date): void {
     console.log(date);
-    this.spendingService.date = date;
+    this.spendingService.calendarDate = {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()};
     this.router.navigate(['/dashboard/add-spend/']);
   }
 
