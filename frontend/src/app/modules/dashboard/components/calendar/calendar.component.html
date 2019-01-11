@@ -2,10 +2,41 @@
 <toaster-container></toaster-container>
 
 <context-menu #basicMenu>
-  <ng-template contextMenuItem (execute)="addEvent()">
+  <ng-template contextMenuItem (execute)="addEvent($event.item)">
     Add event
   </ng-template>
 </context-menu>
+
+<ng-template
+  #monthCellTemplate
+  let-day="day"
+  let-openDay="openDay"
+  let-locale="locale"
+  let-tooltipPlacement="tooltipPlacement"
+  let-highlightDay="highlightDay"
+  let-unhighlightDay="unhighlightDay"
+  let-eventClicked="eventClicked">
+
+  <div class="fill-height" [contextMenu]="basicMenu" [contextMenuSubject]="day.date">
+    <div class="cal-cell-top">
+      <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>
+      <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+    </div>
+    <div class="cal-events">
+      <div
+        class="cal-event"
+        *ngFor="let event of day.events"
+        [style.backgroundColor]="event.color.primary"
+        [ngClass]="event?.cssClass"
+        (mouseenter)="highlightDay.emit({event: event})"
+        (mouseleave)="unhighlightDay.emit({event: event})"
+        [mwlCalendarTooltip]="event.title | calendarEventTitle:'monthTooltip':event"
+        [tooltipPlacement]="tooltipPlacement"
+        (click)="$event.stopPropagation(); eventClicked.emit({event: event})">
+      </div>
+    </div>
+  </div>
+</ng-template>
 
 <div class="row text-center" style="max-width: 100%">
   <div class="col-md-4">
@@ -45,6 +76,6 @@
   [events]="events"
   [activeDayIsOpen]="activeDayIsOpen"
   (dayClicked)="dayClicked($event.day)"
-  [contextMenu]="basicMenu"
+  [cellTemplate]="monthCellTemplate"
   (eventClicked)="handleEvent('Clicked', $event.event)">
 </mwl-calendar-month-view>

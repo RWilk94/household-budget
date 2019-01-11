@@ -7,7 +7,6 @@ import {CookieService} from "ngx-cookie-service";
 import {Module} from "../../models/module";
 import {Category} from "../../models/category";
 import {CategoryService} from "../../services/category.service";
-import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
 import {ToastBuilder} from "../../../shared/utils/toast-builder";
 import {Toast, ToasterService} from "angular2-toaster";
 import {User} from "../../../shared/models/user";
@@ -29,7 +28,8 @@ export class AddSpendComponent implements OnInit {
   categoriesSelectItem: any = [];
   selectedCategory: any;
 
-  date: NgbDateStruct;
+  date;
+  alert: Alert;
 
   private id;
 
@@ -51,11 +51,13 @@ export class AddSpendComponent implements OnInit {
         this.setSelectedCategory();
         this.setSelectedModule();
         let date = new Date(this.spend.date);
-        this.date = {year: date.getUTCFullYear(), month: date.getUTCMonth(), day: date.getUTCDate()};
+        this.date = {year: date.getUTCFullYear(), month: date.getUTCMonth() + 1, day: date.getUTCDate()};
       });
     } else {
       this.spend.user = new User();
       this.spend.user.username = this.cookie.get('username');
+      let date = new Date();
+      this.date = {year: date.getUTCFullYear(), month: date.getUTCMonth() + 1, day: date.getUTCDate()};
     }
 
     this.moduleService.getModules().subscribe(modules => {
@@ -72,14 +74,20 @@ export class AddSpendComponent implements OnInit {
   onSubmit() {
     if (this.validateSpend(this.spend) && !Number.isNaN(Number.parseInt(this.id))) {
       this.spendingService.updateSpend(this.spend).subscribe(spend => {
-        this.displayToast(ToastBuilder.successUpdateItem());
+        this.alert = {
+          type: 'success',
+          message: 'Record updated successfully.',
+        };
       }, error => {
         console.log(error);
         this.displayToast(ToastBuilder.errorWhileUpdatingItem());
       });
     } else if (this.validateSpend(this.spend) && Number.isNaN(Number.parseInt(this.id))) {
       this.spendingService.addSpend(this.spend).subscribe(spend => {
-        this.displayToast(ToastBuilder.successInsertItem());
+        this.alert = {
+          type: 'success',
+          message: 'Record added successfully.',
+        };
       }, error => {
         console.log(error);
         this.displayToast(ToastBuilder.errorWhileInsertingItem());
@@ -169,6 +177,10 @@ export class AddSpendComponent implements OnInit {
 
   private displayToast(toast: Toast): void {
     this.toasterService.pop(toast);
+  }
+
+  closeAlert() {
+    this.alert = undefined;
   }
 
 }

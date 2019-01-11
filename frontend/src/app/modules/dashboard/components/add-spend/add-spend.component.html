@@ -5,6 +5,9 @@
 
 <mat-card>
   <mat-card-content>
+    <p *ngIf="alert !== undefined">
+      <ngb-alert [type]="alert.type" (close)="closeAlert()">{{ alert.message }}</ngb-alert>
+    </p>
 
     <input type="text"
            class="form-control"
@@ -58,7 +61,7 @@
       <button type="button" id="button-reset"
               class="btn btn-secondary form-button"
               style="margin-right: 5px"
-              routerLink="/dashboard/module">
+              routerLink="/dashboard/calendar">
         Cancel
       </button>
 
