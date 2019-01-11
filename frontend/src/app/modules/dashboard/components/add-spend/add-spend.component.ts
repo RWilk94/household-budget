@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Spend} from "../../models/spend";
 import {ModuleService} from "../../services/module.service";
 import {Router} from "@angular/router";
@@ -7,7 +7,6 @@ import {CookieService} from "ngx-cookie-service";
 import {Module} from "../../models/module";
 import {Category} from "../../models/category";
 import {CategoryService} from "../../services/category.service";
-import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
 import {ToastBuilder} from "../../../shared/utils/toast-builder";
 import {Toast, ToasterService} from "angular2-toaster";
 import {User} from "../../../shared/models/user";
@@ -17,7 +16,7 @@ import {User} from "../../../shared/models/user";
   templateUrl: './add-spend.component.html',
   styleUrls: ['./add-spend.component.css']
 })
-export class AddSpendComponent implements OnInit, AfterViewInit {
+export class AddSpendComponent implements OnInit {
 
   spend: Spend = new Spend();
 
@@ -29,7 +28,7 @@ export class AddSpendComponent implements OnInit, AfterViewInit {
   categoriesSelectItem: any = [];
   selectedCategory: any;
 
-  date: NgbDateStruct;
+  date;
   alert: Alert;
 
   private id;
@@ -52,22 +51,18 @@ export class AddSpendComponent implements OnInit, AfterViewInit {
         this.setSelectedCategory();
         this.setSelectedModule();
         let date = new Date(this.spend.date);
-        this.date = {year: date.getUTCFullYear(), month: date.getUTCMonth(), day: date.getUTCDate()};
+        this.date = {year: date.getUTCFullYear(), month: date.getUTCMonth() + 1, day: date.getUTCDate()};
       });
     } else {
-
+      this.spend.user = new User();
+      this.spend.user.username = this.cookie.get('username');
+      let date = new Date();
+      this.date = {year: date.getUTCFullYear(), month: date.getUTCMonth() + 1, day: date.getUTCDate()};
     }
 
     this.moduleService.getModules().subscribe(modules => {
       this.modules = modules;
       this.mapModulesIntoModuleSelect();
-
-      this.spend.user = new User();
-      this.spend.user.username = this.cookie.get('username');
-      let date = new Date();
-      this.date = {year: date.getUTCFullYear(), month: date.getUTCMonth(), day: date.getUTCDate()};
-      this.selectDateNgModelChange();
-
     }, error => console.log(error));
 
     this.categoryService.getCategories(this.cookie.get('username')).subscribe(categories => {
@@ -76,36 +71,27 @@ export class AddSpendComponent implements OnInit, AfterViewInit {
     }, error => console.log(error));
   }
 
-  ngAfterViewInit(): void {
-    // this.spend.user = new User();
-    // this.spend.user.username = this.cookie.get('username');
-    // let date = new Date();
-    // this.date = {year: date.getUTCFullYear(), month: date.getUTCMonth(), day: date.getUTCDate()};
-  }
-
   onSubmit() {
-    if (this.validateSpend(this.spend)) {
-      if (!Number.isNaN(Number.parseInt(this.id))) {
-        this.spendingService.updateSpend(this.spend).subscribe(spend => {
-          this.alert = {
-            type: 'success',
-            message: 'Record updated successfully.',
-          };
-        }, error => {
-          console.log(error);
-          this.displayToast(ToastBuilder.errorWhileUpdatingItem());
-        });
-      } else if (Number.isNaN(Number.parseInt(this.id))) {
-        this.spendingService.addSpend(this.spend).subscribe(spend => {
-          this.alert = {
-            type: 'success',
-            message: 'Record added successfully.',
-          };
-        }, error => {
-          console.log(error);
-          this.displayToast(ToastBuilder.errorWhileInsertingItem());
-        });
-      }
+    if (this.validateSpend(this.spend) && !Number.isNaN(Number.parseInt(this.id))) {
+      this.spendingService.updateSpend(this.spend).subscribe(spend => {
+        this.alert = {
+          type: 'success',
+          message: 'Record updated successfully.',
+        };
+      }, error => {
+        console.log(error);
+        this.displayToast(ToastBuilder.errorWhileUpdatingItem());
+      });
+    } else if (this.validateSpend(this.spend) && Number.isNaN(Number.parseInt(this.id))) {
+      this.spendingService.addSpend(this.spend).subscribe(spend => {
+        this.alert = {
+          type: 'success',
+          message: 'Record added successfully.',
+        };
+      }, error => {
+        console.log(error);
+        this.displayToast(ToastBuilder.errorWhileInsertingItem());
+      });
     }
   }
 
@@ -162,7 +148,6 @@ export class AddSpendComponent implements OnInit, AfterViewInit {
   }
 
   selectDateNgModelChange() {
-    console.log('selectDateNgModelChange');
     this.spend.date = new Date(this.date.year, this.date.month - 1, this.date.day);
     this.spend.date.setHours(Math.abs(this.spend.date.getTimezoneOffset()) / 60);
   }

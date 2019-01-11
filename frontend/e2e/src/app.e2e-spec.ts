@@ -1,7 +1,7 @@
 import { AppPage } from './app.po';
 import {browser, protractor} from "protractor";
 
-describe('workspace-project App', () => {
+describe('Household Budget Application', () => {
   let page: AppPage;
   browser.driver.manage().window().maximize();
 
