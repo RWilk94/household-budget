@@ -3,8 +3,10 @@
 
   <mat-sidenav-container class="nav-menu-container" *ngIf="registrationService.isLogin()">
     <mat-sidenav #appDrawer class="nav-menu" [mode]="'side'" [opened]="true">
-      <mat-nav-list class="mat-nav-list">
-        <app-navigation-menu-item *ngFor="let item of menuItems" [menuItem]="item"></app-navigation-menu-item>
+      <mat-nav-list>
+        <ul class="nav">
+          <app-navigation-menu-item *ngFor="let item of menuItems" [menuItem]="item" [menuItems]="menuItems"></app-navigation-menu-item>
+        </ul>
         <app-spinner></app-spinner>
       </mat-nav-list>
     </mat-sidenav>

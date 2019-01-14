@@ -30,7 +30,6 @@ import { AddSpendComponent } from './components/add-spend/add-spend.component';
 import {NgbDatepickerModule, NgbModalModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgSelectModule} from "@ng-select/ng-select";
-import {BrowserModule} from "@angular/platform-browser";
 
 @NgModule({
   imports: [

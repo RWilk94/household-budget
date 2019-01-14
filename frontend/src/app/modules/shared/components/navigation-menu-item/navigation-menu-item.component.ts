@@ -20,6 +20,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 export class NavigationMenuItemComponent implements OnInit {
 
   @Input() menuItem: MenuItem;
+  @Input() menuItems: MenuItem[];
   @Input() depth: number;
   expand: boolean;
 
@@ -33,11 +34,17 @@ export class NavigationMenuItemComponent implements OnInit {
 
   onItemSelected(item: MenuItem) {
     if (!item.children || !item.children.length) {
+      this.selectMenuItem();
+      this.menuItem.active = true;
       this.router.navigate([item.route]);
     }
     if (item.children && item.children.length) {
       this.expand = !this.expand;
     }
+  }
+
+  selectMenuItem() {
+    this.menuItems.forEach(item => item.active = false);
   }
 
 }

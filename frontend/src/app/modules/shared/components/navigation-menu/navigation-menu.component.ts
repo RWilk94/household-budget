@@ -18,7 +18,8 @@ export class NavigationMenuComponent implements OnInit, AfterViewInit {
     {
       displayName: 'Dashboard',
       iconName: 'explore',
-      route: 'dashboard'
+      route: 'dashboard',
+      active: true
     },
     {
       displayName: 'Calendar',
