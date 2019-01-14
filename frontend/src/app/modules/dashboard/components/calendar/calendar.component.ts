@@ -10,6 +10,7 @@ import {ToastBuilder} from "../../../shared/utils/toast-builder";
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Router} from "@angular/router";
 import {Module} from "../../models/module";
+import {NavigationMenuService} from "../../../shared/services/navigation-menu.service";
 
 let colors: any = {
   red: {
@@ -67,7 +68,9 @@ export class CalendarComponent implements OnInit {
               private modal: NgbModal,
               private moduleService: ModuleService,
               private router: Router,
-              private toasterService: ToasterService) {
+              private toasterService: ToasterService,
+              private navigationMenu: NavigationMenuService) {
+    navigationMenu.activeMenuItem('Calendar');
   }
 
   ngOnInit() {

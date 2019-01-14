@@ -4,6 +4,7 @@ import {Chart} from 'chart.js';
 import {CookieService} from "ngx-cookie-service";
 import {MonthSpending} from "../../models/month-spending";
 import {CategorySpending} from "../../models/category-spending";
+import {NavigationMenuService} from "../../../shared/services/navigation-menu.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -20,7 +21,9 @@ export class DashboardComponent implements OnInit {
   lastMonthCategoryChart: any;
 
 
-  constructor(private spendingService: SpendingService, private cookieService: CookieService) {
+  constructor(private spendingService: SpendingService, private cookieService: CookieService,
+              private navigationMenu: NavigationMenuService) {
+    navigationMenu.activeMenuItem('Dashboard');
   }
 
   ngOnInit() {

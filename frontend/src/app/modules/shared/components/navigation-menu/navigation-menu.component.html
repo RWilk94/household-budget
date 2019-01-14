@@ -5,7 +5,7 @@
     <mat-sidenav #appDrawer class="nav-menu" [mode]="'side'" [opened]="true">
       <mat-nav-list>
         <ul class="nav">
-          <app-navigation-menu-item *ngFor="let item of menuItems" [menuItem]="item" [menuItems]="menuItems"></app-navigation-menu-item>
+          <app-navigation-menu-item *ngFor="let item of navigationMenuService.menuItems" [menuItem]="item"></app-navigation-menu-item>
         </ul>
         <app-spinner></app-spinner>
       </mat-nav-list>
