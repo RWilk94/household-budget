@@ -12,13 +12,18 @@ export class NavigationMenuService {
   menuItems: MenuItem[] = [
     {
       displayName: 'Dashboard',
-      iconName: 'explore',
+      iconName: 'dashboard',
       route: 'dashboard'
     },
     {
       displayName: 'Calendar',
       iconName: 'date_range',
       route: 'dashboard/calendar'
+    },
+    {
+      displayName: 'Overview',
+      iconName: 'explore',
+      route: 'dashboard/overview'
     },
     {
       displayName: 'Spending',

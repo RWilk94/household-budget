@@ -30,6 +30,9 @@ import { AddSpendComponent } from './components/add-spend/add-spend.component';
 import {NgbDatepickerModule, NgbModalModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgSelectModule} from "@ng-select/ng-select";
+import { ModuleComponent } from './components/module/module.component';
+import { CategoryViewComponent } from './components/category-view/category-view.component';
+import { SpendingViewComponent } from './components/spending-view/spending-view.component';
 
 @NgModule({
   imports: [
@@ -68,7 +71,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
     ModuleService,
     {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}}
   ],
-  declarations: [DashboardComponent, CategoryComponent, CalendarComponent, DialogConfirmDeleteComponent, SpendingComponent, AddSpendComponent]
+  declarations: [DashboardComponent, CategoryComponent, CalendarComponent, DialogConfirmDeleteComponent, SpendingComponent, AddSpendComponent, ModuleComponent, CategoryViewComponent, SpendingViewComponent]
 })
 export class DashboardModule {
 }

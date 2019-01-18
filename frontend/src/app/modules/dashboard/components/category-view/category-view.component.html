@@ -1,0 +1,30 @@
+<mat-card>
+  <mat-card-content>
+
+    <table width="100%" class="table">
+      <thead>
+        <tr>
+          <th *ngFor="let column of categoryColumns;" [id]="">
+            {{column.name}}
+          </th>
+        </tr>
+      </thead>
+
+      <tbody *ngFor="let row of categories; let i = index">
+        <tr class="clickable" (click)="onRowClick(i)">
+          <td width="60%">{{row.name}}</td>
+          <td width="20%">2</td>
+          <td width="20%">3</td>
+        </tr>
+        <tr *ngIf="row.open">
+          <td [attr.colspan]="categoryColumns.length">
+            <app-spending-view [categoryId]="row.id"></app-spending-view>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+
+
+  </mat-card-content>
+</mat-card>

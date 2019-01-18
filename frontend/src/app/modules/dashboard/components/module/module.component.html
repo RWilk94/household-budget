@@ -1,0 +1,30 @@
+<mat-card>
+  <mat-card-content>
+
+    <table width="100%" class="table">
+      <thead>
+        <tr>
+          <th *ngFor="let column of moduleColumns;" [id]="">
+            {{column.name}}
+          </th>
+        </tr>
+      </thead>
+
+      <tbody *ngFor="let row of modules; let i = index">
+        <tr class="clickable" (click)="onRowClick(i)">
+          <td width="60%">{{row.name}}</td>
+          <td width="20%">2</td>
+          <td width="20%">3</td>
+        </tr>
+
+        <tr *ngIf="row.open">
+          <td [attr.colspan]="moduleColumns.length">
+            <app-category-view [moduleId]="row.id"></app-category-view>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+
+  </mat-card-content>
+</mat-card>

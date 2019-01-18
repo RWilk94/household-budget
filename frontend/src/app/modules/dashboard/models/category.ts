@@ -7,4 +7,5 @@ export class Category {
   user: User;
   module: Module;
   isSpend: boolean;
+  open?: boolean;
 }

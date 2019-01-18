@@ -5,6 +5,7 @@ import {CalendarComponent} from "./components/calendar/calendar.component";
 import {CategoryComponent} from "./components/category/category.component";
 import {SpendingComponent} from "./components/spending/spending.component";
 import {AddSpendComponent} from "./components/add-spend/add-spend.component";
+import {ModuleComponent} from "./components/module/module.component";
 
 const routes: Routes = [
   {
@@ -13,6 +14,7 @@ const routes: Routes = [
       {path: '', component: DashboardComponent},
       {path: 'spending', component: SpendingComponent},
       {path: 'calendar', component: CalendarComponent},
+      {path: 'overview', component: ModuleComponent},
       {path: 'category', component: CategoryComponent},
       {path: 'add-spend', component: AddSpendComponent},
       {path: 'add-spend/:id', component: AddSpendComponent}
