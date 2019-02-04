@@ -1,7 +1,7 @@
 <mat-card>
   <mat-card-content>
 
-    <table width="100%" class="table">
+    <table class="table table-striped">
       <thead>
         <tr>
           <th *ngFor="let column of moduleColumns;" [id]="">
@@ -10,11 +10,14 @@
         </tr>
       </thead>
 
-      <tbody *ngFor="let row of modules; let i = index">
-        <tr class="clickable" (click)="onRowClick(i)">
-          <td width="60%">{{row.name}}</td>
-          <td width="20%">2</td>
-          <td width="20%">3</td>
+      <tbody>
+        <ng-container *ngFor="let row of moduleVOs; let i = index">
+        <tr  class="clickable" (click)="onRowClick(i)">
+          <td width="40%">{{row.name}}</td>
+          <td width="15%">{{row.plannedSpending}}</td>
+          <td width="15%">{{row.actualSpending}}</td>
+          <td width="15%">{{row.difference}}</td>
+          <td width="15%">{{row.percent}}%</td>
         </tr>
 
         <tr *ngIf="row.open">
@@ -22,6 +25,7 @@
             <app-category-view [moduleId]="row.id"></app-category-view>
           </td>
         </tr>
+        </ng-container>
 
       </tbody>
     </table>

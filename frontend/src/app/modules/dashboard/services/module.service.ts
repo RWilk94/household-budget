@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {Module} from "../models/module";
 import {CookieService} from "ngx-cookie-service";
 import {Spend} from "../models/spend";
+import {ModuleVO} from "../models/moduleVO";
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,12 @@ export class ModuleService {
 
   getModules(): Observable<Module[]> {
     return this.http.get<Module[]>(this.url, {headers: this.header});
+  }
+
+  getModuleVOs(): Observable<ModuleVO[]> {
+    let moduleVO: ModuleVO = new ModuleVO();
+    moduleVO.date = new Date();
+    return this.http.post<ModuleVO[]>(this.url + this.cookie.get('username') + '/', moduleVO, {headers: this.header});
   }
 
 }
