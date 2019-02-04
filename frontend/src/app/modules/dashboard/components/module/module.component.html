@@ -1,22 +1,88 @@
 <mat-card>
   <mat-card-content>
 
+    <div class="btn-group btn-group-toggle" style="width: 100%; min-width: 420px" ngbRadioGroup name="radioBasic"
+         >
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" [value]="'2019-01-01'"> 2016
+      </label>
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" [value]="'2019-02-01'"> 2017
+      </label>
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" [value]="'2019-03-01'"> 2018
+      </label>
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" [value]="'2019-04-01'"> 2019
+      </label>
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" [value]="'2019-05-01'"> 2020
+      </label><br>
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" [value]="'2019-06-01'"> 2021
+      </label>
+    </div>
+    <div class="btn-group btn-group-toggle" style="width: 100%; min-width: 420px" ngbRadioGroup name="radioBasic"
+         [(ngModel)]="selectedMonth"
+         (ngModelChange)="selectedMonthOnChange()">
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" [value]="'2019-01-01'"> Styczeń
+      </label>
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" [value]="'2019-02-01'"> Luty
+      </label>
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" [value]="'2019-03-01'"> Marzec
+      </label>
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" [value]="'2019-04-01'"> Kwiecień
+      </label>
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" [value]="'2019-05-01'"> Maj
+      </label><br>
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" [value]="'2019-06-01'"> Czerwiec
+      </label>
+    </div>
+    <div class="btn-group btn-group-toggle" style="width: 100%; min-width: 420px" ngbRadioGroup name="radioBasic"
+         [(ngModel)]="selectedMonth"
+         (ngModelChange)="selectedMonthOnChange()">
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" [value]="'2019-07-01'"> Lipiec
+      </label>
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" [value]="'2019-08-01'"> Sierpień
+      </label>
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" [value]="'2019-09-01'"> Wrzesień
+      </label>
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" [value]="'2019-10-01'"> Październik
+      </label>
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" [value]="'2019-11-01'"> Listopad
+      </label>
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" [value]="'2019-12-01'"> Grudzień
+      </label>
+    </div>
+
     <table class="table table-striped">
       <thead>
-        <tr>
-          <th *ngFor="let column of moduleColumns;" [id]="">
-            {{column.name}}
-          </th>
-        </tr>
+      <tr>
+        <th *ngFor="let column of moduleColumns;" [id]="">
+          {{column.name}}
+        </th>
+      </tr>
       </thead>
 
       <tbody>
-        <ng-container *ngFor="let row of moduleVOs; let i = index">
-        <tr  class="clickable" (click)="onRowClick(i)">
+      <ng-container *ngFor="let row of moduleVOs; let i = index">
+        <tr class="clickable" (click)="onRowClick(i)">
           <td width="40%">{{row.name}}</td>
-          <td width="15%">{{row.plannedSpending}}</td>
-          <td width="15%">{{row.actualSpending}}</td>
-          <td width="15%">{{row.difference}}</td>
+          <td width="15%">{{row.plannedSpending}}zł</td>
+          <td width="15%">{{row.actualSpending}}zł</td>
+          <td width="15%">{{row.difference}}zł</td>
           <td width="15%">{{row.percent}}%</td>
         </tr>
 
@@ -25,10 +91,12 @@
             <app-category-view [moduleId]="row.id"></app-category-view>
           </td>
         </tr>
-        </ng-container>
+      </ng-container>
 
       </tbody>
     </table>
 
   </mat-card-content>
 </mat-card>
+
+

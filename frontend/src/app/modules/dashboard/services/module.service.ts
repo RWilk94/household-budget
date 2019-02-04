@@ -23,9 +23,9 @@ export class ModuleService {
     return this.http.get<Module[]>(this.url, {headers: this.header});
   }
 
-  getModuleVOs(): Observable<ModuleVO[]> {
+  getModuleVOs(date): Observable<ModuleVO[]> {
     let moduleVO: ModuleVO = new ModuleVO();
-    moduleVO.date = new Date();
+    moduleVO.date = date;
     return this.http.post<ModuleVO[]>(this.url + this.cookie.get('username') + '/', moduleVO, {headers: this.header});
   }
 
