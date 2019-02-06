@@ -36,17 +36,25 @@ public class ModuleServiceImpl implements ModuleService {
   }
 
   @Override
-  public List<ModuleVO> getModules(String username, Calendar period) {
+  public List<ModuleVO> getModules(String username, Calendar period, String type) {
     List<Module> modules = this.getModules();
-    Calendar firstDay = Utils.setFirstDayOfMonth(period);
-    Calendar lastDay = Utils.setLastDayOfMonth(period);
+    Calendar firstDay;
+    Calendar lastDay;
+    if (type.equals("month")) {
+      firstDay = Utils.setFirstDayOfMonth(period);
+      lastDay = Utils.setLastDayOfMonth(period);
+    } else {
+      firstDay = Utils.setFirstDayOfYear(period);
+      lastDay = Utils.setLastDayOfYear(period);
+    }
     List<CategorySpending> actualSpending = Utils.mapToCategorySpending(
         spendingRepository.findAllByDateIsBetweenAndUser_UsernameAndGroupByModule(firstDay, lastDay, username));
     List<CategorySpending> plannedSpending = Utils.mapToCategorySpending(
-        plannedSpendRepository.findAllByDateIsBetweenAndUser_UsernameAndGroupByCategory(firstDay, lastDay, username));
+        plannedSpendRepository.findAllByDateIsBetweenAndUser_UsernameAndGroupByModule(firstDay, lastDay, username));
 
     return modules.stream().map(module ->
         ModuleVO.builder()
+            .id(module.getId())
             .name(module.getName())
             .actualSpending(actualSpending.stream()
                 .filter(actual -> actual.getName().equals(module.getName()))

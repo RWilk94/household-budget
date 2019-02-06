@@ -10,6 +10,6 @@ public interface ModuleService {
 
   List<Module> getModules();
 
-  List<ModuleVO> getModules(String username, Calendar date);
+  List<ModuleVO> getModules(String username, Calendar date, String type);
 
 }

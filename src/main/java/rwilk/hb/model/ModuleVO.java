@@ -14,9 +14,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ModuleVO implements Serializable {
 
+  private Long id;
   private String name;
   private Double plannedSpending;
   private Double actualSpending;
   private Calendar date;
+  private String type;
 
 }

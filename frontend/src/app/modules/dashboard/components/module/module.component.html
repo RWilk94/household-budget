@@ -1,97 +1,122 @@
 <mat-card>
   <mat-card-content>
-
     <div class="btn-group btn-group-toggle" style="width: 100%; min-width: 420px" ngbRadioGroup name="radioBasic"
-         >
-      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
-        <input ngbButton type="radio" [value]="'2019-01-01'"> 2016
+         [(ngModel)]="type"
+         (ngModelChange)="selectedTypeOnChange()">
+      <label ngbButtonLabel class="btn-secondary btn-sm">
+        <input ngbButton type="radio" [value]="'year'"> Rok
       </label>
-      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
-        <input ngbButton type="radio" [value]="'2019-02-01'"> 2017
-      </label>
-      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
-        <input ngbButton type="radio" [value]="'2019-03-01'"> 2018
-      </label>
-      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
-        <input ngbButton type="radio" [value]="'2019-04-01'"> 2019
-      </label>
-      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
-        <input ngbButton type="radio" [value]="'2019-05-01'"> 2020
-      </label><br>
-      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
-        <input ngbButton type="radio" [value]="'2019-06-01'"> 2021
-      </label>
-    </div>
-    <div class="btn-group btn-group-toggle" style="width: 100%; min-width: 420px" ngbRadioGroup name="radioBasic"
-         [(ngModel)]="selectedMonth"
-         (ngModelChange)="selectedMonthOnChange()">
-      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
-        <input ngbButton type="radio" [value]="'2019-01-01'"> Styczeń
-      </label>
-      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
-        <input ngbButton type="radio" [value]="'2019-02-01'"> Luty
-      </label>
-      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
-        <input ngbButton type="radio" [value]="'2019-03-01'"> Marzec
-      </label>
-      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
-        <input ngbButton type="radio" [value]="'2019-04-01'"> Kwiecień
-      </label>
-      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
-        <input ngbButton type="radio" [value]="'2019-05-01'"> Maj
-      </label><br>
-      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
-        <input ngbButton type="radio" [value]="'2019-06-01'"> Czerwiec
-      </label>
-    </div>
-    <div class="btn-group btn-group-toggle" style="width: 100%; min-width: 420px" ngbRadioGroup name="radioBasic"
-         [(ngModel)]="selectedMonth"
-         (ngModelChange)="selectedMonthOnChange()">
-      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
-        <input ngbButton type="radio" [value]="'2019-07-01'"> Lipiec
-      </label>
-      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
-        <input ngbButton type="radio" [value]="'2019-08-01'"> Sierpień
-      </label>
-      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
-        <input ngbButton type="radio" [value]="'2019-09-01'"> Wrzesień
-      </label>
-      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
-        <input ngbButton type="radio" [value]="'2019-10-01'"> Październik
-      </label>
-      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
-        <input ngbButton type="radio" [value]="'2019-11-01'"> Listopad
-      </label>
-      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary">
-        <input ngbButton type="radio" [value]="'2019-12-01'"> Grudzień
+      <label ngbButtonLabel class="btn-secondary btn-sm">
+        <input ngbButton type="radio" [value]="'month'"> Miesiąc
       </label>
     </div>
 
-    <table class="table table-striped">
+    <div class="btn-group btn-group-toggle" style="width: 100%; min-width: 420px;" ngbRadioGroup name="radioBasic"
+         [(ngModel)]="selectedYear"
+         (ngModelChange)="selectedYearOnChange()">
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary btn-sm">
+        <input ngbButton type="radio" [value]="2016"> 2016
+      </label>
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary btn-sm">
+        <input ngbButton type="radio" [value]="2017"> 2017
+      </label>
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary btn-sm">
+        <input ngbButton type="radio" [value]="2018"> 2018
+      </label>
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary btn-sm">
+        <input ngbButton type="radio" [value]="2019"> 2019
+      </label>
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary btn-sm">
+        <input ngbButton type="radio" [value]="2020"> 2020
+      </label><br>
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary btn-sm">
+        <input ngbButton type="radio" [value]="2021"> 2021
+      </label>
+    </div>
+    <div *ngIf="type === 'month'" class="btn-group btn-group-toggle" style="width: 100%; min-width: 420px"
+         ngbRadioGroup name="radioBasic"
+         [(ngModel)]="selectedMonth"
+         (ngModelChange)="selectedMonthOnChange()">
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary btn-sm">
+        <input ngbButton type="radio" [value]="1"> Styczeń
+      </label>
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary btn-sm">
+        <input ngbButton type="radio" [value]="2"> Luty
+      </label>
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary btn-sm">
+        <input ngbButton type="radio" [value]="3"> Marzec
+      </label>
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary btn-sm">
+        <input ngbButton type="radio" [value]="4"> Kwiecień
+      </label>
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary btn-sm">
+        <input ngbButton type="radio" [value]="5"> Maj
+      </label><br>
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary btn-sm">
+        <input ngbButton type="radio" [value]="6"> Czerwiec
+      </label>
+    </div>
+    <div *ngIf="type === 'month'" class="btn-group btn-group-toggle" style="width: 100%; min-width: 420px"
+         ngbRadioGroup name="radioBasic"
+         [(ngModel)]="selectedMonth"
+         (ngModelChange)="selectedMonthOnChange()">
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary btn-sm">
+        <input ngbButton type="radio" [value]="7"> Lipiec
+      </label>
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary btn-sm">
+        <input ngbButton type="radio" [value]="8"> Sierpień
+      </label>
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary btn-sm">
+        <input ngbButton type="radio" [value]="9"> Wrzesień
+      </label>
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary btn-sm">
+        <input ngbButton type="radio" [value]="10"> Październik
+      </label>
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary btn-sm">
+        <input ngbButton type="radio" [value]="11"> Listopad
+      </label>
+      <label style="width: 16.66%;" ngbButtonLabel class="btn-primary btn-sm">
+        <input ngbButton type="radio" [value]="12"> Grudzień
+      </label>
+    </div>
+
+    <table *ngIf="(selectedMonth !== 0 && selectedYear !== 0 && type === 'month') || ( selectedYear !== 0 && type === 'year')"
+           class="table">
+      <!--table-striped-->
       <thead>
-      <tr>
-        <th *ngFor="let column of moduleColumns;" [id]="">
-          {{column.name}}
-        </th>
-      </tr>
+        <tr style="background: #005cbf ;color: white;">
+          <th *ngFor="let column of moduleColumns;" [id]="">
+            {{column.name}}
+          </th>
+        </tr>
       </thead>
 
-      <tbody>
-      <ng-container *ngFor="let row of moduleVOs; let i = index">
-        <tr class="clickable" (click)="onRowClick(i)">
-          <td width="40%">{{row.name}}</td>
-          <td width="15%">{{row.plannedSpending}}zł</td>
-          <td width="15%">{{row.actualSpending}}zł</td>
-          <td width="15%">{{row.difference}}zł</td>
-          <td width="15%">{{row.percent}}%</td>
-        </tr>
-
-        <tr *ngIf="row.open">
-          <td [attr.colspan]="moduleColumns.length">
-            <app-category-view [moduleId]="row.id"></app-category-view>
-          </td>
-        </tr>
-      </ng-container>
+      <tbody style="margin: 0; padding: 0">
+        <ng-container *ngFor="let row of moduleVOs; let i = index">
+          <tr style="background: #b8daff" [ngClass]="{'bold': row.open === true}">
+            <td>{{row.name}}</td>
+            <td width="150px">{{row.plannedSpending}}zł</td>
+            <td width="175px">{{row.actualSpending}}zł</td>
+            <td width="150px"
+                [ngClass]="{'negative-difference': row.difference<0, 'positive-difference': row.difference>0}">
+              {{row.difference}}zł
+            </td>
+            <td width="150px">{{row.percent}}%</td>
+            <td width="150px">
+              <button *ngIf="!row.open" type="button" class="btn btn-info btn-sm" (click)="onRowClick(i)">
+                Pokaż kategorie
+              </button>
+              <button *ngIf="row.open" type="button" class="btn btn-secondary btn-sm" (click)="onRowClick(i)">
+                Ukryj kategorie
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="row.open" style="margin: 0; padding: 0">
+            <td [attr.colspan]="moduleColumns.length" style="margin: 0; padding: 0">
+              <app-category-view [moduleId]="row.id" [selectedMonth]="selectedMonth" [selectedYear]="selectedYear" [type]="type"></app-category-view>
+            </td>
+          </tr>
+        </ng-container>
 
       </tbody>
     </table>

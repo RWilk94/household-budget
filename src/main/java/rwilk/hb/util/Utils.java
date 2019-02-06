@@ -43,6 +43,14 @@ public class Utils {
     return firstDay;
   }
 
+  public static Calendar setFirstDayOfYear(Calendar date) {
+    Calendar firstDay = Calendar.getInstance();
+    firstDay.set(Calendar.DATE, 1);
+    firstDay.set(Calendar.MONTH, Calendar.JANUARY);
+    firstDay.set(Calendar.YEAR, date.get(Calendar.YEAR));
+    return firstDay;
+  }
+
   public static Calendar setFirstDayOfPreviousMonth(Calendar date) {
     Calendar firstDay = Calendar.getInstance();
     firstDay.set(Calendar.DATE, 1);
@@ -57,6 +65,15 @@ public class Utils {
     Calendar lastDay = Calendar.getInstance();
     lastDay.set(Calendar.DATE, yearMonth.lengthOfMonth());
     lastDay.set(Calendar.MONTH, date.get(Calendar.MONTH));
+    lastDay.set(Calendar.YEAR, date.get(Calendar.YEAR));
+    return lastDay;
+  }
+
+  public static Calendar setLastDayOfYear(Calendar date) {
+    YearMonth yearMonth = YearMonth.of(date.get(Calendar.YEAR), Calendar.DECEMBER);
+    Calendar lastDay = Calendar.getInstance();
+    lastDay.set(Calendar.DATE, yearMonth.lengthOfMonth());
+    lastDay.set(Calendar.MONTH, Calendar.DECEMBER);
     lastDay.set(Calendar.YEAR, date.get(Calendar.YEAR));
     return lastDay;
   }

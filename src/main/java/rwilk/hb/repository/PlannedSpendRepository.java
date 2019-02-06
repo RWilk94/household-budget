@@ -16,6 +16,14 @@ public interface PlannedSpendRepository extends JpaRepository<PlannedSpend, Long
           + "FROM planned_spending p, categories c, users u, modules m "
           + "WHERE p.id_category = c.id and c.id_module = m.id and p.id_user = u.id and p.date >= :firstDay and p.date <= :lastDay and u.username = :username "
           + "GROUP BY 1")
+  List<Object> findAllByDateIsBetweenAndUser_UsernameAndGroupByModule(
+      @Param("firstDay") Calendar firstDay, @Param("lastDay") Calendar lastDay, @Param("username") String username);
+
+  @Query(nativeQuery = true,
+      value = "SELECT c.name, SUM(p.planned_spend)"
+          + "FROM planned_spending p, categories c, users u "
+          + "WHERE p.id_category = c.id and p.id_user = u.id and p.date >= :firstDay and p.date <= :lastDay and u.username = :username "
+          + "GROUP BY 1")
   List<Object> findAllByDateIsBetweenAndUser_UsernameAndGroupByCategory(
       @Param("firstDay") Calendar firstDay, @Param("lastDay") Calendar lastDay, @Param("username") String username);
 

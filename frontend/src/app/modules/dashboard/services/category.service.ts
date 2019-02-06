@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Category} from "../models/category";
 import {CookieService} from "ngx-cookie-service";
+import {ModuleVO} from "../models/moduleVO";
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,14 @@ export class CategoryService {
 
   deleteCategory(category: Category) {
     return this.http.delete(this.url + category.id, {headers: this.header});
+  }
+
+  getCategoryVOs(date, type, id): Observable<ModuleVO[]> {
+    let moduleVO: ModuleVO = new ModuleVO();
+    moduleVO.date = date;
+    moduleVO.type = type;
+    moduleVO.id = id;
+    return this.http.post<ModuleVO[]>(this.url + this.cookie.get('username') + '/', moduleVO, {headers: this.header});
   }
 
 }

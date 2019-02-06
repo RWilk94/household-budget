@@ -27,6 +27,6 @@ public class ModuleController {
 
   @RequestMapping(value = "/{user}/", method = RequestMethod.POST)
   public List<ModuleVO> getModules(@PathVariable String user, @RequestBody ModuleVO moduleVO) {
-    return moduleService.getModules(user, moduleVO.getDate());
+    return moduleService.getModules(user, moduleVO.getDate(), moduleVO.getType());
   }
 }
