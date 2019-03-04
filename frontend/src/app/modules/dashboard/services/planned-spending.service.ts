@@ -15,8 +15,8 @@ export class PlannedSpendingService {
   constructor(private http: HttpClient, private cookie: CookieService) {
   }
 
-  getPlannedSpending(username: string, year: number): Observable<PlannedSpend[]> {
-    return this.http.get<PlannedSpend[]>(this.url + username + '/' + year);
+  getPlannedSpending(username: string, categoryId: number, year: number): Observable<PlannedSpend[]> {
+    return this.http.get<PlannedSpend[]>(this.url + username + '/' + categoryId + '/' + year);
   }
 
   savePlannedSpending(plannedSpending: PlannedSpend[]): Observable<PlannedSpend[]> {

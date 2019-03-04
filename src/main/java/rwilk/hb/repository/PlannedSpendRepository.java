@@ -27,4 +27,13 @@ public interface PlannedSpendRepository extends JpaRepository<PlannedSpend, Long
   List<Object> findAllByDateIsBetweenAndUser_UsernameAndGroupByCategory(
       @Param("firstDay") Calendar firstDay, @Param("lastDay") Calendar lastDay, @Param("username") String username);
 
+
+  @Query(nativeQuery = true,
+  value = "SELECT * "
+      + "FROM planned_spending p, categories c, users u "
+      + "WHERE p.id_category = c.id and p.id_user = u.id "
+      + "and c.id = :categoryId and u.username = :username and extract(year from p.\"date\") = :yearP "
+      + "order by p.\"date\"")
+  List<PlannedSpend> findAllByCategoryAndUserAndDate(@Param("username") String username, @Param("categoryId") Long categoryId, @Param("yearP") Long year);
+
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,9 +20,11 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Builder
 @Entity
 @Table(name = "planned_spending", uniqueConstraints = @UniqueConstraint(columnNames = {"date", "id_category", "id_user"}))
 @Data
@@ -36,17 +39,18 @@ public class PlannedSpend implements Serializable {
   private Long id;
 
   @rwilk.hb.validator.Category
-  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+  @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
   @JoinColumn(name = "id_category", referencedColumnName = "id", nullable = false)
   private Category category;
 
   @rwilk.hb.validator.User
-  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+  @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
   @JoinColumn(name = "id_user", nullable = false, referencedColumnName = "id")
   private User user;
 
   @NotNull
-  private Long plannedSpend;
+  @Column(name = "planned_spend")
+  private Long value;
 
   @NotNull
   private Calendar date;

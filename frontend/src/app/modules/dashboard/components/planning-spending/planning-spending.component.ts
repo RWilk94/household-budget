@@ -7,6 +7,7 @@ import {CookieService} from "ngx-cookie-service";
 import {NavigationMenuService} from "../../../shared/services/navigation-menu.service";
 import {PlannedSpend} from "../../models/planned-spend";
 import {User} from "../../../shared/models/user";
+import {PlannedSpendingService} from "../../services/planned-spending.service";
 
 @Component({
   selector: 'app-planning-spending',
@@ -42,8 +43,11 @@ export class PlanningSpendingComponent implements OnInit {
   categoryMode: boolean = false;
   categoryDetailMode: boolean = false;
 
-
-  constructor(private moduleService: ModuleService, private categoryService: CategoryService, private cookie: CookieService, private navigationMenu: NavigationMenuService) {
+  constructor(private moduleService: ModuleService,
+              private categoryService: CategoryService,
+              private cookie: CookieService,
+              private navigationMenu: NavigationMenuService,
+              private plannedSpendingService: PlannedSpendingService) {
     this.navigationMenu.activeMenuItem('Planning Spending');
 
     for (let i = 0; i < 13; i++) {
@@ -76,6 +80,15 @@ export class PlanningSpendingComponent implements OnInit {
     this.moduleMode = false;
     this.categoryMode = false;
     this.categoryDetailMode = true;
+
+    this.plannedSpendingService.getPlannedSpending(
+      this.cookie.get('username'),
+      this.selectedCategory.id,
+      this.year).subscribe(data => {
+      this.plannedSpending = data;
+      this.plannedSpending.push(new PlannedSpend());
+      console.log(data);
+    }, error => console.log(error));
   }
 
   redirectToModulesOnClick() {
@@ -84,6 +97,9 @@ export class PlanningSpendingComponent implements OnInit {
     this.moduleMode = true;
     this.categoryMode = false;
     this.categoryDetailMode = false;
+    for (let i = 0; i < 13; i++) {
+      this.plannedSpending[i] = new PlannedSpend();
+    }
   }
 
   redirectToModuleOnClick() {
@@ -91,6 +107,9 @@ export class PlanningSpendingComponent implements OnInit {
     this.moduleMode = false;
     this.categoryMode = true;
     this.categoryDetailMode = false;
+    for (let i = 0; i < 13; i++) {
+      this.plannedSpending[i] = new PlannedSpend();
+    }
   }
 
   changeYearOnClick() {
@@ -99,7 +118,8 @@ export class PlanningSpendingComponent implements OnInit {
 
   onSubmit() {
     this.plannedSpending.forEach(spend => {
-      spend.date = new Date(this.year, this.plannedSpending.indexOf(spend), 1);
+      //spend.date = new Date(this.year, this.plannedSpending.indexOf(spend), 1);
+      spend.date = this.convertDate(new Date(this.year, this.plannedSpending.indexOf(spend), 1));
       spend.category = this.selectedCategory;
       spend.user = new User();
       spend.user.username = this.cookie.get('username');
@@ -108,10 +128,22 @@ export class PlanningSpendingComponent implements OnInit {
         spend.value = this.plannedSpending[12].value;
       }
     });
+
+    this.plannedSpendingService.savePlannedSpending(this.plannedSpending.filter(spend => spend.date.getFullYear() === this.year))
+      .subscribe(data => {
+        this.plannedSpending = data;
+        this.plannedSpending.push(new PlannedSpend());
+        console.log(data);
+      }, error => console.log(error));
   }
 
   onReset() {
     this.plannedSpending.forEach(spend => spend.value = null);
   }
 
+  private convertDate(date: Date) {
+    let tempDate = new Date(date);
+    tempDate.setHours(Math.abs(date.getTimezoneOffset()) / 60);
+    return tempDate;
+  }
 }
