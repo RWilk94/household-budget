@@ -33,6 +33,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
 import {ModuleComponent} from './components/module/module.component';
 import {CategoryViewComponent} from './components/category-view/category-view.component';
 import {SpendingViewComponent} from './components/spending-view/spending-view.component';
+import { PlanningSpendingComponent } from './components/planning-spending/planning-spending.component';
 
 @NgModule({
   imports: [
@@ -71,7 +72,7 @@ import {SpendingViewComponent} from './components/spending-view/spending-view.co
     ModuleService,
     {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}}
   ],
-  declarations: [DashboardComponent, CategoryComponent, CalendarComponent, DialogConfirmDeleteComponent, SpendingComponent, AddSpendComponent, ModuleComponent, CategoryViewComponent, SpendingViewComponent]
+  declarations: [DashboardComponent, CategoryComponent, CalendarComponent, DialogConfirmDeleteComponent, SpendingComponent, AddSpendComponent, ModuleComponent, CategoryViewComponent, SpendingViewComponent, PlanningSpendingComponent]
 })
 export class DashboardModule {
 }

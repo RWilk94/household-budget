@@ -26,6 +26,11 @@ export class NavigationMenuService {
       route: 'dashboard/overview'
     },
     {
+      displayName: 'Planning Spending',
+      iconName: 'shop',
+      route: 'dashboard/planning_spending'
+    },
+    {
       displayName: 'Spending',
       iconName: 'payment',
       route: 'dashboard/spending'

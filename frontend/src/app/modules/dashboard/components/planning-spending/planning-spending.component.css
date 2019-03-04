@@ -1,0 +1,36 @@
+.columns {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin: 5px 0;
+}
+
+@media all and (min-width: 1101px){
+  .column {
+    width: 50%;
+    min-width: 200px;
+    flex: 1;
+    margin: 2px;
+    padding: 10px;
+  }
+}
+
+@media all and (max-width: 1100px) {
+  .column {
+    width: 50%;
+    min-width: 40%;
+    flex: 1;
+    margin: 2px;
+    padding: 10px;
+  }
+}
+
+@media all and (max-width: 600px) {
+  .column {
+    width: 50%;
+    min-width: 60%;
+    flex: 1;
+    margin: 2px;
+    padding: 10px;
+  }
+}

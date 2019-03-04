@@ -52,6 +52,8 @@ export class CategoryViewComponent implements OnInit {
   }
 
   onRowClick(rowNum: number) {
+    console.log(this.categories);
+    console.log(this.categories[rowNum]);
     this.categories[rowNum].open = !this.categories[rowNum].open;
   }
 }
