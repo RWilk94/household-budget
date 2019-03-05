@@ -50,9 +50,7 @@ export class PlanningSpendingComponent implements OnInit {
               private plannedSpendingService: PlannedSpendingService) {
     this.navigationMenu.activeMenuItem('Planning Spending');
 
-    for (let i = 0; i < 13; i++) {
-      this.plannedSpending[i] = new PlannedSpend();
-    }
+    this.resetPlannedSpending();
   }
 
   ngOnInit() {
@@ -97,9 +95,7 @@ export class PlanningSpendingComponent implements OnInit {
     this.moduleMode = true;
     this.categoryMode = false;
     this.categoryDetailMode = false;
-    for (let i = 0; i < 13; i++) {
-      this.plannedSpending[i] = new PlannedSpend();
-    }
+    this.resetPlannedSpending();
   }
 
   redirectToModuleOnClick() {
@@ -107,13 +103,12 @@ export class PlanningSpendingComponent implements OnInit {
     this.moduleMode = false;
     this.categoryMode = true;
     this.categoryDetailMode = false;
-    for (let i = 0; i < 13; i++) {
-      this.plannedSpending[i] = new PlannedSpend();
-    }
+    this.resetPlannedSpending();
   }
 
   changeYearOnClick() {
     this.selectedYear = this.year;
+    this.resetPlannedSpending();
   }
 
   onSubmit() {
@@ -145,5 +140,11 @@ export class PlanningSpendingComponent implements OnInit {
     let tempDate = new Date(date);
     tempDate.setHours(Math.abs(date.getTimezoneOffset()) / 60);
     return tempDate;
+  }
+
+  private resetPlannedSpending() {
+    for (let i = 0; i < 13; i++) {
+      this.plannedSpending[i] = new PlannedSpend();
+    }
   }
 }
