@@ -1,3 +1,13 @@
 .clickable {
   cursor: pointer;
 }
+
+.negative-difference {
+  color: red;
+  font-weight: bold;
+}
+
+.positive-difference {
+  color: green;
+  font-weight: bold;
+}

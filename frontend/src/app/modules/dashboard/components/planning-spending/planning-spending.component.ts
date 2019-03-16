@@ -8,7 +8,6 @@ import {NavigationMenuService} from "../../../shared/services/navigation-menu.se
 import {PlannedSpend} from "../../models/planned-spend";
 import {User} from "../../../shared/models/user";
 import {PlannedSpendingService} from "../../services/planned-spending.service";
-import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-planning-spending',
@@ -45,21 +44,14 @@ export class PlanningSpendingComponent implements OnInit {
   categoryMode: boolean = false;
   categoryDetailMode: boolean = false;
 
-  private redirect;
-
   constructor(private moduleService: ModuleService,
               private categoryService: CategoryService,
               private cookie: CookieService,
               private navigationMenu: NavigationMenuService,
-              private plannedSpendingService: PlannedSpendingService,
-              private route: ActivatedRoute) {
+              private plannedSpendingService: PlannedSpendingService) {
     this.navigationMenu.activeMenuItem('Planning Spending');
 
     this.resetPlannedSpending();
-    this.route.queryParams.subscribe(params => {
-      this.redirect = params["redirect"];
-      console.log(this.redirect);
-    });
   }
 
   ngOnInit() {
@@ -170,23 +162,7 @@ export class PlanningSpendingComponent implements OnInit {
     }
   }
 
-  getModulePlannedSpending() {
-    let amount: number = 0;
-    this.categories.forEach(category => {
-      if (category.plannedSpending !== undefined) {
-        category.plannedSpending.forEach(plannedSpending => {
-          if (plannedSpending.year == this.selectedYear && plannedSpending.month == this.month) {
-            amount += plannedSpending.value;
-          }
-        });
-      }
-    });
-    console.log(amount);
-    return amount;
-  }
-
   private calculatePlannedSpending() {
-    // console.log('dupa');
     console.log(this.categories);
     this.categories.forEach(category => {
       let amount = 0;
