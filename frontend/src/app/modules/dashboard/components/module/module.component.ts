@@ -14,7 +14,11 @@ export class ModuleComponent implements OnInit {
   modules: Module[];
   moduleVOs: ModuleVO[];
   selectedMonth: number = this.selectCurrentMonth();
-  selectedYear: number = this.selectCurrentYear();
+  //selectedYear: number = this.selectCurrentYear();
+
+  year = 2019;
+  month = '2019-03';
+
   type: string = 'month';
 
   moduleColumns = [
@@ -41,44 +45,74 @@ export class ModuleComponent implements OnInit {
   }
 
   onRowClick(rowNum: number) {
-    if (this.moduleVOs[rowNum].open === true) {
-      this.moduleVOs[rowNum].open = false;
-    } else {
-      this.moduleVOs[rowNum].open = true;
-    }
+    this.moduleVOs[rowNum].open = !this.moduleVOs[rowNum].open;
+    // if (this.moduleVOs[rowNum].open === true) {
+    //   this.moduleVOs[rowNum].open = false;
+    // } else {
+    //   this.moduleVOs[rowNum].open = true;
+    // }
   }
 
   selectedMonthOnChange() {
-    this.getModuleVO();
+    // this.getModuleVO();
+    console.log(this.month);
   }
 
   selectedYearOnChange() {
-    if (this.type === 'year') {
-      this.selectedMonth = 1;
-      this.getModuleVO();
-    } else {
-      this.selectedMonth = 0;
-    }
+    // if (this.type === 'year') {
+    //   this.selectedMonth = 1;
+    //   this.getModuleVO();
+    // } else {
+    //   this.selectedMonth = 0;
+    // }
   }
 
   selectedTypeOnChange() {
-    this.selectedMonth = 0;
-    this.selectedYear = 0;
+    // this.selectedMonth = 0;
+    // this.selectedYear = 0;
   }
 
   private getModuleVO() {
-    this.moduleService.getModuleVOs(new Date(this.selectedYear, this.selectedMonth, 1), this.type).subscribe(data => {
-      this.moduleVOs = data;
-      this.moduleVOs.forEach(data => {
-        data.difference = data.plannedSpending - data.actualSpending;
-        if (data.plannedSpending !== 0) {
-          data.percent = Math.round(data.actualSpending * 100 / data.plannedSpending);
-        } else {
-          data.percent = 0;
-        }
-        data.open = false;
-      });
-    }, error => console.log(error));
+    if (this.type === 'year') {
+      this.moduleService.getModulesVOsByYear(this.year).subscribe(data => {
+        this.moduleVOs = data;
+        this.moduleVOs.forEach(data => {
+          data.difference = data.plannedSpending - data.actualSpending;
+          if (data.plannedSpending !== 0) {
+            data.percent = Math.round(data.actualSpending * 100 / data.plannedSpending);
+          } else {
+            data.percent = 0;
+          }
+          data.open = false;
+        });
+      }, error => console.log(error));
+    } else if (this.type === 'month') {
+      this.moduleService.getModulesVOsByMonth(this.year, Number.parseInt(this.month.substring(5))).subscribe(data => {
+        this.moduleVOs = data;
+        this.moduleVOs.forEach(data => {
+          data.difference = data.plannedSpending - data.actualSpending;
+          if (data.plannedSpending !== 0) {
+            data.percent = Math.round(data.actualSpending * 100 / data.plannedSpending);
+          } else {
+            data.percent = 0;
+          }
+          data.open = false;
+        });
+      }, error => console.log(error));
+    }
+
+    // this.moduleService.getModuleVOs(new Date(this.selectedYear, this.selectedMonth, 1), this.type).subscribe(data => {
+    //   this.moduleVOs = data;
+    //   this.moduleVOs.forEach(data => {
+    //     data.difference = data.plannedSpending - data.actualSpending;
+    //     if (data.plannedSpending !== 0) {
+    //       data.percent = Math.round(data.actualSpending * 100 / data.plannedSpending);
+    //     } else {
+    //       data.percent = 0;
+    //     }
+    //     data.open = false;
+    //   });
+    // }, error => console.log(error));
   }
 
   private selectCurrentMonth() {
@@ -91,4 +125,14 @@ export class ModuleComponent implements OnInit {
     return date.getFullYear();
   }
 
+  typeModelChange() {
+    console.log(this.type);
+  }
+
+  changeDatePeriod() {
+    // console.log(this.selectedMonth);
+    // console.log(this.selectedYear);
+    console.log(this.type);
+    this.getModuleVO();
+  }
 }

@@ -28,7 +28,7 @@
         <ng-container *ngFor="let module of modules; let i = index">
           <tr>
             <td width="33.3%">{{module.name}}</td>
-            <td width="33.3%"></td>
+            <td width="33.3%">{{module.amountPlannedSpending}}zł</td>
             <td width="33.3%">
               <button type="button" class="btn btn-info btn-sm" (click)="selectModuleOnClick(i)">
                 Pokaż kategorie
@@ -50,10 +50,10 @@
         <ng-container *ngFor="let category of displayedCategories; let i = index">
           <tr>
             <td width="33.3%">{{category.name}}</td>
-            <td width="33.3%"></td>
+            <td width="33.3%">{{category.amountPlannedSpending}}zł</td>
             <td width="33.3%">
               <button type="button" class="btn btn-info btn-sm" (click)="selectCategoryOnClick(i)">
-                Szczegóły
+                Planuj wydatki
               </button>
             </td>
           </tr>
@@ -62,7 +62,7 @@
     </table>
 
     <div *ngIf="categoryDetailMode" style="width: 100%">
-
+      <!--<app-planning-spending-detail></app-planning-spending-detail>-->
       <div style="margin-right: 24px; margin-bottom: 0; display: flex; flex-direction: column; align-items: flex-end;">
         <div class="form-group row" style="margin-bottom: 0">
           <label for="year" class="col-form-label" style="width: 100px; text-align: right; margin: 3px; font-size: 16px">Rok: </label>

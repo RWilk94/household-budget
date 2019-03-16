@@ -1,6 +1,5 @@
 package rwilk.hb.service;
 
-import java.util.Calendar;
 import java.util.List;
 
 import rwilk.hb.model.Category;
@@ -16,6 +15,9 @@ public interface CategoryService {
 
   void deleteCategory(Long id);
 
-  public List<ModuleVO> getCategories(String username, Calendar period, String type, long moduleId);
+  List<ModuleVO> getCategoriesVOsByYear(String username, Long moduleId, Integer year);
+
+  List<ModuleVO> getCategoriesVOsByMonth(String username, Long moduleId, Integer year, Integer month);
+
 
 }

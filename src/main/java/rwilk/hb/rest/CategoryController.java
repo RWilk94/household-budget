@@ -42,9 +42,15 @@ public class CategoryController {
     categoryService.deleteCategory(id);
   }
 
-  @RequestMapping(value = "/{user}", method = RequestMethod.POST)
-  public List<ModuleVO> getCategories(@PathVariable String user, @RequestBody ModuleVO moduleVO) {
-    return categoryService.getCategories(user, moduleVO.getDate(), moduleVO.getType(), moduleVO.getId());
+  @RequestMapping(value = "/{username}/{moduleId}/{year}", method = RequestMethod.GET)
+  public List<ModuleVO> getCategoryVOsByYear(@PathVariable String username, @PathVariable Long moduleId, @PathVariable Integer year) {
+    return categoryService.getCategoriesVOsByYear(username, moduleId, year);
   }
+
+  @RequestMapping(value = "/{username}/{moduleId}/{year}/{month}", method = RequestMethod.GET)
+  public List<ModuleVO> getCategoryVOsByMonth(@PathVariable String username, @PathVariable Long moduleId, @PathVariable Integer year, @PathVariable Integer month) {
+    return categoryService.getCategoriesVOsByMonth(username, moduleId, year, month);
+  }
+
 
 }

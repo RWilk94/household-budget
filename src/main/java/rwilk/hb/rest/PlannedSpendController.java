@@ -28,7 +28,7 @@ public class PlannedSpendController {
   public List<PlannedSpend> getPlannedSpending(
       @PathVariable(name = "username") String username,
       @PathVariable(name = "category") Long categoryId,
-      @PathVariable(name = "year") Long year) {
+      @PathVariable(name = "year") Integer year) {
     return plannedSpendService.getPlannedSpending(username, categoryId, year);
   }
 

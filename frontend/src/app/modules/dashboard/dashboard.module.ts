@@ -72,7 +72,8 @@ import { PlanningSpendingComponent } from './components/planning-spending/planni
     ModuleService,
     {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}}
   ],
-  declarations: [DashboardComponent, CategoryComponent, CalendarComponent, DialogConfirmDeleteComponent, SpendingComponent, AddSpendComponent, ModuleComponent, CategoryViewComponent, SpendingViewComponent, PlanningSpendingComponent]
+  declarations: [DashboardComponent, CategoryComponent, CalendarComponent, DialogConfirmDeleteComponent, SpendingComponent,
+    AddSpendComponent, ModuleComponent, CategoryViewComponent, SpendingViewComponent, PlanningSpendingComponent]
 })
 export class DashboardModule {
 }

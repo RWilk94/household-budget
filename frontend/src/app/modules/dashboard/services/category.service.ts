@@ -33,12 +33,18 @@ export class CategoryService {
     return this.http.delete(this.url + category.id, {headers: this.header});
   }
 
-  getCategoryVOs(date, type, id): Observable<ModuleVO[]> {
-    let moduleVO: ModuleVO = new ModuleVO();
-    moduleVO.date = date;
-    moduleVO.type = type;
-    moduleVO.id = id;
-    return this.http.post<ModuleVO[]>(this.url + this.cookie.get('username') + '/', moduleVO, {headers: this.header});
+  getCategoryVOsByYear(moduleId: number, year: number) {
+    return this.http.get<ModuleVO[]>(
+      this.url + this.cookie.get('username') + '/' + moduleId + '/' + year.toString(),
+      {headers: this.header}
+    );
+  }
+
+  getCategoryVOsByMonth(moduleId: number, year: number, month: number) {
+    return this.http.get<ModuleVO[]>(
+      this.url + this.cookie.get('username') + '/' + moduleId + '/' + year.toString() + '/' + month.toString(),
+      {headers: this.header}
+    );
   }
 
 }

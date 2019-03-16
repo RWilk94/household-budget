@@ -19,8 +19,9 @@
           {{row.difference}}zł
         </td>
         <td width="150px">{{row.percent}}%</td>
-        <td width="150px">
-          <button type="button" class="btn btn-primary btn-sm" (click)="onRowClick(i)">Szczegóły</button>
+        <td width="275px">
+          <button type="button" class="btn btn-primary btn-sm" style="margin: 3px" (click)="plannedBudgetOnClick(i)">Planuj budżet</button>
+          <button type="button" class="btn btn-primary btn-sm" style="margin: 3px" (click)="showSpendingOnClick()">Zobacz wydatki</button>
         </td>
       </tr>
 

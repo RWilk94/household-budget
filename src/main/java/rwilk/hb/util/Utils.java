@@ -43,11 +43,27 @@ public class Utils {
     return firstDay;
   }
 
+  public static Calendar setFirstDayOfMonth(Integer year, Integer month) {
+    Calendar firstDay = Calendar.getInstance();
+    firstDay.set(Calendar.DATE, 1);
+    firstDay.set(Calendar.MONTH, month - 1);
+    firstDay.set(Calendar.YEAR, year);
+    return firstDay;
+  }
+
   public static Calendar setFirstDayOfYear(Calendar date) {
     Calendar firstDay = Calendar.getInstance();
     firstDay.set(Calendar.DATE, 1);
     firstDay.set(Calendar.MONTH, Calendar.JANUARY);
     firstDay.set(Calendar.YEAR, date.get(Calendar.YEAR));
+    return firstDay;
+  }
+
+  public static Calendar setFirstDayOfYear(Integer year) {
+    Calendar firstDay = Calendar.getInstance();
+    firstDay.set(Calendar.DATE, 1);
+    firstDay.set(Calendar.MONTH, Calendar.JANUARY);
+    firstDay.set(Calendar.YEAR, year);
     return firstDay;
   }
 
@@ -69,12 +85,30 @@ public class Utils {
     return lastDay;
   }
 
+  public static Calendar setLastDayOfMonth(Integer year, Integer month) {
+    YearMonth yearMonth = YearMonth.of(year, month);
+    Calendar lastDay = Calendar.getInstance();
+    lastDay.set(Calendar.DATE, yearMonth.lengthOfMonth());
+    lastDay.set(Calendar.MONTH, month - 1);
+    lastDay.set(Calendar.YEAR, year);
+    return lastDay;
+  }
+
   public static Calendar setLastDayOfYear(Calendar date) {
     YearMonth yearMonth = YearMonth.of(date.get(Calendar.YEAR), Calendar.DECEMBER);
     Calendar lastDay = Calendar.getInstance();
     lastDay.set(Calendar.DATE, yearMonth.lengthOfMonth());
     lastDay.set(Calendar.MONTH, Calendar.DECEMBER);
     lastDay.set(Calendar.YEAR, date.get(Calendar.YEAR));
+    return lastDay;
+  }
+
+  public static Calendar setLastDayOfYear(Integer year) {
+    YearMonth yearMonth = YearMonth.of(year, Calendar.DECEMBER);
+    Calendar lastDay = Calendar.getInstance();
+    lastDay.set(Calendar.DATE, yearMonth.lengthOfMonth());
+    lastDay.set(Calendar.MONTH, Calendar.DECEMBER);
+    lastDay.set(Calendar.YEAR, year);
     return lastDay;
   }
 

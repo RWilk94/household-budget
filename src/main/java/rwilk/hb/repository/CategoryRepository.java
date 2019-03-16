@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import rwilk.hb.model.Category;
-import rwilk.hb.model.Module;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 

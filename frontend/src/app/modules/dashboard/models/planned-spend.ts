@@ -5,6 +5,7 @@ export class PlannedSpend {
 
   user: User;
   category: Category;
-  date: Date;
+  year: number;
+  month: number;
   value: number;
 }

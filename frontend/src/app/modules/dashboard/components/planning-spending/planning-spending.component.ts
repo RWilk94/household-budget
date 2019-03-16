@@ -8,6 +8,7 @@ import {NavigationMenuService} from "../../../shared/services/navigation-menu.se
 import {PlannedSpend} from "../../models/planned-spend";
 import {User} from "../../../shared/models/user";
 import {PlannedSpendingService} from "../../services/planned-spending.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-planning-spending',
@@ -18,13 +19,13 @@ export class PlanningSpendingComponent implements OnInit {
 
   moduleColumns = [
     {prop: 'name', name: 'Nazwa'},
-    {prop: 'plannedSpend', name: 'Planowane wydatki'},
+    {prop: 'plannedSpend', name: 'Przeznaczony budżet'},
     {prop: 'option', name: 'Akcje'}
   ];
 
   categoryColumns = [
     {prop: 'name', name: 'Nazwa'},
-    {prop: 'plannedSpend', name: 'Planowane wydatki'},
+    {prop: 'plannedSpend', name: 'Przeznaczony budżet'},
     {prop: 'option', name: 'Akcje'}
   ];
 
@@ -35,22 +36,30 @@ export class PlanningSpendingComponent implements OnInit {
   private selectedCategory: Category;
 
   private plannedSpending: PlannedSpend[] = [];
-  private selectedYear: number;
+  private selectedYear: number = new Date().getFullYear();
   private year: number = new Date().getFullYear();
+  private month: number = new Date().getMonth();
   constSpending: boolean;
 
   moduleMode: boolean = true;
   categoryMode: boolean = false;
   categoryDetailMode: boolean = false;
 
+  private redirect;
+
   constructor(private moduleService: ModuleService,
               private categoryService: CategoryService,
               private cookie: CookieService,
               private navigationMenu: NavigationMenuService,
-              private plannedSpendingService: PlannedSpendingService) {
+              private plannedSpendingService: PlannedSpendingService,
+              private route: ActivatedRoute) {
     this.navigationMenu.activeMenuItem('Planning Spending');
 
     this.resetPlannedSpending();
+    this.route.queryParams.subscribe(params => {
+      this.redirect = params["redirect"];
+      console.log(this.redirect);
+    });
   }
 
   ngOnInit() {
@@ -60,8 +69,11 @@ export class PlanningSpendingComponent implements OnInit {
     }, error => console.log(error));
 
     this.categoryService.getCategories(this.cookie.get('username')).subscribe(data => {
-      //console.log(data);
+      console.log(data);
       this.categories = data;
+      console.log(this.categories);
+      this.calculatePlannedSpending();
+
     }, error => console.log(error));
   }
 
@@ -80,13 +92,13 @@ export class PlanningSpendingComponent implements OnInit {
     this.categoryDetailMode = true;
 
     this.plannedSpendingService.getPlannedSpending(
-      this.cookie.get('username'),
-      this.selectedCategory.id,
-      this.year).subscribe(data => {
-      this.plannedSpending = data;
-      this.plannedSpending.push(new PlannedSpend());
-      console.log(data);
-    }, error => console.log(error));
+      this.cookie.get('username'), this.selectedCategory.id, this.selectedYear)
+      .subscribe(data => {
+        this.plannedSpending = data;
+        this.plannedSpending.push(new PlannedSpend());
+        console.log(data);
+      }, error => console.log(error));
+    // this.plannedSpending = this.selectedCategory.plannedSpending;
   }
 
   redirectToModulesOnClick() {
@@ -95,7 +107,9 @@ export class PlanningSpendingComponent implements OnInit {
     this.moduleMode = true;
     this.categoryMode = false;
     this.categoryDetailMode = false;
+    this.calculatePlannedSpending();
     this.resetPlannedSpending();
+
   }
 
   redirectToModuleOnClick() {
@@ -103,18 +117,30 @@ export class PlanningSpendingComponent implements OnInit {
     this.moduleMode = false;
     this.categoryMode = true;
     this.categoryDetailMode = false;
+    this.calculatePlannedSpending();
     this.resetPlannedSpending();
+
   }
 
   changeYearOnClick() {
     this.selectedYear = this.year;
     this.resetPlannedSpending();
+    this.plannedSpendingService.getPlannedSpending(
+      this.cookie.get('username'), this.selectedCategory.id, this.selectedYear)
+      .subscribe(data => {
+        this.plannedSpending = data;
+        this.plannedSpending.push(new PlannedSpend());
+        console.log(data);
+      }, error => console.log(error));
+
   }
 
   onSubmit() {
     this.plannedSpending.forEach(spend => {
       //spend.date = new Date(this.year, this.plannedSpending.indexOf(spend), 1);
-      spend.date = this.convertDate(new Date(this.year, this.plannedSpending.indexOf(spend), 1));
+      //spend.date = this.convertDate(new Date(this.year, this.plannedSpending.indexOf(spend), 1));
+      spend.year = this.selectedYear;
+      spend.month = this.plannedSpending.indexOf(spend) + 1;
       spend.category = this.selectedCategory;
       spend.user = new User();
       spend.user.username = this.cookie.get('username');
@@ -124,11 +150,13 @@ export class PlanningSpendingComponent implements OnInit {
       }
     });
 
-    this.plannedSpendingService.savePlannedSpending(this.plannedSpending.filter(spend => spend.date.getFullYear() === this.year))
+    this.plannedSpendingService.savePlannedSpending(this.plannedSpending.filter(spend => spend.year === this.selectedYear))
       .subscribe(data => {
         this.plannedSpending = data;
         this.plannedSpending.push(new PlannedSpend());
-        console.log(data);
+        console.log(this.categories[this.categories.indexOf(this.selectedCategory)]);
+        this.categories[this.categories.indexOf(this.selectedCategory)].plannedSpending = this.plannedSpending;
+        console.log(this.categories[this.categories.indexOf(this.selectedCategory)]);
       }, error => console.log(error));
   }
 
@@ -136,15 +164,50 @@ export class PlanningSpendingComponent implements OnInit {
     this.plannedSpending.forEach(spend => spend.value = null);
   }
 
-  private convertDate(date: Date) {
-    let tempDate = new Date(date);
-    tempDate.setHours(Math.abs(date.getTimezoneOffset()) / 60);
-    return tempDate;
-  }
-
   private resetPlannedSpending() {
     for (let i = 0; i < 13; i++) {
       this.plannedSpending[i] = new PlannedSpend();
     }
   }
+
+  getModulePlannedSpending() {
+    let amount: number = 0;
+    this.categories.forEach(category => {
+      if (category.plannedSpending !== undefined) {
+        category.plannedSpending.forEach(plannedSpending => {
+          if (plannedSpending.year == this.selectedYear && plannedSpending.month == this.month) {
+            amount += plannedSpending.value;
+          }
+        });
+      }
+    });
+    console.log(amount);
+    return amount;
+  }
+
+  private calculatePlannedSpending() {
+    // console.log('dupa');
+    console.log(this.categories);
+    this.categories.forEach(category => {
+      let amount = 0;
+      let date = new Date();
+      if (category.plannedSpending.length > 0) {
+        category.plannedSpending.forEach(plannedSpend => {
+          if (plannedSpend.month === date.getMonth()+1 && plannedSpend.year == date.getFullYear()) {
+            amount = plannedSpend.value;
+          }
+        });
+      }
+      category.amountPlannedSpending = amount;
+    });
+
+    this.modules.forEach(module => {
+      let amount = 0;
+      this.categories.filter(category => category.module.id === module.id)
+        .forEach(category => amount += category.amountPlannedSpending);
+      module.amountPlannedSpending = amount;
+    })
+  }
+
+
 }

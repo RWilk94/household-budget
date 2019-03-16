@@ -1,6 +1,5 @@
 package rwilk.hb.service;
 
-import java.util.Calendar;
 import java.util.List;
 
 import rwilk.hb.model.Module;
@@ -10,6 +9,8 @@ public interface ModuleService {
 
   List<Module> getModules();
 
-  List<ModuleVO> getModules(String username, Calendar date, String type);
+  List<ModuleVO> getModuleVOsByYear(String username, Integer year);
+
+  List<ModuleVO> getModuleVOsByMonth(String username, Integer year, Integer month);
 
 }
