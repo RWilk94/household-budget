@@ -36,6 +36,11 @@ export class NavigationMenuService {
       route: 'dashboard/spending'
     },
     {
+      displayName: 'Credits',
+      iconName: 'money',
+      route: 'dashboard/credits'
+    },
+    {
       displayName: 'Settings',
       iconName: 'settings',
       children: [

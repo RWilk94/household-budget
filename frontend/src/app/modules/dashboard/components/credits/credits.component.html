@@ -1,0 +1,82 @@
+<mat-card>
+  <mat-card-content>
+      <p *ngIf="alert !== undefined">
+        <ngb-alert [type]="alert.type" (close)="closeAlert()">{{ alert.message }}</ngb-alert>
+      </p>
+
+      <div class="form-group">
+        <label for="creditAmount" class="col-form-label">Kwota kredytu: </label>
+        <div>
+          <input id="creditAmount" type="number" class="form-control" [min]="0" [(ngModel)]="creditAmount">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="lendingRate" class="col-form-label">Oprocentowanie kredytu (%): </label>
+        <div>
+          <input id="lendingRate" type="number" class="form-control" [min]="0" [(ngModel)]="lendingRate">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="loanPeriod" class="col-form-label">Okres kredytu (miesiące):</label>
+        <div>
+          <input id="loanPeriod" type="number" class="form-control" [min]="0" [(ngModel)]="creditPeriod">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="loanPeriod" class="col-form-label" style="margin: 5px">Rodzaj rat: </label>
+        <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic"
+             [(ngModel)]="type">
+          <label ngbButtonLabel class="btn-primary btn-sm">
+            <input ngbButton type="radio" [value]="'equal'" [(ngModel)]="type"> równe
+          </label>
+          <label ngbButtonLabel class="btn-primary btn-sm">
+            <input ngbButton type="radio" [value]="'decreasing'" [(ngModel)]="type"> malejące
+          </label>
+        </div>
+      </div>
+      <button class="btn btn-success" (click)="onSubmit()">Oblicz</button>
+
+      <div *ngIf="installments.length > 0">
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Lp</th>
+              <th>Zadłużenie</th>
+              <th>Część kapitałowa</th>
+              <th>Część odsetkowa</th>
+              <th>Rata</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let installment of installments">
+              <td>{{installment.period + 1}}</td>
+              <td>{{installment.debt | number : '1.2-2'}}</td>
+              <td>{{installment.capital | number : '1.2-2'}}</td>
+              <td>{{installment.interest | number : '1.2-2'}}</td>
+              <td>{{installment.rateAmount | number : '1.2-2'}}</td>
+            </tr>
+          </tbody>
+
+          <tfoot>
+            <tr>
+              <td></td>
+              <td></td>
+              <td style="font-weight: bold">{{totalCapitalCost | number : '1.2-2'}}</td>
+              <td style="font-weight: bold">{{totalInterestCost | number : '1.2-2'}}</td>
+              <td style="font-weight: bold">{{totalCreditCost | number : '1.2-2'}}</td>
+            </tr>
+          </tfoot>
+
+        </table>
+
+
+      </div>
+
+
+    </mat-card-content>
+</mat-card>

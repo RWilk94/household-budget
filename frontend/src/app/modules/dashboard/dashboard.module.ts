@@ -34,6 +34,7 @@ import {ModuleComponent} from './components/module/module.component';
 import {CategoryViewComponent} from './components/category-view/category-view.component';
 import {SpendingViewComponent} from './components/spending-view/spending-view.component';
 import { PlanningSpendingComponent } from './components/planning-spending/planning-spending.component';
+import { CreditsComponent } from './components/credits/credits.component';
 
 @NgModule({
   imports: [
@@ -73,7 +74,7 @@ import { PlanningSpendingComponent } from './components/planning-spending/planni
     {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}}
   ],
   declarations: [DashboardComponent, CategoryComponent, CalendarComponent, DialogConfirmDeleteComponent, SpendingComponent,
-    AddSpendComponent, ModuleComponent, CategoryViewComponent, SpendingViewComponent, PlanningSpendingComponent]
+    AddSpendComponent, ModuleComponent, CategoryViewComponent, SpendingViewComponent, PlanningSpendingComponent, CreditsComponent]
 })
 export class DashboardModule {
 }
