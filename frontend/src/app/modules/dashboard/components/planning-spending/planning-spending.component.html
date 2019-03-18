@@ -1,0 +1,175 @@
+<mat-card>
+  <mat-card-content>
+
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item" style="cursor: pointer"><a (click)="redirectToModulesOnClick()">Moduły</a></li>
+        <li *ngIf="selectedModule !== undefined && selectedModule !== null"
+            class="breadcrumb-item active" aria-current="page" style="cursor: pointer">
+          <a (click)="redirectToModuleOnClick()">{{selectedModule.name}}</a>
+        </li>
+        <li *ngIf="selectedModule !== undefined && selectedModule !== null && selectedCategory !== undefined && selectedCategory !== null"
+            class="breadcrumb-item active" aria-current="page">
+          {{selectedCategory.name}}
+        </li>
+      </ol>
+    </nav>
+
+    <table *ngIf="moduleMode" class="table table-striped" width="100%">
+      <thead>
+        <tr style="background: #005cbf ;color: white;">
+          <th *ngFor="let column of moduleColumns;">
+            {{column.name}}
+          </th>
+        </tr>
+      </thead>
+
+      <tbody style="margin: 0; padding: 0">
+        <ng-container *ngFor="let module of modules; let i = index">
+          <tr>
+            <td width="33.3%">{{module.name}}</td>
+            <td width="33.3%">{{module.amountPlannedSpending}}zł</td>
+            <td width="33.3%">
+              <button type="button" class="btn btn-info btn-sm" (click)="selectModuleOnClick(i)">
+                Pokaż kategorie
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+
+    <table *ngIf="categoryMode" class="table table-striped" width="100%">
+      <thead>
+        <tr style="background: #005cbf ;color: white;">
+          <th *ngFor="let column of categoryColumns;">
+            {{column.name}}
+          </th>
+      </thead>
+      <tbody style="margin: 0; padding: 0">
+        <ng-container *ngFor="let category of displayedCategories; let i = index">
+          <tr>
+            <td width="33.3%">{{category.name}}</td>
+            <td width="33.3%">{{category.amountPlannedSpending}}zł</td>
+            <td width="33.3%">
+              <button type="button" class="btn btn-info btn-sm" (click)="selectCategoryOnClick(i)">
+                Planuj wydatki
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+
+    <div *ngIf="categoryDetailMode" style="width: 100%">
+      <!--<app-planning-spending-detail></app-planning-spending-detail>-->
+      <div style="margin-right: 24px; margin-bottom: 0; display: flex; flex-direction: column; align-items: flex-end;">
+        <div class="form-group row" style="margin-bottom: 0">
+          <label for="year" class="col-form-label" style="width: 100px; text-align: right; margin: 3px; font-size: 16px">Rok: </label>
+          <div style="margin: 3px">
+            <input type="number" class="form-control" style="width: 100px" id="year" placeholder="Rok"
+                   [(ngModel)]="year">
+          </div>
+          <button class="btn btn-primary" style="width: 100px; margin: 3px" (click)="changeYearOnClick()">Zmień</button>
+        </div>
+
+        <div class="form-check" style="margin: 5px">
+          <input class="form-check-input" type="checkbox" id="constSpending" [(ngModel)]="constSpending">
+          <label class="form-check-label" for="constSpending">
+            Stałe wydatki co miesiąc
+          </label>
+        </div>
+      </div>
+
+        <section *ngIf="constSpending" class="columns">
+          <div class="column">
+            <label>Miesięczne wydatki</label>
+            <input type="number" class="form-control" placeholder="Miesięczne wydatki" [(ngModel)]="plannedSpending[12].value" >
+          </div>
+          <div class="column"></div>
+          <div class="column"></div>
+          <div class="column"></div>
+        </section>
+        <ng-container *ngIf="!constSpending">
+
+          <section class="columns">
+            <div class="column">
+              <label>Styczeń</label>
+              <input type="number" class="form-control" placeholder="Styczeń" [(ngModel)]="plannedSpending[0].value"
+                     >
+            </div>
+
+            <div class="column">
+              <label>Luty</label>
+              <input type="number" class="form-control" placeholder="Luty" [(ngModel)]="plannedSpending[1].value"
+                     >
+            </div>
+            <div class="column">
+              <label>Marzec</label>
+              <input type="number" class="form-control" placeholder="Marzec" [(ngModel)]="plannedSpending[2].value"
+                     >
+            </div>
+
+            <div class="column">
+              <label>Kwiecień</label>
+              <input type="number" class="form-control" placeholder="Kwiecień" [(ngModel)]="plannedSpending[3].value"
+                     >
+            </div>
+          </section>
+          <section class="columns">
+            <div class="column">
+              <label>Maj</label>
+              <input type="number" class="form-control" placeholder="Maj" [(ngModel)]="plannedSpending[4].value"
+                     >
+            </div>
+
+            <div class="column">
+              <label>Czerwiec</label>
+              <input type="number" class="form-control" placeholder="Czerwiec" [(ngModel)]="plannedSpending[5].value"
+                     >
+            </div>
+            <div class="column">
+              <label>Lipiec</label>
+              <input type="number" class="form-control" placeholder="Lipiec" [(ngModel)]="plannedSpending[6].value"
+                     >
+            </div>
+
+            <div class="column">
+              <label>Sierpień</label>
+              <input type="number" class="form-control" placeholder="Sierpień" [(ngModel)]="plannedSpending[7].value"
+                     >
+            </div>
+          </section>
+          <section class="columns">
+            <div class="column">
+              <label>Wrzesień</label>
+              <input type="number" class="form-control" placeholder="Wrzesień" [(ngModel)]="plannedSpending[8].value"
+                     >
+            </div>
+
+            <div class="column">
+              <label>Październik</label>
+              <input type="number" class="form-control" placeholder="Październik" [(ngModel)]="plannedSpending[9].value"
+                     >
+            </div>
+            <div class="column">
+              <label>Listopad</label>
+              <input type="number" class="form-control" placeholder="Listopad" [(ngModel)]="plannedSpending[10].value"
+                     >
+            </div>
+
+            <div class="column">
+              <label>Grudzień</label>
+              <input type="number" class="form-control" placeholder="Grudzień" [(ngModel)]="plannedSpending[11].value"
+                     >
+            </div>
+          </section>
+
+        </ng-container>
+        <div class="text-right">
+          <button type="reset" class="btn btn-secondary " style="margin: 3px" (click)="onReset()">Wyczyść</button>
+          <button type="submit" class="btn btn-success " style="margin: 3px" (click)="onSubmit()">Zapisz</button>
+        </div>
+    </div>
+  </mat-card-content>
+</mat-card>

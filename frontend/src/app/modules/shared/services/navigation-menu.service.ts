@@ -12,7 +12,7 @@ export class NavigationMenuService {
   menuItems: MenuItem[] = [
     {
       displayName: 'Dashboard',
-      iconName: 'explore',
+      iconName: 'dashboard',
       route: 'dashboard'
     },
     {
@@ -21,9 +21,24 @@ export class NavigationMenuService {
       route: 'dashboard/calendar'
     },
     {
+      displayName: 'Overview',
+      iconName: 'explore',
+      route: 'dashboard/overview'
+    },
+    {
+      displayName: 'Planning Spending',
+      iconName: 'shop',
+      route: 'dashboard/planning_spending'
+    },
+    {
       displayName: 'Spending',
       iconName: 'payment',
       route: 'dashboard/spending'
+    },
+    {
+      displayName: 'Credits',
+      iconName: 'money',
+      route: 'dashboard/credits'
     },
     {
       displayName: 'Settings',

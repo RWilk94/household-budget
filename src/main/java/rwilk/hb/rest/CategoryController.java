@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import rwilk.hb.model.Category;
+import rwilk.hb.model.ModuleVO;
 import rwilk.hb.service.CategoryService;
 
 @RestController
@@ -40,5 +41,16 @@ public class CategoryController {
   public void deleteCategory(@Valid @PathVariable Long id) {
     categoryService.deleteCategory(id);
   }
+
+  @RequestMapping(value = "/{username}/{moduleId}/{year}", method = RequestMethod.GET)
+  public List<ModuleVO> getCategoryVOsByYear(@PathVariable String username, @PathVariable Long moduleId, @PathVariable Integer year) {
+    return categoryService.getCategoriesVOsByYear(username, moduleId, year);
+  }
+
+  @RequestMapping(value = "/{username}/{moduleId}/{year}/{month}", method = RequestMethod.GET)
+  public List<ModuleVO> getCategoryVOsByMonth(@PathVariable String username, @PathVariable Long moduleId, @PathVariable Integer year, @PathVariable Integer month) {
+    return categoryService.getCategoriesVOsByMonth(username, moduleId, year, month);
+  }
+
 
 }
