@@ -10,8 +10,8 @@ import {ModuleVO} from "../models/moduleVO";
 })
 export class CategoryService {
 
-  // private url = 'https://rwilk-household-budget.cfapps.io/api/categories/';
-  private url = 'http://localhost:8080/api/categories/';
+  private url = 'https://rwilk-household-budget.cfapps.io/api/categories/';
+  // private url = 'http://localhost:8080/api/categories/';
   private header = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.cookie.get('token')});
 
   constructor(private http: HttpClient, private cookie: CookieService) { }

@@ -13,8 +13,8 @@ export class SpendingService {
 
   calendarDate: any;
 
-  // private url = 'https://rwilk-household-budget.cfapps.io/api/spending/';
-  private url = 'http://localhost:8080/api/spending/';
+  private url = 'https://rwilk-household-budget.cfapps.io/api/spending/';
+  // private url = 'http://localhost:8080/api/spending/';
   private header = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.cookie.get('token')});
 
   constructor(private http: HttpClient, private cookie: CookieService) { }
