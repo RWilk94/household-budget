@@ -3,8 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {User} from "../../../shared/models/user";
 import {CustomValidators} from "../../../shared/validators/custom-validators";
 import {RegistrationService} from "../../../shared/services/registration.service";
-import {Toast, ToasterService} from "angular2-toaster";
-import {ToastBuilder} from "../../../shared/utils/toast-builder";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-registration',
@@ -15,8 +14,9 @@ export class RegistrationComponent implements OnInit {
 
   registrationForm: FormGroup;
   user: User;
+  alert: Alert;
 
-  constructor(private formBuilder: FormBuilder, private registrationService: RegistrationService, private toasterService: ToasterService) {
+  constructor(private formBuilder: FormBuilder, private registrationService: RegistrationService) {
     this.user = new User();
   }
 
@@ -43,11 +43,12 @@ export class RegistrationComponent implements OnInit {
       this.user.confirmPassword = this.registrationForm.get('confirmPassword').value;
 
       this.registrationService.register(this.user).subscribe(data => {
-          this.displayToast(ToastBuilder.successRegisterUser());
+          this.alert = {
+            type: 'success',
+            message: 'User registered successfully',
+          };
         },
-        error => {
-          this.displayToast(ToastBuilder.errorWhileRegisterUser());
-        }
+        error => this.handleError(error)
       );
     }
   }
@@ -59,8 +60,17 @@ export class RegistrationComponent implements OnInit {
     }
   }
 
-  private displayToast(toast: Toast): void {
-    this.toasterService.pop(toast);
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 400) {
+      this.alert = {
+        type: 'danger',
+        message: error.error.message,
+      };
+    }
+  }
+
+  closeAlert() {
+    this.alert = undefined;
   }
 
 }

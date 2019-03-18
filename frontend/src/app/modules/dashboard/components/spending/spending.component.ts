@@ -13,6 +13,7 @@ import {FormGroup} from "@angular/forms";
 import {User} from "../../../shared/models/user";
 import {DialogConfirmDeleteComponent} from "../dialog-confirm-delete/dialog-confirm-delete.component";
 import {ToastBuilder} from "../../../shared/utils/toast-builder";
+import {NavigationMenuService} from "../../../shared/services/navigation-menu.service";
 
 export const MY_FORMATS = {
   parse: {
@@ -55,8 +56,10 @@ export class SpendingComponent implements OnInit, AfterViewInit {
               private toasterService: ToasterService,
               private cookie: CookieService,
               private dialog: MatDialog,
-              private dateAdapter: DateAdapter<Date>) {
+              private dateAdapter: DateAdapter<Date>,
+              private navigationMenu: NavigationMenuService) {
     this.dateAdapter.setLocale('pl');
+    navigationMenu.activeMenuItem('Spending');
   }
 
   ngOnInit() {
@@ -127,7 +130,11 @@ export class SpendingComponent implements OnInit, AfterViewInit {
       spend.name = element.name;
       spend.user = new User();
       spend.user.username = this.cookie.get('username');
-      spend.value = element.value;
+
+      let val = Number(element.value);
+      spend.value = Number(val.toFixed(2));
+      element.value = Number(spend.value);
+
       this.spendingService.updateSpend(spend).subscribe(spend => {
         console.log(spend);
         this.displayToast(ToastBuilder.successUpdateItem());
@@ -147,7 +154,11 @@ export class SpendingComponent implements OnInit, AfterViewInit {
       spend.name = element.name;
       spend.user = new User();
       spend.user.username = this.cookie.get('username');
-      spend.value = element.value;
+
+      let val = Number(element.value);
+      spend.value = Number(val.toFixed(2));
+      element.value = Number(spend.value);
+
       this.spendingService.addSpend(spend).subscribe(result => {
         this.displayToast(ToastBuilder.successInsertItem());
         this.spending[element.position - 1] = result;

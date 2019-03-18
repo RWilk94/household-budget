@@ -11,14 +11,20 @@ import {CategorySpending} from "../models/category-spending";
 })
 export class SpendingService {
 
-  // private url = 'https://rwilk-household-budget.cfapps.io/api/spending/';
-  private url = 'http://localhost:8080/api/spending/';
+  calendarDate: any;
+
+  private url = 'https://rwilk-household-budget.cfapps.io/api/spending/';
+  // private url = 'http://localhost:8080/api/spending/';
   private header = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.cookie.get('token')});
 
   constructor(private http: HttpClient, private cookie: CookieService) { }
 
   getSpending(username: string): Observable<Spend[]> {
     return this.http.get<Spend[]>(this.url + username, {headers: this.header});
+  }
+
+  getSpendingById(username: string, id: number): Observable<Spend> {
+    return this.http.get<Spend>(this.url + username + '/' + id, {headers: this.header});
   }
 
   addSpend(spend: Spend): Observable<Spend> {

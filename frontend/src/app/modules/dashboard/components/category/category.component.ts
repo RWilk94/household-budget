@@ -11,6 +11,7 @@ import {Toast, ToasterService} from "angular2-toaster";
 import {ToastBuilder} from "../../../shared/utils/toast-builder";
 import {User} from "../../../shared/models/user";
 import {DialogConfirmDeleteComponent} from "../dialog-confirm-delete/dialog-confirm-delete.component";
+import {NavigationMenuService} from "../../../shared/services/navigation-menu.service";
 
 @Component({
   selector: 'app-category',
@@ -34,7 +35,9 @@ export class CategoryComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<CategoryElement>(this.convertCategoriesIntoCategoryElements());
 
   constructor(private categoryService: CategoryService, private moduleService: ModuleService, private formBuilder: FormBuilder,
-              private cookie: CookieService, private toasterService: ToasterService, private dialog: MatDialog) {
+              private cookie: CookieService, private toasterService: ToasterService, private dialog: MatDialog,
+              private navigationMenu: NavigationMenuService) {
+    navigationMenu.activeMenuItem('Categories');
   }
 
   ngOnInit() {

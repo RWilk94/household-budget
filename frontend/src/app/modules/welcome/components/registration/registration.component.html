@@ -1,7 +1,4 @@
-<link rel="stylesheet" type="text/css" href="https://npmcdn.com/angular2-toaster@6.1.0/toaster.css" />
-
 <div class="window">
-  <toaster-container></toaster-container>
   <div>
     <app-toolbar-not-logged></app-toolbar-not-logged>
   </div>
@@ -12,6 +9,11 @@
         <p class="text-center"><strong id="title">SIGN UP</strong></p>
       </mat-card-title>
       <mat-card-content>
+
+        <p *ngIf="alert !== undefined">
+          <ngb-alert [type]="alert.type" (close)="closeAlert()">{{ alert.message }}</ngb-alert>
+        </p>
+
         <form [formGroup]="registrationForm">
 
           <mat-form-field class="mat-input-form">

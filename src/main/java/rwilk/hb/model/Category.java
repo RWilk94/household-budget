@@ -1,6 +1,7 @@
 package rwilk.hb.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -51,6 +53,9 @@ public class Category implements Serializable {
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
   @JoinColumn(name = "id_module", referencedColumnName = "id")
   private Module module;
+
+  @OneToMany(mappedBy = "category")
+  List<PlannedSpend> plannedSpending;
 
   @NotNull
   private boolean isSpend;

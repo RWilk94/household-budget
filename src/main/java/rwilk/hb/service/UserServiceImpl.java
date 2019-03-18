@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import rwilk.hb.exception.UserAlreadyExistsException;
 import rwilk.hb.model.JWTUser;
 import rwilk.hb.model.User;
 import rwilk.hb.repository.UserRepository;
@@ -29,6 +30,15 @@ public class UserServiceImpl implements UserService {
       throw new IllegalArgumentException("Password and confirm password must be the same!");
     }
     user.setPassword(passwordEncoder.encode(user.getPassword()));
+    Optional<User> userOptional = userRepository.findByEmailOrUsername(user.getEmail(), user.getUsername());
+    if (userOptional.isPresent()) {
+      if (userOptional.get().getUsername().equalsIgnoreCase(user.getUsername())) {
+        throw new UserAlreadyExistsException("The username is already taken.");
+      }
+      if (userOptional.get().getEmail().equalsIgnoreCase(user.getEmail())) {
+        throw new UserAlreadyExistsException("The email is already taken.");
+      }
+    }
     return userRepository.save(user);
   }
 

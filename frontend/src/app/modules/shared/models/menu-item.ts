@@ -5,5 +5,6 @@ export interface MenuItem {
   iconName?: string;
   route?: string;
   children?: MenuItem[];
+  active?: boolean;
 
 }

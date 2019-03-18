@@ -15,10 +15,10 @@
 
       <ng-container matColumnDef="{{columns[1]}}">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header" width="{{width[1]}}%">Name</th>
-        <td mat-cell *matCellDef="let element" width="{{width[1]}}%">
+        <td id="column-name" mat-cell *matCellDef="let element" width="{{width[1]}}%">
           <ng-container *ngIf="!element.isEditing">{{element.name}} </ng-container>
           <mat-form-field *ngIf="element.isEditing" style="width: 95%">
-            <input matInput value="{{element.name}}" maxlength="255" (blur)="updateSpendNameOnBlur($event.target.value, element)">
+            <input matInput id="input-name" value="{{element.name}}" maxlength="255" (blur)="updateSpendNameOnBlur($event.target.value, element)">
           </mat-form-field>
         </td>
       </ng-container>
@@ -89,12 +89,12 @@
                     style="color: dodgerblue;"
                     matTooltip="Edit">edit
           </mat-icon>
-          <mat-icon class="mat-icon" *ngIf="!element.isEditing" (click)="showDeleteDialog(element)"
+          <mat-icon id="mat-icon-delete" class="mat-icon" *ngIf="!element.isEditing" (click)="showDeleteDialog(element)"
                     style="color: red;" matTooltip="Delete">
             delete
           </mat-icon>
 
-          <mat-icon class="mat-icon" *ngIf="element.isEditing && !element.isNew"
+          <mat-icon id="mat-icon-save" class="mat-icon" *ngIf="element.isEditing && !element.isNew"
                     (click)="updateExistingElement(element)" style="color: green;" matTooltip="Save">save
           </mat-icon>
           <mat-icon class="mat-icon" *ngIf="element.isEditing && !element.isNew"

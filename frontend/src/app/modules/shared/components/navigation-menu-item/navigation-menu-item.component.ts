@@ -33,6 +33,7 @@ export class NavigationMenuItemComponent implements OnInit {
 
   onItemSelected(item: MenuItem) {
     if (!item.children || !item.children.length) {
+      this.menuItem.active = true;
       this.router.navigate([item.route]);
     }
     if (item.children && item.children.length) {

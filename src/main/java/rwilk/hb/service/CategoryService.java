@@ -3,6 +3,7 @@ package rwilk.hb.service;
 import java.util.List;
 
 import rwilk.hb.model.Category;
+import rwilk.hb.model.ModuleVO;
 
 public interface CategoryService {
 
@@ -13,5 +14,10 @@ public interface CategoryService {
   Category updateCategory(Category category);
 
   void deleteCategory(Long id);
+
+  List<ModuleVO> getCategoriesVOsByYear(String username, Long moduleId, Integer year);
+
+  List<ModuleVO> getCategoriesVOsByMonth(String username, Long moduleId, Integer year, Integer month);
+
 
 }
