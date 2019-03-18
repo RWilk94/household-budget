@@ -30,9 +30,9 @@ export class PlanningSpendingComponent implements OnInit {
 
   private modules: Module[];
   private categories: Category[];
-  private selectedModule: Module;
+  selectedModule: Module;
   private displayedCategories: Category[];
-  private selectedCategory: Category;
+  selectedCategory: Category;
 
   private plannedSpending: PlannedSpend[] = [];
   private selectedYear: number = new Date().getFullYear();
