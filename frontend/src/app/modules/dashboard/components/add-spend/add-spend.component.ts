@@ -40,8 +40,7 @@ export class AddSpendComponent implements OnInit {
               private cookie: CookieService,
               private toasterService: ToasterService) {
     this.spend.category = new Category();
-    this.spend.category.module = new Module();
-  }
+    this.spend.category.module = new Module();  }
 
   ngOnInit() {
     this.id = this.router.url.toString().substring(this.router.url.toString().lastIndexOf("/") + 1);
@@ -57,6 +56,7 @@ export class AddSpendComponent implements OnInit {
       this.spend.user = new User();
       this.spend.user.username = this.cookie.get('username');
       this.date = this.spendingService.calendarDate;
+      this.selectDateNgModelChange();
     }
 
     this.moduleService.getModules().subscribe(modules => {

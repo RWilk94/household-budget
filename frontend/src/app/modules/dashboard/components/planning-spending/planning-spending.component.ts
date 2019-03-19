@@ -56,17 +56,17 @@ export class PlanningSpendingComponent implements OnInit {
 
   ngOnInit() {
     this.moduleService.getModules().subscribe(data => {
-      //console.log(data);
       this.modules = data;
+
+      this.categoryService.getCategories(this.cookie.get('username')).subscribe(data => {
+        console.log(data);
+        this.categories = data;
+        console.log(this.categories);
+        this.calculatePlannedSpending();
+      }, error => console.log(error));
+
     }, error => console.log(error));
 
-    this.categoryService.getCategories(this.cookie.get('username')).subscribe(data => {
-      console.log(data);
-      this.categories = data;
-      console.log(this.categories);
-      this.calculatePlannedSpending();
-
-    }, error => console.log(error));
   }
 
   selectModuleOnClick(moduleIndex) {
