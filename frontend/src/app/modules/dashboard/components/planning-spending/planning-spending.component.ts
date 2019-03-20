@@ -32,6 +32,7 @@ export class PlanningSpendingComponent implements OnInit {
               private navigationMenu: NavigationMenuService,
               private plannedSpendingService: PlannedSpendingService,
               private route: ActivatedRoute) {
+    navigationMenu.activeMenuItem('Overview');
     this.resetPlannedSpending();
 
     this.route.queryParams.subscribe(params => {
