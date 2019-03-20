@@ -10,6 +10,8 @@ import rwilk.hb.model.PlannedSpend;
 
 public interface PlannedSpendRepository extends JpaRepository<PlannedSpend, Long> {
 
+  List<PlannedSpend> findAllByCategory_Module_Id(Long moduleId);
+
   @Query(nativeQuery = true,
       value = "SELECT m.name, SUM(p.planned_spend)"
           + "FROM planned_spending p, categories c, users u, modules m "
@@ -20,11 +22,11 @@ public interface PlannedSpendRepository extends JpaRepository<PlannedSpend, Long
 
   @Query(nativeQuery = true,
       value = "SELECT c.name, SUM(p.planned_spend)"
-          + "FROM planned_spending p, categories c, users u "
-          + "WHERE p.id_category = c.id and p.id_user = u.id and p.year = :yearP and p.month >= :firstMonth and p.month <= :lastMonth and u.username = :username "
+          + "FROM planned_spending p, categories c, users u, modules m "
+          + "WHERE m.id = c.id_module and m.id = :moduleId and p.id_category = c.id and p.id_user = u.id and p.year = :yearP and p.month >= :firstMonth and p.month <= :lastMonth and u.username = :username "
           + "GROUP BY 1")
   List<Object> findAllByDateIsBetweenAndUser_UsernameAndGroupByCategory(
-      @Param("yearP") Integer year, @Param("firstMonth") Integer firstMonth, @Param("lastMonth") Integer lastMonth, @Param("username") String username);
+      @Param("yearP") Integer year, @Param("firstMonth") Integer firstMonth, @Param("lastMonth") Integer lastMonth, @Param("username") String username, @Param("moduleId") Long moduleId);
 
   @Query(nativeQuery = true,
   value = "SELECT * "

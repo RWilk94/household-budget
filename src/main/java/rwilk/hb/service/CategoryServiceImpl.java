@@ -12,6 +12,7 @@ import rwilk.hb.model.Category;
 import rwilk.hb.model.CategorySpending;
 import rwilk.hb.model.Module;
 import rwilk.hb.model.ModuleVO;
+import rwilk.hb.model.PlannedSpend;
 import rwilk.hb.model.User;
 import rwilk.hb.repository.CategoryRepository;
 import rwilk.hb.repository.ModuleRepository;
@@ -25,10 +26,8 @@ public class CategoryServiceImpl implements CategoryService {
 
   @Autowired
   private CategoryRepository categoryRepository;
-
   @Autowired
   private UserRepository userRepository;
-
   @Autowired
   private ModuleRepository moduleRepository;
   @Autowired
@@ -39,6 +38,11 @@ public class CategoryServiceImpl implements CategoryService {
   @Override
   public List<Category> getUserCategories(String username) {
     return categoryRepository.findAllByUserIsNullOrUser_Username(username);
+  }
+
+  @Override
+  public List<Category> getUserCategories(String username, Long moduleId) {
+    return categoryRepository.findAllByModule_IdAndUserIsNullOrUser_Username(moduleId, username);
   }
 
   @Override
@@ -83,11 +87,10 @@ public class CategoryServiceImpl implements CategoryService {
     Calendar firstDay = Utils.setFirstDayOfYear(year);
     Calendar lastDay = Utils.setLastDayOfYear(year);
     List<CategorySpending> actualSpending = Utils.mapToCategorySpending(
-        spendingRepository.findAllByDateIsBetweenAndUser_UsernameAndGroupByCategory(firstDay, lastDay, username));
+        spendingRepository.findAllByDateIsBetweenAndUser_UsernameAndGroupByCategory(firstDay, lastDay, username, moduleId));
     List<CategorySpending> plannedSpending = Utils.mapToCategorySpending(
-        plannedSpendRepository.findAllByDateIsBetweenAndUser_UsernameAndGroupByCategory(year, 1, 12, username));
+        plannedSpendRepository.findAllByDateIsBetweenAndUser_UsernameAndGroupByCategory(year, 1, 12, username, moduleId));
     return categories.stream()
-        .filter(category -> category.getModule().getId() == moduleId)
         .map(category ->
             ModuleVO.builder()
                 .id(category.getId())
@@ -108,15 +111,14 @@ public class CategoryServiceImpl implements CategoryService {
 
   @Override
   public List<ModuleVO> getCategoriesVOsByMonth(String username, Long moduleId, Integer year, Integer month) {
-    List<Category> categories = this.getUserCategories(username);
+    List<Category> categories = this.getUserCategories(username, moduleId);
     Calendar firstDay = Utils.setFirstDayOfMonth(year, month);
     Calendar lastDay = Utils.setLastDayOfMonth(year, month);
     List<CategorySpending> actualSpending = Utils.mapToCategorySpending(
-        spendingRepository.findAllByDateIsBetweenAndUser_UsernameAndGroupByCategory(firstDay, lastDay, username));
+        spendingRepository.findAllByDateIsBetweenAndUser_UsernameAndGroupByCategory(firstDay, lastDay, username, moduleId));
     List<CategorySpending> plannedSpending = Utils.mapToCategorySpending(
-        plannedSpendRepository.findAllByDateIsBetweenAndUser_UsernameAndGroupByCategory(year, month, month, username));
+        plannedSpendRepository.findAllByDateIsBetweenAndUser_UsernameAndGroupByCategory(year, month, month, username, moduleId));
     return categories.stream()
-        .filter(category -> category.getModule().getId() == moduleId)
         .map(category ->
             ModuleVO.builder()
                 .id(category.getId())

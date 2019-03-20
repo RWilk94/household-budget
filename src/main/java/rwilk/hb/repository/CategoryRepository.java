@@ -15,6 +15,8 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
 
   List<Category> findAllByUserIsNullOrUser_Username(String username);
 
+  List<Category> findAllByModule_IdAndUserIsNullOrUser_Username(Long moduleId, String username);
+
   @Query(nativeQuery = true,
       value = "SELECT c.* "
           + "FROM categories c left join users u on (u.id = c.id_user) "

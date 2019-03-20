@@ -9,6 +9,8 @@ public interface CategoryService {
 
   List<Category> getUserCategories(String username);
 
+  List<Category> getUserCategories(String username, Long moduleId);
+
   Category addCategory(Category category);
 
   Category updateCategory(Category category);
