@@ -4,6 +4,13 @@
 <mat-card style="height: 100%; overflow: auto; margin: 0; padding: 0">
   <mat-card-content>
 
+    <div style="width: 100%;">
+      <mat-form-field style="width: 78%; margin: 1px 3px">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+      <button class="btn btn-success btn-sm" style="margin: 1px; width: 20%; float: end" (click)="createRowInTable()">Dodaj</button>
+    </div>
+
     <table mat-table [dataSource]="dataSource" matSort="">
 
       <ng-container matColumnDef="{{columns[0]}}">
@@ -16,9 +23,10 @@
       <ng-container matColumnDef="{{columns[1]}}">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header" width="{{width[1]}}%">Name</th>
         <td id="column-name" mat-cell *matCellDef="let element" width="{{width[1]}}%">
-          <ng-container *ngIf="!element.isEditing">{{element.name}} </ng-container>
+          <ng-container *ngIf="!element.isEditing">{{element.name}}</ng-container>
           <mat-form-field *ngIf="element.isEditing" style="width: 95%">
-            <input matInput id="input-name" value="{{element.name}}" maxlength="255" (blur)="updateSpendNameOnBlur($event.target.value, element)">
+            <input matInput id="input-name" value="{{element.name}}" maxlength="255"
+                   (blur)="updateSpendNameOnBlur($event.target.value, element)">
           </mat-form-field>
         </td>
       </ng-container>
@@ -27,7 +35,7 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header" width="{{width[2]}}%">Module</th>
         <td mat-cell *matCellDef="let element" width="{{width[2]}}%">
           <ng-container *ngIf="!element.isEditing">{{element.module.name}}</ng-container>
-          <mat-form-field *ngIf="element.isEditing"  style="width: 95%">
+          <mat-form-field *ngIf="element.isEditing" style="width: 95%">
             <mat-select [compareWith]="compareModules" [(value)]="element.module">
               <mat-option *ngFor="let module of modules" [value]="module">
                 {{module.name}}
@@ -58,7 +66,8 @@
             {{element.date | date: 'dd.MM.yyyy'}}
           </ng-container>
           <mat-form-field *ngIf="element.isEditing" style="width: 95%">
-            <input matInput [matDatepicker]="datePicker" placeholder="Choose a date"  (dateChange)="updateSpendDateOnBlur($event.target.value, element)" [value]="element.date" disabled>
+            <input matInput [matDatepicker]="datePicker" placeholder="Choose a date"
+                   (dateChange)="updateSpendDateOnBlur($event.target.value, element)" [value]="element.date" disabled>
             <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
             <mat-datepicker #datePicker disabled="false"></mat-datepicker>
           </mat-form-field>
@@ -68,9 +77,10 @@
       <ng-container matColumnDef="{{columns[5]}}">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header" width="{{width[5]}}%">Value</th>
         <td mat-cell *matCellDef="let element" width="{{width[5]}}%">
-          <ng-container *ngIf="!element.isEditing">{{element.value}} </ng-container>
+          <ng-container *ngIf="!element.isEditing">{{element.value}}</ng-container>
           <mat-form-field *ngIf="element.isEditing" style="width: 95%">
-            <input matInput value="{{element.value}}" maxlength="255" type="number" (blur)="updateSpendValueOnBlur($event.target.value, element)">
+            <input matInput value="{{element.value}}" maxlength="255" type="number"
+                   (blur)="updateSpendValueOnBlur($event.target.value, element)">
           </mat-form-field>
         </td>
       </ng-container>

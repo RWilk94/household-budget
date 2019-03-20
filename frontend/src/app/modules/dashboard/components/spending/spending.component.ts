@@ -14,6 +14,7 @@ import {User} from "../../../shared/models/user";
 import {DialogConfirmDeleteComponent} from "../dialog-confirm-delete/dialog-confirm-delete.component";
 import {ToastBuilder} from "../../../shared/utils/toast-builder";
 import {NavigationMenuService} from "../../../shared/services/navigation-menu.service";
+import {CategoryElement} from "../category/category-element";
 
 export const MY_FORMATS = {
   parse: {
@@ -83,6 +84,13 @@ export class SpendingComponent implements OnInit, AfterViewInit {
       }
     };
 
+    this.dataSource.filterPredicate =
+      (spend: SpendElement, filter: string) =>
+        (this.isNotNull(spend.name) && spend.name.toLowerCase().includes(filter.toLowerCase()))
+        || (this.isNotNull(spend.module.name) && spend.module.name.toString().toLowerCase().includes(filter.toLowerCase()))
+        || (this.isNotNull(spend.category.name) && spend.category.name.toString().toLowerCase().includes(filter.toLowerCase()))
+        || (this.isNotNull(spend.value) && spend.value.toString().toLowerCase().includes(filter.toLowerCase()));
+
     this.moduleService.getModules().subscribe(
       modules => this.modules = modules,
       error => console.log(error));
@@ -95,6 +103,14 @@ export class SpendingComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
 
+  }
+
+  private isNotNull(value) {
+    return value !== undefined && value !== null;
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   enableElementEditMode(element: SpendElement) {
@@ -218,6 +234,7 @@ export class SpendingComponent implements OnInit, AfterViewInit {
     let dataSource = this.dataSource.data;
     dataSource.push(element);
     this.dataSource.data = dataSource;
+    this.dataSource.paginator.lastPage();
   }
 
   private refresh() {
