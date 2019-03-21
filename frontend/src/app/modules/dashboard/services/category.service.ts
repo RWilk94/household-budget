@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {Category} from "../models/category";
-import {CookieService} from "ngx-cookie-service";
-import {ModuleVO} from "../models/moduleVO";
-import {EnvironmentConfigService} from "../../shared/services/environment-config.service";
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {Category} from '../models/category';
+import {CookieService} from 'ngx-cookie-service';
+import {ModuleVO} from '../models/moduleVO';
+import {EnvironmentConfigService} from '../../shared/services/environment-config.service';
 
 @Injectable({
   providedIn: 'root'

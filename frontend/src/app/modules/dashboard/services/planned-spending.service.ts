@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {CookieService} from "ngx-cookie-service";
-import {PlannedSpend} from "../models/planned-spend";
-import {Observable} from "rxjs";
-import {EnvironmentConfigService} from "../../shared/services/environment-config.service";
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {CookieService} from 'ngx-cookie-service';
+import {PlannedSpend} from '../models/planned-spend';
+import {Observable} from 'rxjs';
+import {EnvironmentConfigService} from '../../shared/services/environment-config.service';
 
 @Injectable({
   providedIn: 'root'

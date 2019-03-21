@@ -1,8 +1,7 @@
-
-import {throwError as observableThrowError, BehaviorSubject, Observable, Subject, throwError} from 'rxjs';
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from "@angular/common/http";
-import {catchError, finalize, map, tap} from "rxjs/operators";
-import {Injectable} from "@angular/core";
+import {BehaviorSubject, Observable} from 'rxjs';
+import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
+import {tap} from 'rxjs/operators';
+import {Injectable} from '@angular/core';
 
 @Injectable()
 export class HTTPStatusService {

@@ -1,0 +1,7 @@
+@relation icecreamsales.symbolic
+
+@attribute temperature numeric
+@attribute icecreamsales numeric
+
+@data
+'201906',600

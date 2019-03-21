@@ -1,18 +1,18 @@
 import {Component, OnInit} from '@angular/core';
-import {ModuleService} from "../../services/module.service";
+import {ModuleService} from '../../services/module.service';
 import {CalendarEvent, CalendarEventAction, CalendarView} from 'angular-calendar';
 import {isSameDay, isSameMonth} from 'date-fns';
-import {SpendingService} from "../../services/spending.service";
-import {CookieService} from "ngx-cookie-service";
-import {Spend} from "../../models/spend";
-import {Toast, ToasterService} from "angular2-toaster";
-import {ToastBuilder} from "../../../shared/utils/toast-builder";
+import {SpendingService} from '../../services/spending.service';
+import {CookieService} from 'ngx-cookie-service';
+import {Spend} from '../../models/spend';
+import {Toast, ToasterService} from 'angular2-toaster';
+import {ToastBuilder} from '../../../shared/utils/toast-builder';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {Router} from "@angular/router";
-import {Module} from "../../models/module";
-import {NavigationMenuService} from "../../../shared/services/navigation-menu.service";
+import {Router} from '@angular/router';
+import {Module} from '../../models/module';
+import {NavigationMenuService} from '../../../shared/services/navigation-menu.service';
 
-let colors: any = {
+const colors: any = {
   red: {
     primary: '#ad2121',
     secondary: '#FAE3E3'
@@ -46,7 +46,7 @@ export class CalendarComponent implements OnInit {
   view: CalendarView = CalendarView.Month;
   events: CalendarEvent[] = [];
   viewDate: Date = new Date();
-  activeDayIsOpen: boolean = false;
+  activeDayIsOpen = false;
 
   actions: CalendarEventAction[] = [
     {
@@ -77,7 +77,7 @@ export class CalendarComponent implements OnInit {
     if (this.spendingService.calendarDate !== undefined && this.spendingService.calendarDate !== null) {
       this.viewDate = new Date(
         this.spendingService.calendarDate.year,
-        this.spendingService.calendarDate.month-1,
+        this.spendingService.calendarDate.month - 1,
         this.spendingService.calendarDate.day);
     }
 
@@ -101,12 +101,12 @@ export class CalendarComponent implements OnInit {
   handleEvent(action: string, event: CalendarEvent): void {
     switch (action) {
       case ACTION_EDIT: {
-        let spend = this.spending.filter(spend => spend.id === event.id)[0];
+        const spend = this.spending.filter(spend => spend.id === event.id)[0];
         this.router.navigate(['/dashboard/add-spend/' + spend.id]);
         break;
       }
       case ACTION_DELETE: {
-        let spendToDelete = this.spending.filter(spend => spend.id === event.id)[0];
+        const spendToDelete = this.spending.filter(spend => spend.id === event.id)[0];
         this.spendingService.deleteSpend(spendToDelete).subscribe(data => {
           this.displayToast(ToastBuilder.successDeleteItem());
           this.spending = this.spending.filter(spend => spend.id !== spendToDelete.id);
@@ -128,7 +128,7 @@ export class CalendarComponent implements OnInit {
   private convertSpendingIntoCalendarEvents(spending: Spend[]) {
     this.events = [];
     spending.forEach(spend => {
-      let event: CalendarEvent = {
+      const event: CalendarEvent = {
         start: new Date(spend.date),
         end: new Date(spend.date),
         title: spend.name,

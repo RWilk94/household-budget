@@ -1,15 +1,15 @@
 import {APP_INITIALIZER, NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 
 import {AppComponent} from './app.component';
-import {AppRoutingModule} from "./app-routing.module";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatCardModule, MatFormFieldModule, MatInputModule, MatToolbarModule} from "@angular/material";
-import {HttpClientModule} from "@angular/common/http";
-import {SharedModule} from "./modules/shared/shared.module";
-import {RouterModule} from "@angular/router";
-import {CommonModule} from "@angular/common";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {EnvironmentConfigService} from "./modules/shared/services/environment-config.service";
+import {AppRoutingModule} from './app-routing.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatCardModule, MatFormFieldModule, MatInputModule, MatToolbarModule} from '@angular/material';
+import {HttpClientModule} from '@angular/common/http';
+import {SharedModule} from './modules/shared/shared.module';
+import {RouterModule} from '@angular/router';
+import {CommonModule} from '@angular/common';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {EnvironmentConfigService} from './modules/shared/services/environment-config.service';
 
 @NgModule({
   declarations: [

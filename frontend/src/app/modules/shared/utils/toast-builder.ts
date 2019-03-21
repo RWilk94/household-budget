@@ -1,4 +1,4 @@
-import {Toast} from "angular2-toaster";
+import {Toast} from 'angular2-toaster';
 
 export class ToastBuilder {
 
@@ -12,7 +12,7 @@ export class ToastBuilder {
     };
   }
 
-  static errorWhileUpdatingItem() : Toast {
+  static errorWhileUpdatingItem(): Toast {
     return {
       type: 'error',
       title: 'Error while updating item',
@@ -20,7 +20,7 @@ export class ToastBuilder {
     };
   }
 
-  static errorWhileInsertingItem() : Toast {
+  static errorWhileInsertingItem(): Toast {
     return {
       type: 'error',
       title: 'Error while inserting item',
@@ -28,7 +28,7 @@ export class ToastBuilder {
     };
   }
 
-  static errorWhileDeletingItem() : Toast {
+  static errorWhileDeletingItem(): Toast {
     return {
       type: 'error',
       title: 'Error while deleting item',
@@ -36,7 +36,7 @@ export class ToastBuilder {
     };
   }
 
-  static errorWhileRegisterUser() : Toast {
+  static errorWhileRegisterUser(): Toast {
     return {
       type: 'error',
       title: 'Error while register user',
@@ -44,7 +44,7 @@ export class ToastBuilder {
     };
   }
 
-  static errorEmptyName() : Toast {
+  static errorEmptyName(): Toast {
     return {
       type: 'error',
       title: 'Name can not be empty',
@@ -52,7 +52,7 @@ export class ToastBuilder {
     };
   }
 
-  static errorIncorrectName() : Toast {
+  static errorIncorrectName(): Toast {
     return {
       type: 'error',
       title: 'Name must have at least 1 character and max 255 characters.',
@@ -60,7 +60,7 @@ export class ToastBuilder {
     };
   }
 
-  static errorEmptyModule() : Toast {
+  static errorEmptyModule(): Toast {
     return {
       type: 'error',
       title: 'Module can not be empty',
@@ -68,7 +68,7 @@ export class ToastBuilder {
     };
   }
 
-  static errorEmptyCategory() : Toast {
+  static errorEmptyCategory(): Toast {
     return {
       type: 'error',
       title: 'Category can not be empty',
@@ -76,7 +76,7 @@ export class ToastBuilder {
     };
   }
 
-  static errorWrongValue() : Toast {
+  static errorWrongValue(): Toast {
     return {
       type: 'error',
       title: 'Value must be greater than 0',
@@ -84,7 +84,7 @@ export class ToastBuilder {
     };
   }
 
-  static errorEmptyDate() : Toast {
+  static errorEmptyDate(): Toast {
     return {
       type: 'error',
       title: 'Date can not be empty',
@@ -116,7 +116,7 @@ export class ToastBuilder {
     };
   }
 
-  static warningTemplateForRecordAlreadyAdded() : Toast {
+  static warningTemplateForRecordAlreadyAdded(): Toast {
     return {
       type: 'warning',
       title: 'Template for the record already added',

@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {SpendingService} from "../../services/spending.service";
-import {CookieService} from "ngx-cookie-service";
-import {Spend} from "../../models/spend";
+import {SpendingService} from '../../services/spending.service';
+import {CookieService} from 'ngx-cookie-service';
+import {Spend} from '../../models/spend';
 
 @Component({
   selector: 'app-spending-view',
@@ -18,7 +18,7 @@ export class SpendingViewComponent implements OnInit {
   constructor(private spendingService: SpendingService, private cookie: CookieService) { }
 
   ngOnInit() {
-    this.spendingService.getSpending(this.cookie.get("username")).subscribe(data => {
+    this.spendingService.getSpending(this.cookie.get('username')).subscribe(data => {
       this.spending = data;
     }, error => console.log(error));
   }

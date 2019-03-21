@@ -1,13 +1,13 @@
 import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from "@angular/router";
-import {DashboardComponent} from "./components/dashboard/dashboard.component";
-import {CalendarComponent} from "./components/calendar/calendar.component";
-import {CategoryComponent} from "./components/category/category.component";
-import {SpendingComponent} from "./components/spending/spending.component";
-import {AddSpendComponent} from "./components/add-spend/add-spend.component";
-import {ModuleComponent} from "./components/module/module.component";
-import {PlanningSpendingComponent} from "./components/planning-spending/planning-spending.component";
-import {CreditsComponent} from "./components/credits/credits.component";
+import {RouterModule, Routes} from '@angular/router';
+import {DashboardComponent} from './components/dashboard/dashboard.component';
+import {CalendarComponent} from './components/calendar/calendar.component';
+import {CategoryComponent} from './components/category/category.component';
+import {SpendingComponent} from './components/spending/spending.component';
+import {AddSpendComponent} from './components/add-spend/add-spend.component';
+import {ModuleComponent} from './components/module/module.component';
+import {PlanningSpendingComponent} from './components/planning-spending/planning-spending.component';
+import {CreditsComponent} from './components/credits/credits.component';
 
 const routes: Routes = [
   {

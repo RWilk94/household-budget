@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {SpendingService} from "../../services/spending.service";
+import {SpendingService} from '../../services/spending.service';
 import {Chart} from 'chart.js';
-import {CookieService} from "ngx-cookie-service";
-import {MonthSpending} from "../../models/month-spending";
-import {CategorySpending} from "../../models/category-spending";
-import {NavigationMenuService} from "../../../shared/services/navigation-menu.service";
+import {CookieService} from 'ngx-cookie-service';
+import {MonthSpending} from '../../models/month-spending';
+import {CategorySpending} from '../../models/category-spending';
+import {NavigationMenuService} from '../../../shared/services/navigation-menu.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -45,8 +45,8 @@ export class DashboardComponent implements OnInit {
   }
 
   generateSummaryOfSpendingChart(data: MonthSpending[]) {
-    let dataArray = [];
-    let labels: string[] = [];
+    const dataArray = [];
+    const labels: string[] = [];
     data.forEach(monthSpend => {
       dataArray.push(Math.round(monthSpend.sum * 100) / 100);
       labels.push(monthSpend.month + '/' + monthSpend.year);
@@ -77,14 +77,14 @@ export class DashboardComponent implements OnInit {
   }
 
   generateSpendingByCategoryChart(chart: any, name: string, spending: CategorySpending[]) {
-    let dataArray = [];
-    let labels: string[] = [];
+    const dataArray = [];
+    const labels: string[] = [];
     spending.forEach(categorySpend => {
       dataArray.push(categorySpend.sum);
       labels.push(categorySpend.name);
     });
     console.log(dataArray.length);
-    let colors = [];
+    const colors = [];
     for (let i = 0; i < (dataArray.length / 8) + 1; i++) {
       colors.push('red', 'green', 'blue', 'yellow', 'orange', 'black', 'pink', 'gray');
     }

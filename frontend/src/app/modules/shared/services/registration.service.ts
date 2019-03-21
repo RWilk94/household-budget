@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {User} from "../models/user";
-import {CookieService} from "ngx-cookie-service";
-import {Router} from "@angular/router";
-import {EnvironmentConfigService} from "./environment-config.service";
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {User} from '../models/user';
+import {CookieService} from 'ngx-cookie-service';
+import {Router} from '@angular/router';
+import {EnvironmentConfigService} from './environment-config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,12 +21,12 @@ export class RegistrationService {
   }
 
   register(user: User) {
-    let url = this.requestUrl + '/registration';
+    const url = this.requestUrl + '/registration';
     return this.http.post(url, user, {headers: this.header});
   }
 
   login(user: User) {
-    let url = this.requestUrl + '/login';
+    const url = this.requestUrl + '/login';
     return this.http.post(url, user, {headers: this.header});
   }
 
@@ -36,10 +36,10 @@ export class RegistrationService {
   }
 
   isLogin(): boolean {
-    return this.cookie.get('username') != null
-      && this.cookie.get('username') != ''
-      && this.cookie.get('token') != null
-      && this.cookie.get('token') != ''
+    return this.cookie.get('username') !== null
+      && this.cookie.get('username') !== ''
+      && this.cookie.get('token') !== null
+      && this.cookie.get('token') !== '';
   }
 
 }

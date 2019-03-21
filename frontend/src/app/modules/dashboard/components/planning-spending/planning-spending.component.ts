@@ -1,14 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {ModuleService} from "../../services/module.service";
-import {Module} from "../../models/module";
-import {Category} from "../../models/category";
-import {CategoryService} from "../../services/category.service";
-import {CookieService} from "ngx-cookie-service";
-import {NavigationMenuService} from "../../../shared/services/navigation-menu.service";
-import {PlannedSpend} from "../../models/planned-spend";
-import {User} from "../../../shared/models/user";
-import {PlannedSpendingService} from "../../services/planned-spending.service";
-import {ActivatedRoute} from "@angular/router";
+import {ModuleService} from '../../services/module.service';
+import {Module} from '../../models/module';
+import {Category} from '../../models/category';
+import {CategoryService} from '../../services/category.service';
+import {CookieService} from 'ngx-cookie-service';
+import {NavigationMenuService} from '../../../shared/services/navigation-menu.service';
+import {PlannedSpend} from '../../models/planned-spend';
+import {User} from '../../../shared/models/user';
+import {PlannedSpendingService} from '../../services/planned-spending.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-planning-spending',
@@ -37,8 +37,8 @@ export class PlanningSpendingComponent implements OnInit {
 
     this.route.queryParams.subscribe(params => {
       this.selectedCategory = new Category();
-      this.selectedCategory.name = params["categoryName"];
-      this.selectedCategory.id = params["categoryId"];
+      this.selectedCategory.name = params['categoryName'];
+      this.selectedCategory.id = params['categoryId'];
     });
   }
 
@@ -48,7 +48,7 @@ export class PlanningSpendingComponent implements OnInit {
       data => {
         this.plannedSpending = data;
         this.plannedSpending.push(new PlannedSpend());
-      }, error => console.log(error))
+      }, error => console.log(error));
   }
 
   changeYearOnClick() {

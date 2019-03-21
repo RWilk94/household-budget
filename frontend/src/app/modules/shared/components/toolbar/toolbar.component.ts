@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {RegistrationService} from "../../services/registration.service";
-import {NavigationMenuService} from "../../services/navigation-menu.service";
-import {CookieService} from "ngx-cookie-service";
+import {RegistrationService} from '../../services/registration.service';
+import {NavigationMenuService} from '../../services/navigation-menu.service';
+import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-toolbar',
@@ -10,7 +10,7 @@ import {CookieService} from "ngx-cookie-service";
 })
 export class ToolbarComponent implements OnInit {
 
-  username: string = '';
+  username = '';
 
   constructor(private registrationService: RegistrationService, private navigationMenuSercice: NavigationMenuService,
               private cookie: CookieService) { }

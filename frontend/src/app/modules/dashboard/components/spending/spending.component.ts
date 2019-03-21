@@ -1,20 +1,19 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {DateAdapter, MAT_DATE_FORMATS, MatDialog, MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
-import {SpendElement} from "./spend-element";
-import {Spend} from "../../models/spend";
-import {CategoryService} from "../../services/category.service";
-import {ModuleService} from "../../services/module.service";
-import {Toast, ToasterService} from "angular2-toaster";
-import {Module} from "../../models/module";
-import {Category} from "../../models/category";
-import {CookieService} from "ngx-cookie-service";
-import {SpendingService} from "../../services/spending.service";
-import {FormGroup} from "@angular/forms";
-import {User} from "../../../shared/models/user";
-import {DialogConfirmDeleteComponent} from "../dialog-confirm-delete/dialog-confirm-delete.component";
-import {ToastBuilder} from "../../../shared/utils/toast-builder";
-import {NavigationMenuService} from "../../../shared/services/navigation-menu.service";
-import {CategoryElement} from "../category/category-element";
+import {DateAdapter, MAT_DATE_FORMATS, MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {SpendElement} from './spend-element';
+import {Spend} from '../../models/spend';
+import {CategoryService} from '../../services/category.service';
+import {ModuleService} from '../../services/module.service';
+import {Toast, ToasterService} from 'angular2-toaster';
+import {Module} from '../../models/module';
+import {Category} from '../../models/category';
+import {CookieService} from 'ngx-cookie-service';
+import {SpendingService} from '../../services/spending.service';
+import {FormGroup} from '@angular/forms';
+import {User} from '../../../shared/models/user';
+import {DialogConfirmDeleteComponent} from '../dialog-confirm-delete/dialog-confirm-delete.component';
+import {ToastBuilder} from '../../../shared/utils/toast-builder';
+import {NavigationMenuService} from '../../../shared/services/navigation-menu.service';
 
 export const MY_FORMATS = {
   parse: {
@@ -119,13 +118,13 @@ export class SpendingComponent implements OnInit, AfterViewInit {
   }
 
   private convertDate(date: Date) {
-    let tempDate = new Date(date);
+    const tempDate = new Date(date);
     tempDate.setHours(Math.abs(date.getTimezoneOffset()) / 60);
     return tempDate;
   }
 
   cancelElementEditMode(element: SpendElement) {
-    let originalRow = this.spending[element.position - 1];
+    const originalRow = this.spending[element.position - 1];
     this.dataSource.data[element.position - 1].name = originalRow.name;
     this.dataSource.data[element.position - 1].module = originalRow.category.module;
     this.dataSource.data[element.position - 1].category = originalRow.category;
@@ -140,19 +139,19 @@ export class SpendingComponent implements OnInit, AfterViewInit {
   updateExistingElement(element: SpendElement) {
     console.log(JSON.stringify(element));
     if (this.validateSpendingElement(element)) {
-      let spend = this.spending[element.position - 1];
+      const spend = this.spending[element.position - 1];
       spend.category = element.category;
       spend.date = element.date;
       spend.name = element.name;
       spend.user = new User();
       spend.user.username = this.cookie.get('username');
 
-      let val = Number(element.value);
+      const val = Number(element.value);
       spend.value = Number(val.toFixed(2));
       element.value = Number(spend.value);
 
-      this.spendingService.updateSpend(spend).subscribe(spend => {
-        console.log(spend);
+      this.spendingService.updateSpend(spend).subscribe(updatedSpend => {
+        console.log(updatedSpend);
         this.displayToast(ToastBuilder.successUpdateItem());
         element.isEditing = false;
       }, error => {
@@ -164,14 +163,14 @@ export class SpendingComponent implements OnInit, AfterViewInit {
 
   insertElement(element: SpendElement) {
     if (this.validateSpendingElement(element)) {
-      let spend = new Spend();
+      const spend = new Spend();
       spend.category = element.category;
       spend.date = element.date;
       spend.name = element.name;
       spend.user = new User();
       spend.user.username = this.cookie.get('username');
 
-      let val = Number(element.value);
+      const val = Number(element.value);
       spend.value = Number(val.toFixed(2));
       element.value = Number(spend.value);
 
@@ -202,7 +201,7 @@ export class SpendingComponent implements OnInit, AfterViewInit {
 
   deleteElement(element: SpendElement) {
     console.log('deleteElement');
-    let spend = this.spending[element.position - 1];
+    const spend = this.spending[element.position - 1];
     this.spendingService.deleteSpend(spend).subscribe(data => {
       this.displayToast(ToastBuilder.successDeleteItem());
       this.refresh();
@@ -221,7 +220,7 @@ export class SpendingComponent implements OnInit, AfterViewInit {
 
 
   createRowInTable() {
-    let element: SpendElement = new SpendElement();
+    const element: SpendElement = new SpendElement();
     element.category = new Category();
     element.category.name = '';
     element.module = new Module();
@@ -231,7 +230,7 @@ export class SpendingComponent implements OnInit, AfterViewInit {
     element.isNew = true;
     element.isEditing = true;
 
-    let dataSource = this.dataSource.data;
+    const dataSource = this.dataSource.data;
     dataSource.push(element);
     this.dataSource.data = dataSource;
     this.dataSource.paginator.lastPage();
@@ -251,9 +250,9 @@ export class SpendingComponent implements OnInit, AfterViewInit {
 
   private convertSpendingIntoSpendElements(elements: Spend[]) {
     if (elements.length > 0) {
-      let spendingElements: SpendElement[] = [];
+      const spendingElements: SpendElement[] = [];
       for (let i = 0; i < elements.length; i++) {
-        let element: SpendElement = new SpendElement();
+        const element: SpendElement = new SpendElement();
         element.position = i + 1;
         element.name = this.spending[i].name;
         element.category = this.spending[i].category;
