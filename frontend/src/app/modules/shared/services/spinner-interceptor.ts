@@ -26,6 +26,10 @@ export class HTTPStatusService {
     }
   }
 
+  resetHttpStatus(status: boolean) {
+    this.requestInFlight$.next(status);
+  }
+
   getHttpStatus(): Observable<boolean> {
     return this.requestInFlight$.asObservable();
   }
@@ -45,7 +49,7 @@ export class SpinnerInterceptor implements HttpInterceptor {
         this.status.setHttpStatus(false);
       }
     }, (error: any) => {
-      this.status.setHttpStatus(false);
+      this.status.resetHttpStatus(false);
     }));
   }
 
