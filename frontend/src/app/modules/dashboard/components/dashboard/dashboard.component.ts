@@ -83,7 +83,11 @@ export class DashboardComponent implements OnInit {
       dataArray.push(categorySpend.sum);
       labels.push(categorySpend.name);
     });
-    let colors = ['red', 'green', 'blue', 'yellow'];
+    console.log(dataArray.length);
+    let colors = [];
+    for (let i = 0; i < (dataArray.length / 8) + 1; i++) {
+      colors.push('red', 'green', 'blue', 'yellow', 'orange', 'black', 'pink', 'gray');
+    }
 
     chart = new Chart(name, {
       type: 'pie',
