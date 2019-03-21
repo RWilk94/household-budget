@@ -12,7 +12,6 @@ import rwilk.hb.model.Category;
 import rwilk.hb.model.CategorySpending;
 import rwilk.hb.model.Module;
 import rwilk.hb.model.ModuleVO;
-import rwilk.hb.model.PlannedSpend;
 import rwilk.hb.model.User;
 import rwilk.hb.repository.CategoryRepository;
 import rwilk.hb.repository.ModuleRepository;
@@ -37,12 +36,12 @@ public class CategoryServiceImpl implements CategoryService {
 
   @Override
   public List<Category> getUserCategories(String username) {
-    return categoryRepository.findAllByUserIsNullOrUser_Username(username);
+    return categoryRepository.findAllByUser_Username(username);
   }
 
   @Override
   public List<Category> getUserCategories(String username, Long moduleId) {
-    return categoryRepository.findAllByModule_IdAndUserIsNullOrUser_Username(moduleId, username);
+    return categoryRepository.findAllByModule_IdAndUser_Username(moduleId, username);
   }
 
   @Override
@@ -82,7 +81,7 @@ public class CategoryServiceImpl implements CategoryService {
     Optional<Module> moduleOptional = moduleRepository.findById(moduleId);
     if (!moduleOptional.isPresent())
       throw new IllegalArgumentException();
-    List<Category> categories = categoryRepository.findAllByUserIsNullOrUser_UsernameAndModule(username, moduleOptional.get().getId());
+    List<Category> categories = categoryRepository.findAllByUser_UsernameAndModule(username, moduleOptional.get().getId());
 
     Calendar firstDay = Utils.setFirstDayOfYear(year);
     Calendar lastDay = Utils.setLastDayOfYear(year);
