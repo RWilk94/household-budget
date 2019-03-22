@@ -101,8 +101,8 @@ export class CalendarComponent implements OnInit {
   handleEvent(action: string, event: CalendarEvent): void {
     switch (action) {
       case ACTION_EDIT: {
-        const spend = this.spending.filter(spend => spend.id === event.id)[0];
-        this.router.navigate(['/dashboard/add-spend/' + spend.id]);
+        const selectedSpend = this.spending.filter(spend => spend.id === event.id)[0];
+        this.router.navigate(['/dashboard/add-spend/' + selectedSpend.id]);
         break;
       }
       case ACTION_DELETE: {

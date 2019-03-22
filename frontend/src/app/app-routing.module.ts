@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AuthGuardService} from './modules/shared/auth/auth-guard.service';
-import {DefaultRouteResolver} from './modules/shared/auth/default-route-resolver';
+import {DefaultRouteResolverComponent} from './modules/shared/auth/default-route-resolver';
 import {DashboardGuardService} from './modules/shared/auth/dashboard-guard.service';
 
 const routes: Routes = [
@@ -19,7 +19,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    component: DefaultRouteResolver,
+    component: DefaultRouteResolverComponent,
     pathMatch: 'full'
   }
 ];
