@@ -11,7 +11,7 @@ import {
   MatDialogModule,
   MatFormFieldModule,
   MatIconModule,
-  MatInputModule,
+  MatInputModule, MatPaginatorIntl,
   MatPaginatorModule,
   MatSelectModule,
   MatSortModule,
@@ -33,8 +33,9 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {ModuleComponent} from './components/module/module.component';
 import {CategoryViewComponent} from './components/category-view/category-view.component';
 import {SpendingViewComponent} from './components/spending-view/spending-view.component';
-import { PlanningSpendingComponent } from './components/planning-spending/planning-spending.component';
-import { CreditsComponent } from './components/credits/credits.component';
+import {PlanningSpendingComponent} from './components/planning-spending/planning-spending.component';
+import {CreditsComponent} from './components/credits/credits.component';
+import {MatPaginatorIntlPl} from "./components/mat-paginator-intl-pl";
 
 @NgModule({
   imports: [
@@ -71,7 +72,8 @@ import { CreditsComponent } from './components/credits/credits.component';
   providers: [
     CategoryService,
     ModuleService,
-    {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}}
+    {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}},
+    {provide: MatPaginatorIntl, useClass: MatPaginatorIntlPl}
   ],
   declarations: [DashboardComponent, CategoryComponent, CalendarComponent, DialogConfirmDeleteComponent, SpendingComponent,
     AddSpendComponent, ModuleComponent, CategoryViewComponent, SpendingViewComponent, PlanningSpendingComponent, CreditsComponent]

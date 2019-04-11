@@ -75,7 +75,7 @@ export class AddSpendComponent implements OnInit {
       this.spendingService.updateSpend(this.spend).subscribe(spend => {
         this.alert = {
           type: 'success',
-          message: 'Record updated successfully.',
+          message: 'Rekord został zaktualizowany.',
         };
       }, error => {
         console.log(error);
@@ -85,7 +85,7 @@ export class AddSpendComponent implements OnInit {
       this.spendingService.addSpend(this.spend).subscribe(spend => {
         this.alert = {
           type: 'success',
-          message: 'Record added successfully.',
+          message: 'Rekord został dodany.',
         };
       }, error => {
         console.log(error);

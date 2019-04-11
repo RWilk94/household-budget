@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ModuleService} from '../../services/module.service';
-import {CalendarEvent, CalendarEventAction, CalendarView} from 'angular-calendar';
+import {CalendarEvent, CalendarEventAction, CalendarView, DAYS_OF_WEEK} from 'angular-calendar';
 import {isSameDay, isSameMonth} from 'date-fns';
 import {SpendingService} from '../../services/spending.service';
 import {CookieService} from 'ngx-cookie-service';
@@ -37,7 +37,7 @@ const ACTION_DELETE = 'Delete';
 @Component({
   selector: 'app-module',
   templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.css']
+  styleUrls: ['./calendar.component.css'],
 })
 export class CalendarComponent implements OnInit {
 
@@ -47,6 +47,8 @@ export class CalendarComponent implements OnInit {
   events: CalendarEvent[] = [];
   viewDate: Date = new Date();
   activeDayIsOpen = false;
+  locale: string = 'pl';
+  weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
 
   actions: CalendarEventAction[] = [
     {
@@ -144,8 +146,10 @@ export class CalendarComponent implements OnInit {
   private getColor(module: Module) {
     module = this.modules.filter(data => module.id === data.id)[0];
     switch (this.modules.indexOf(module)) {
-      case 0: return colors.green;
-      case 1: return colors.yellow;
+      case 0:
+        return colors.green;
+      case 1:
+        return colors.yellow;
     }
   }
 
