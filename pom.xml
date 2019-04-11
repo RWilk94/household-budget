@@ -72,6 +72,19 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
+
+    <!--&lt;!&ndash; https://mvnrepository.com/artifact/weka/weka &ndash;&gt;-->
+    <!--<dependency>-->
+      <!--<groupId>weka</groupId>-->
+      <!--<artifactId>weka</artifactId>-->
+    <!--</dependency>-->
+
+    <dependency>
+      <groupId>nz.ac.waikato.cms.weka</groupId>
+      <artifactId>weka-stable</artifactId>
+      <version>3.8.0</version>
+    </dependency>
+
   </dependencies>
 
   <build>

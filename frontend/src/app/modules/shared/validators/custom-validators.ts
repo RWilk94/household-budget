@@ -1,8 +1,8 @@
-import {AbstractControl, ValidationErrors} from "@angular/forms";
+import {AbstractControl, ValidationErrors} from '@angular/forms';
 
 export class CustomValidators {
 
-  public static confirmPassword(control: AbstractControl) : ValidationErrors | null {
+  public static confirmPassword(control: AbstractControl): ValidationErrors | null {
     if (control && control.value !== null || control.value !== undefined) {
       const confirmPasswordValue = control.value;
       const passControl = control.root.get('password');

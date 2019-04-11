@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {NavigationMenuService} from "../../services/navigation-menu.service";
-import {RegistrationService} from "../../services/registration.service";
+import {NavigationMenuService} from '../../services/navigation-menu.service';
+import {RegistrationService} from '../../services/registration.service';
 
 @Component({
   selector: 'app-navigation-menu',

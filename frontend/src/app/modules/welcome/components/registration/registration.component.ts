@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {User} from "../../../shared/models/user";
-import {CustomValidators} from "../../../shared/validators/custom-validators";
-import {RegistrationService} from "../../../shared/services/registration.service";
-import {HttpErrorResponse} from "@angular/common/http";
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {User} from '../../../shared/models/user';
+import {CustomValidators} from '../../../shared/validators/custom-validators';
+import {RegistrationService} from '../../../shared/services/registration.service';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-registration',
@@ -54,7 +54,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   checkFields() {
-    let confirmPassword: string = this.registrationForm.get('confirmPassword').value;
+    const confirmPassword: string = this.registrationForm.get('confirmPassword').value;
     if (confirmPassword !== undefined && confirmPassword !== null && confirmPassword.length !== 0) {
       this.registrationForm.get('confirmPassword').updateValueAndValidity();
     }

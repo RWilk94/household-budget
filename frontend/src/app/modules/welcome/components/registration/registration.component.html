@@ -6,7 +6,7 @@
 
     <mat-card class="center-mat-card">
       <mat-card-title>
-        <p class="text-center"><strong id="title">SIGN UP</strong></p>
+        <p class="text-center"><strong id="title">Rejestracja</strong></p>
       </mat-card-title>
       <mat-card-content>
 
@@ -19,10 +19,10 @@
           <mat-form-field class="mat-input-form">
             <input matInput
                    id="username"
-                   placeholder="Username"
+                   placeholder="Nazwa użytkownika"
                    formControlName="username">
             <mat-error *ngIf="registrationForm.getError('required', ['username'])">
-              Username is required
+              Nazwa użytkownika nie może być pusta
             </mat-error>
           </mat-form-field>
 
@@ -32,10 +32,10 @@
                    placeholder="Email"
                    formControlName="email">
             <mat-error *ngIf="registrationForm.getError('required', ['email'])">
-              Email is required
+              Email nie może być pusty
             </mat-error>
             <mat-error *ngIf="registrationForm.getError('email', ['email'])">
-              Email has invalid format
+              Email ma niewłaściwy format
             </mat-error>
           </mat-form-field>
 
@@ -43,11 +43,11 @@
             <input matInput
                    id="password"
                    type="password"
-                   placeholder="Password"
+                   placeholder="Hasło"
                    formControlName="password"
                    (keyup)="checkFields()">
             <mat-error *ngIf="registrationForm.getError('required', ['password'])">
-              Password is required
+              Hasło nie może być puste
             </mat-error>
           </mat-form-field>
 
@@ -55,26 +55,26 @@
             <input matInput
                    id="confirm-password"
                    type="password"
-                   placeholder="Confirm password"
+                   placeholder="Powtórz hasło"
                    formControlName="confirmPassword">
             <mat-error *ngIf="registrationForm.getError('required', ['confirmPassword'])">
-              Confirm password is required
+              Pole nie może być puste
             </mat-error>
             <mat-error *ngIf="registrationForm.getError('confirmPassword', ['confirmPassword'])">
-              Password and confirm password must be the same
+              Podane hasła nie są identyczne
             </mat-error>
           </mat-form-field>
 
           <div class="container-form-buttons">
             <button id="button-reset"
                     type="reset"
-                    class="btn btn-secondary form-button">Clear
+                    class="btn btn-secondary form-button">Wyczyść
             </button>
 
             <button type="submit"
                     [disabled]="this.registrationForm.invalid"
                     (click)="onSubmit()"
-                    class="btn btn-success form-button">Sign up
+                    class="btn btn-success form-button">Stwórz
             </button>
           </div>
         </form>
@@ -82,7 +82,7 @@
 
       <mat-card-footer>
         <p class="text-center">
-          Already have an account? <strong><a routerLink="/login" routerLinkActive="true">Sign in</a></strong>
+          Masz już konto? <strong><a routerLink="/login" routerLinkActive="true">Zaloguj się</a></strong>
         </p>
       </mat-card-footer>
     </mat-card>

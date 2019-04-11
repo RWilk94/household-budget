@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
-import {RegistrationService} from "../services/registration.service";
+import {Router} from '@angular/router';
+import {RegistrationService} from '../services/registration.service';
 
 @Component({
-  selector: 'default-route-resolver',
+  selector: 'app-default-route-resolver',
   template: '',
   styles: []
 })
-export class DefaultRouteResolver implements OnInit {
+export class DefaultRouteResolverComponent implements OnInit {
 
   constructor(private router: Router, private registrationService: RegistrationService) {
   }

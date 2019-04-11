@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {CookieService} from "ngx-cookie-service";
-import {Observable} from "rxjs";
-import {Spend} from "../models/spend";
-import {MonthSpending} from "../models/month-spending";
-import {CategorySpending} from "../models/category-spending";
-import {EnvironmentConfigService} from "../../shared/services/environment-config.service";
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {CookieService} from 'ngx-cookie-service';
+import {Observable} from 'rxjs';
+import {Spend} from '../models/spend';
+import {MonthSpending} from '../models/month-spending';
+import {CategorySpending} from '../models/category-spending';
+import {EnvironmentConfigService} from '../../shared/services/environment-config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -49,10 +49,10 @@ export class SpendingService {
   }
 
   getCurrentMonthSpendingByCategory(username: string) {
-    return this.http.get<CategorySpending[]>(this.requestUrl + username + "/currentMonth", {headers: this.header});
+    return this.http.get<CategorySpending[]>(this.requestUrl + username + '/currentMonth', {headers: this.header});
   }
 
   getLastMonthSpendingByCategory(username: string) {
-    return this.http.get<CategorySpending[]>(this.requestUrl + username + "/lastMonth", {headers: this.header});
+    return this.http.get<CategorySpending[]>(this.requestUrl + username + '/lastMonth', {headers: this.header});
   }
 }

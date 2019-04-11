@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {MenuItem} from "../../models/menu-item";
-import {Router} from "@angular/router";
-import {animate, state, style, transition, trigger} from "@angular/animations";
+import {MenuItem} from '../../models/menu-item';
+import {Router} from '@angular/router';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-navigation-menu-item',

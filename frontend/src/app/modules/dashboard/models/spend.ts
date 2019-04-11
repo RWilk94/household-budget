@@ -1,5 +1,5 @@
-import {Category} from "./category";
-import {User} from "../../shared/models/user";
+import {Category} from './category';
+import {User} from '../../shared/models/user';
 
 export class Spend {
   id: number;

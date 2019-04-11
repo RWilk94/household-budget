@@ -1,5 +1,5 @@
 import { AppPage } from './app.po';
-import {browser, protractor} from "protractor";
+import {browser, protractor} from 'protractor';
 
 describe('Household Budget Application', () => {
   let page: AppPage;
