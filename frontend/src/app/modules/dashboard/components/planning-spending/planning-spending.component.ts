@@ -22,7 +22,7 @@ export class PlanningSpendingComponent implements OnInit {
 
   private plannedSpending: PlannedSpend[] = [];
   private selectedYear: number = new Date().getFullYear();
-  private year: number = new Date().getFullYear();
+  year: number = new Date().getFullYear();
   private month: number = new Date().getMonth();
   constSpending: boolean;
 

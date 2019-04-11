@@ -34,6 +34,7 @@ export class ModuleService {
   }
 
   getModulesVOsByMonth(year: number, month: number) {
+    // console.log('getModulesVOsByMonth ' + year + ' ' + month);
     return this.http.get<ModuleVO[]>(
       this.requestUrl + this.cookie.get('username') + '/' + year.toString() + '/' + month.toString(),
       {headers: this.header}

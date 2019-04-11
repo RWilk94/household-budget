@@ -47,6 +47,7 @@ export class CategoryService {
   }
 
   getCategoryVOsByMonth(moduleId: number, year: number, month: number) {
+    // console.log('getCategoryVOsByMonth ' + moduleId + ' ' + year + ' ' + month);
     return this.http.get<ModuleVO[]>(
       this.requestUrl + this.cookie.get('username') + '/' + moduleId + '/' + year.toString() + '/' + month.toString(),
       {headers: this.header}

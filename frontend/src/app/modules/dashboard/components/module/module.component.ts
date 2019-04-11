@@ -16,8 +16,8 @@ export class ModuleComponent implements OnInit {
   selectedMonth: number = this.selectCurrentMonth();
   // selectedYear: number = this.selectCurrentYear();
 
-  year = 2019;
-  month = '2019-03';
+  year = new Date().getFullYear();
+  month = '2019-' + ((new Date().getMonth() + 1) < 10 ? '0' + (new Date().getMonth() + 1).toString() : (new Date().getMonth() + 1));
 
   type: string = 'month';
 
@@ -36,6 +36,7 @@ export class ModuleComponent implements OnInit {
   }
 
   ngOnInit() {
+    // console.log('moduleComponent');
     this.moduleService.getModules().subscribe(data => {
       this.modules = data;
       this.modules.forEach(module => module.open = false);
@@ -130,9 +131,9 @@ export class ModuleComponent implements OnInit {
   }
 
   changeDatePeriod() {
+    // console.log(this.type);
+    this.selectedMonth = Number.parseFloat(this.month.substr(this.month.lastIndexOf('-') + 1));
     // console.log(this.selectedMonth);
-    // console.log(this.selectedYear);
-    console.log(this.type);
     this.getModuleVO();
   }
 }
