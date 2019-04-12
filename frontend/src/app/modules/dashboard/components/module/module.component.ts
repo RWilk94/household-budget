@@ -32,7 +32,7 @@ export class ModuleComponent implements OnInit {
 
   constructor(private navigationMenu: NavigationMenuService,
               private moduleService: ModuleService) {
-    navigationMenu.activeMenuItem('Overview');
+    navigationMenu.activeMenuItem('Przegląd');
   }
 
   ngOnInit() {

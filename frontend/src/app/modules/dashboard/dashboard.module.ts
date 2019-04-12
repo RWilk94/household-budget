@@ -36,6 +36,7 @@ import {SpendingViewComponent} from './components/spending-view/spending-view.co
 import {PlanningSpendingComponent} from './components/planning-spending/planning-spending.component';
 import {CreditsComponent} from './components/credits/credits.component';
 import {MatPaginatorIntlPl} from "./components/mat-paginator-intl-pl";
+import { PredictSpendComponent } from './components/predict-spend/predict-spend.component';
 
 @NgModule({
   imports: [
@@ -76,7 +77,7 @@ import {MatPaginatorIntlPl} from "./components/mat-paginator-intl-pl";
     {provide: MatPaginatorIntl, useClass: MatPaginatorIntlPl}
   ],
   declarations: [DashboardComponent, CategoryComponent, CalendarComponent, DialogConfirmDeleteComponent, SpendingComponent,
-    AddSpendComponent, ModuleComponent, CategoryViewComponent, SpendingViewComponent, PlanningSpendingComponent, CreditsComponent]
+    AddSpendComponent, ModuleComponent, CategoryViewComponent, SpendingViewComponent, PlanningSpendingComponent, CreditsComponent, PredictSpendComponent]
 })
 export class DashboardModule {
 }

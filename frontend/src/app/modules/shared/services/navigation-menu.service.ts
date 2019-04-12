@@ -31,6 +31,11 @@ export class NavigationMenuService {
       route: 'dashboard/spending'
     },
     {
+      displayName: 'Prognozy',
+      iconName: 'bar_chart',
+      route: 'dashboard/predict-spend'
+    },
+    {
       displayName: 'Kalkulator kredytowy',
       iconName: 'money',
       route: 'dashboard/credits'

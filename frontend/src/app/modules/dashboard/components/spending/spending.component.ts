@@ -59,7 +59,7 @@ export class SpendingComponent implements OnInit, AfterViewInit {
               private dateAdapter: DateAdapter<Date>,
               private navigationMenu: NavigationMenuService) {
     this.dateAdapter.setLocale('pl');
-    navigationMenu.activeMenuItem('Spending');
+    navigationMenu.activeMenuItem('Wydatki');
   }
 
   ngOnInit() {

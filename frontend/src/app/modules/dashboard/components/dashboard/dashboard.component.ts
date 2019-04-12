@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(private spendingService: SpendingService, private cookieService: CookieService,
               private navigationMenu: NavigationMenuService) {
-    navigationMenu.activeMenuItem('Dashboard');
+    navigationMenu.activeMenuItem('Tablica');
   }
 
   ngOnInit() {
