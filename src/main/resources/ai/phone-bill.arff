@@ -1,0 +1,8 @@
+@relation phone.symbolic
+
+
+@attribute id numeric
+@attribute cost numeric
+
+@data
+1,50
