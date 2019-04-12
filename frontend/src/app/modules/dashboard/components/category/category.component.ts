@@ -37,7 +37,7 @@ export class CategoryComponent implements OnInit, AfterViewInit {
   constructor(private categoryService: CategoryService, private moduleService: ModuleService, private formBuilder: FormBuilder,
               private cookie: CookieService, private toasterService: ToasterService, private dialog: MatDialog,
               private navigationMenu: NavigationMenuService) {
-    navigationMenu.activeMenuItem('Categories');
+    navigationMenu.activeMenuItem('Kategorie');
   }
 
   ngOnInit() {

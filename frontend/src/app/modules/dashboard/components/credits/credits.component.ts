@@ -24,7 +24,7 @@ export class CreditsComponent implements OnInit {
   private capitalInstallment: number;
 
   constructor(private navigationMenu: NavigationMenuService) {
-    navigationMenu.activeMenuItem('Credits');
+    navigationMenu.activeMenuItem('Kalkulator kredytowy');
   }
 
   ngOnInit() {

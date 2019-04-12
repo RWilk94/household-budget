@@ -8,6 +8,7 @@ import {AddSpendComponent} from './components/add-spend/add-spend.component';
 import {ModuleComponent} from './components/module/module.component';
 import {PlanningSpendingComponent} from './components/planning-spending/planning-spending.component';
 import {CreditsComponent} from './components/credits/credits.component';
+import {PredictSpendComponent} from './components/predict-spend/predict-spend.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,7 @@ const routes: Routes = [
       {path: 'calendar', component: CalendarComponent},
       {path: 'overview', component: ModuleComponent},
       {path: 'planning_spending', component: PlanningSpendingComponent},
+      {path: 'predict-spend', component: PredictSpendComponent},
       {path: 'credits', component: CreditsComponent},
       {path: 'category', component: CategoryComponent},
       {path: 'add-spend', component: AddSpendComponent},

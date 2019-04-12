@@ -72,7 +72,7 @@ export class CalendarComponent implements OnInit {
               private router: Router,
               private toasterService: ToasterService,
               private navigationMenu: NavigationMenuService) {
-    navigationMenu.activeMenuItem('Calendar');
+    navigationMenu.activeMenuItem('Kalendarz');
   }
 
   ngOnInit() {
