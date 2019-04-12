@@ -27,6 +27,7 @@ export class RegistrationService {
 
   login(user: User) {
     const url = this.requestUrl + '/login';
+    this.cookie.set('username', user.username);
     return this.http.post(url, user, {headers: this.header});
   }
 
