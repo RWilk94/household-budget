@@ -9,11 +9,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import rwilk.hb.exception.UserAlreadyExistsException;
+import rwilk.hb.model.Category;
 import rwilk.hb.model.JWTUser;
 import rwilk.hb.model.User;
+import rwilk.hb.repository.CategoryRepository;
 import rwilk.hb.repository.UserRepository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -23,6 +27,9 @@ public class UserServiceImpl implements UserService {
 
   @Autowired
   private PasswordEncoder passwordEncoder;
+
+  @Autowired
+  private CategoryRepository categoryRepository;
 
   @Override
   public User register(User user) {
@@ -39,7 +46,21 @@ public class UserServiceImpl implements UserService {
         throw new UserAlreadyExistsException("The email is already taken.");
       }
     }
-    return userRepository.save(user);
+    user = userRepository.save(user);
+    createCategoriesForUser(user);
+    return user;
+  }
+
+  private void createCategoriesForUser(User user) {
+    List<Category> categories = categoryRepository.findAllByUserIsNull();
+    List<Category> userCategories = categories.stream().map(category -> Category.builder()
+        .isSpend(category.isSpend())
+        .module(category.getModule())
+        .name(category.getName())
+        .user(user)
+        .build()
+    ).collect(Collectors.toList());
+    categoryRepository.saveAll(userCategories);
   }
 
   @Override

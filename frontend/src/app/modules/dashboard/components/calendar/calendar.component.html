@@ -3,7 +3,7 @@
 
 <context-menu #basicMenu>
   <ng-template contextMenuItem (execute)="addEvent($event.item)">
-    Add spend
+    Dodaj wydatki
   </ng-template>
 </context-menu>
 
@@ -46,13 +46,13 @@
         [view]="view"
         [(viewDate)]="viewDate"
         (viewDateChange)="activeDayIsOpen = false">
-        Previous
+        Poprzedni
       </div>
       <div
         class="btn btn-outline-secondary"
         mwlCalendarToday
         [(viewDate)]="viewDate">
-        Today
+        Dziś
       </div>
       <div
         class="btn btn-primary"
@@ -60,12 +60,12 @@
         [view]="view"
         [(viewDate)]="viewDate"
         (viewDateChange)="activeDayIsOpen = false">
-        Next
+        Następny
       </div>
     </div>
   </div>
   <div class="col-md-4">
-    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h3>
   </div>
 </div>
 
@@ -73,6 +73,8 @@
   [@.disabled]="true"
   [viewDate]="viewDate"
   [events]="events"
+  [locale]="locale"
+  [weekStartsOn]="weekStartsOn"
   [activeDayIsOpen]="activeDayIsOpen"
   (dayClicked)="dayClicked($event.day)"
   [cellTemplate]="monthCellTemplate"

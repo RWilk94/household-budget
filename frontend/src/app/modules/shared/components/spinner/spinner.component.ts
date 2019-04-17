@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {HTTPStatusService} from "../../services/spinner-interceptor";
+import {HTTPStatusService} from '../../services/spinner-interceptor';
 
 @Component({
   selector: 'app-spinner',

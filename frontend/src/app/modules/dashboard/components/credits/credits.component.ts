@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {NavigationMenuService} from "../../../shared/services/navigation-menu.service";
-import {Installment} from "./installment";
+import {NavigationMenuService} from '../../../shared/services/navigation-menu.service';
+import {Installment} from './installment';
 
 @Component({
   selector: 'app-credits',
@@ -11,9 +11,9 @@ export class CreditsComponent implements OnInit {
 
   alert: Alert;
 
-  creditAmount: number;// = 300000;//kwota
-  lendingRate: number;// = 4.7; //oprocentowanie
-  creditPeriod: number;// = 300; //okres
+  creditAmount: number; // = 300000;//kwota
+  lendingRate: number; // = 4.7; //oprocentowanie
+  creditPeriod: number; // = 300; //okres
   type = 'equal';
 
   totalCreditCost: number = 0;
@@ -24,7 +24,7 @@ export class CreditsComponent implements OnInit {
   private capitalInstallment: number;
 
   constructor(private navigationMenu: NavigationMenuService) {
-    navigationMenu.activeMenuItem('Credits');
+    navigationMenu.activeMenuItem('Kalkulator kredytowy');
   }
 
   ngOnInit() {
@@ -59,13 +59,13 @@ export class CreditsComponent implements OnInit {
   }
 
   private calculateEqualRates() {
-    let q = 1 + ((this.lendingRate / 100) / 12);
-    let r = (this.creditAmount * (Math.pow(q, this.creditPeriod))*(q-1))/(Math.pow(q, this.creditPeriod)-1);
-    let percent = this.lendingRate / 100 / 12;
+    const q = 1 + ((this.lendingRate / 100) / 12);
+    const r = (this.creditAmount * (Math.pow(q, this.creditPeriod)) * (q - 1)) / (Math.pow(q, this.creditPeriod) - 1);
+    const percent = this.lendingRate / 100 / 12;
     let totalAmount = this.creditAmount;
 
     for (let i = 0; i < this.creditPeriod; i++) {
-      let installment: Installment = new Installment();
+      const installment: Installment = new Installment();
       installment.rateAmount = r;
       installment.debt = totalAmount;
       installment.period = i;
@@ -84,7 +84,7 @@ export class CreditsComponent implements OnInit {
     let totalAmount = this.creditAmount;
 
     for (let i = 0; i < this.creditPeriod; i++) {
-      let installment: Installment = new Installment();
+      const installment: Installment = new Installment();
       installment.debt = totalAmount;
       installment.capital = this.capitalInstallment;
       installment.period = i;

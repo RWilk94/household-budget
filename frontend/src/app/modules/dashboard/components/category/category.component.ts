@@ -1,17 +1,17 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {CategoryService} from "../../services/category.service";
-import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
-import {Category} from "../../models/category";
-import {Module} from "../../models/module";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {CategoryElement} from "./category-element";
-import {ModuleService} from "../../services/module.service";
-import {CookieService} from "ngx-cookie-service";
-import {Toast, ToasterService} from "angular2-toaster";
-import {ToastBuilder} from "../../../shared/utils/toast-builder";
-import {User} from "../../../shared/models/user";
-import {DialogConfirmDeleteComponent} from "../dialog-confirm-delete/dialog-confirm-delete.component";
-import {NavigationMenuService} from "../../../shared/services/navigation-menu.service";
+import {CategoryService} from '../../services/category.service';
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {Category} from '../../models/category';
+import {Module} from '../../models/module';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {CategoryElement} from './category-element';
+import {ModuleService} from '../../services/module.service';
+import {CookieService} from 'ngx-cookie-service';
+import {Toast, ToasterService} from 'angular2-toaster';
+import {ToastBuilder} from '../../../shared/utils/toast-builder';
+import {User} from '../../../shared/models/user';
+import {DialogConfirmDeleteComponent} from '../dialog-confirm-delete/dialog-confirm-delete.component';
+import {NavigationMenuService} from '../../../shared/services/navigation-menu.service';
 
 @Component({
   selector: 'app-category',
@@ -37,7 +37,7 @@ export class CategoryComponent implements OnInit, AfterViewInit {
   constructor(private categoryService: CategoryService, private moduleService: ModuleService, private formBuilder: FormBuilder,
               private cookie: CookieService, private toasterService: ToasterService, private dialog: MatDialog,
               private navigationMenu: NavigationMenuService) {
-    navigationMenu.activeMenuItem('Categories');
+    navigationMenu.activeMenuItem('Kategorie');
   }
 
   ngOnInit() {
@@ -75,7 +75,7 @@ export class CategoryComponent implements OnInit, AfterViewInit {
   }
 
   cancelElementEditMode(element: CategoryElement) {
-    let originalRow = this.categories[element.position - 1];
+    const originalRow = this.categories[element.position - 1];
     this.dataSource.data[element.position - 1].name = originalRow.name;
     this.dataSource.data[element.position - 1].module = originalRow.module;
     element.isEditing = false;
@@ -83,7 +83,7 @@ export class CategoryComponent implements OnInit, AfterViewInit {
 
   cancelNewElementEditMode(element: CategoryElement) {
     this.insertedRows -= 1;
-    let dataSource: CategoryElement[] = [];
+    const dataSource: CategoryElement[] = [];
     this.dataSource.data.forEach(category => {
       if (element.position !== category.position) {
         dataSource.push(category);
@@ -94,12 +94,12 @@ export class CategoryComponent implements OnInit, AfterViewInit {
 
   updateExistingElement(element: CategoryElement) {
     if (this.validateCategoryElement(element)) {
-      let category = this.categories[element.position - 1];
+      const category = this.categories[element.position - 1];
       category.name = element.name;
       category.module = element.module;
       category.user = new User();
       category.user.username = this.cookie.get('username');
-      this.categoryService.updateCategory(category).subscribe(category => {
+      this.categoryService.updateCategory(category).subscribe(updatedCategory => {
         this.displayToast(ToastBuilder.successUpdateItem());
         element.isEditing = false;
       }, error => console.log(error));
@@ -108,7 +108,7 @@ export class CategoryComponent implements OnInit, AfterViewInit {
 
   insertElement(element: CategoryElement) {
     if (this.validateCategoryElement(element)) {
-      let category = new Category();
+      const category = new Category();
       category.name = element.name;
       category.module = element.module;
       category.user = new User();
@@ -137,7 +137,7 @@ export class CategoryComponent implements OnInit, AfterViewInit {
   }
 
   deleteElement(element: CategoryElement) {
-    let category = this.categories[element.position - 1];
+    const category = this.categories[element.position - 1];
     this.categoryService.deleteCategory(category).subscribe(data => {
       this.displayToast(ToastBuilder.successDeleteItem());
       this.refresh();
@@ -151,7 +151,7 @@ export class CategoryComponent implements OnInit, AfterViewInit {
   createRowInTable() {
     if (this.insertedRows === 0) {
       this.insertedRows += 1;
-      let element: CategoryElement = new CategoryElement();
+      const element: CategoryElement = new CategoryElement();
       element.position = this.dataSource.data.length + 1;
       element.isEditing = true;
       element.isNew = true;
@@ -159,7 +159,7 @@ export class CategoryComponent implements OnInit, AfterViewInit {
       element.module = new Module();
       element.module.name = '';
 
-      let dataSource = this.dataSource.data;
+      const dataSource = this.dataSource.data;
       dataSource.push(element);
       this.dataSource.data = dataSource;
       this.dataSource.paginator.lastPage();
@@ -179,9 +179,9 @@ export class CategoryComponent implements OnInit, AfterViewInit {
   }
 
   private convertCategoriesIntoCategoryElements() {
-    let categoryElements: CategoryElement[] = [];
+    const categoryElements: CategoryElement[] = [];
     for (let i = 0; i < this.categories.length; i++) {
-      let element: CategoryElement = new CategoryElement();
+      const element: CategoryElement = new CategoryElement();
       element.position = i + 1;
       element.name = this.categories[i].name;
       element.module = this.categories[i].module;

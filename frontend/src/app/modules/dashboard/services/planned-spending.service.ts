@@ -1,27 +1,32 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {CookieService} from "ngx-cookie-service";
-import {PlannedSpend} from "../models/planned-spend";
-import {Observable} from "rxjs";
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {CookieService} from 'ngx-cookie-service';
+import {PlannedSpend} from '../models/planned-spend';
+import {Observable} from 'rxjs';
+import {EnvironmentConfigService} from '../../shared/services/environment-config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlannedSpendingService {
 
-  private url = 'https://rwilk-household-budget.cfapps.io/api/planned-spending/';
-  // private url = 'http://localhost:8080/api/planned-spending/';
+  PLANNED_SPENDING_ENDPOINT_URL = '/api/planned-spending/';
+  private readonly requestUrl;
+
   private header = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.cookie.get('token')});
 
-  constructor(private http: HttpClient, private cookie: CookieService) {
+  constructor(private http: HttpClient,
+              private cookie: CookieService,
+              private envConfig: EnvironmentConfigService) {
+    this.requestUrl = this.envConfig.getBackendUrl() + this.PLANNED_SPENDING_ENDPOINT_URL;
   }
 
   getPlannedSpending(username: string, categoryId: number, year: number): Observable<PlannedSpend[]> {
-    return this.http.get<PlannedSpend[]>(this.url + username + '/' + categoryId + '/' + year);
+    return this.http.get<PlannedSpend[]>(this.requestUrl + username + '/' + categoryId + '/' + year);
   }
 
   savePlannedSpending(plannedSpending: PlannedSpend[]): Observable<PlannedSpend[]> {
-    return this.http.put<PlannedSpend[]>(this.url, plannedSpending, {headers: this.header});
+    return this.http.put<PlannedSpend[]>(this.requestUrl, plannedSpending, {headers: this.header});
   }
 
 }

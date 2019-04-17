@@ -12,13 +12,13 @@
     <input type="text"
            class="form-control"
            id="name"
-           placeholder="Name"
+           placeholder="Nazwa"
            [(ngModel)]="spend.name">
     <br>
 
     <ng-select [items]="modulesSelectItem"
                bindLabel="name"
-               placeholder="Select module"
+               placeholder="Wybierz moduł"
                [(ngModel)]="selectedModule"
                (ngModelChange)="selectModuleNgModelChange()">
     </ng-select>
@@ -27,7 +27,7 @@
     <ng-select
       [items]="categoriesSelectItem"
       bindLabel="name"
-      placeholder="Select category"
+      placeholder="Wybierz kategorię"
       [(ngModel)]="selectedCategory"
       (ngModelChange)="selectCategoryNgModelChange()">
     </ng-select>
@@ -35,7 +35,7 @@
 
     <div class="input-group">
       <input class="form-control"
-             placeholder="Select date"
+             placeholder="Wybierz datę"
              [readonly]=true
              name="dp"
              [(ngModel)]="date"
@@ -53,7 +53,7 @@
     <input type="text"
            class="form-control"
            id="value"
-           placeholder="Value"
+           placeholder="Wpisz wartość"
            [(ngModel)]="spend.value">
     <br>
 
@@ -62,13 +62,13 @@
               class="btn btn-secondary form-button"
               style="margin-right: 5px"
               routerLink="/dashboard/calendar">
-        Cancel
+        Anuluj
       </button>
 
       <button type="submit" (click)="onSubmit()"
               style="margin-left: 5px"
               class="btn btn-success form-button">
-        Save
+        Zapisz
       </button>
     </div>
 

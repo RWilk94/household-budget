@@ -3,66 +3,11 @@
 
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item" style="cursor: pointer"><a (click)="redirectToModulesOnClick()">Moduły</a></li>
-        <li *ngIf="selectedModule !== undefined && selectedModule !== null"
-            class="breadcrumb-item active" aria-current="page" style="cursor: pointer">
-          <a (click)="redirectToModuleOnClick()">{{selectedModule.name}}</a>
-        </li>
-        <li *ngIf="selectedModule !== undefined && selectedModule !== null && selectedCategory !== undefined && selectedCategory !== null"
-            class="breadcrumb-item active" aria-current="page">
-          {{selectedCategory.name}}
-        </li>
+        <li class="breadcrumb-item"><a>{{selectedCategory.name}}</a></li>
       </ol>
     </nav>
 
-    <table *ngIf="moduleMode" class="table table-striped" width="100%">
-      <thead>
-        <tr style="background: #005cbf ;color: white;">
-          <th *ngFor="let column of moduleColumns;">
-            {{column.name}}
-          </th>
-        </tr>
-      </thead>
-
-      <tbody style="margin: 0; padding: 0">
-        <ng-container *ngFor="let module of modules; let i = index">
-          <tr>
-            <td width="33.3%">{{module.name}}</td>
-            <td width="33.3%">{{module.amountPlannedSpending}}zł</td>
-            <td width="33.3%">
-              <button type="button" class="btn btn-info btn-sm" (click)="selectModuleOnClick(i)">
-                Pokaż kategorie
-              </button>
-            </td>
-          </tr>
-        </ng-container>
-      </tbody>
-    </table>
-
-    <table *ngIf="categoryMode" class="table table-striped" width="100%">
-      <thead>
-        <tr style="background: #005cbf ;color: white;">
-          <th *ngFor="let column of categoryColumns;">
-            {{column.name}}
-          </th>
-      </thead>
-      <tbody style="margin: 0; padding: 0">
-        <ng-container *ngFor="let category of displayedCategories; let i = index">
-          <tr>
-            <td width="33.3%">{{category.name}}</td>
-            <td width="33.3%">{{category.amountPlannedSpending}}zł</td>
-            <td width="33.3%">
-              <button type="button" class="btn btn-info btn-sm" (click)="selectCategoryOnClick(i)">
-                Planuj wydatki
-              </button>
-            </td>
-          </tr>
-        </ng-container>
-      </tbody>
-    </table>
-
-    <div *ngIf="categoryDetailMode" style="width: 100%">
-      <!--<app-planning-spending-detail></app-planning-spending-detail>-->
+    <div style="width: 100%">
       <div style="margin-right: 24px; margin-bottom: 0; display: flex; flex-direction: column; align-items: flex-end;">
         <div class="form-group row" style="margin-bottom: 0">
           <label for="year" class="col-form-label" style="width: 100px; text-align: right; margin: 3px; font-size: 16px">Rok: </label>

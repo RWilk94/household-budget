@@ -1,5 +1,5 @@
-import {Module} from "../../models/module";
-import {Category} from "../../models/category";
+import {Module} from '../../models/module';
+import {Category} from '../../models/category';
 
 export class SpendElement {
   position: number;

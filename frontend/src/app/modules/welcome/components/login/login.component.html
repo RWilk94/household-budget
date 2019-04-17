@@ -6,7 +6,7 @@
 
     <mat-card class="center-mat-card">
       <mat-card-title>
-        <p class="text-center"><strong id="title">SIGN IN</strong></p>
+        <p class="text-center"><strong id="title">Logowanie</strong></p>
       </mat-card-title>
       <mat-card-content>
         <p *ngIf="alert !== undefined">
@@ -18,10 +18,10 @@
           <mat-form-field class="mat-input-form">
             <input matInput
                    id="username"
-                   placeholder="Username"
+                   placeholder="Nazwa użytkownika"
                    formControlName="username">
             <mat-error *ngIf="loginForm.getError('required', ['username'])">
-              Username is required
+              Nazwa użytkownika nie może być pusta
             </mat-error>
           </mat-form-field>
 
@@ -29,10 +29,10 @@
             <input matInput
                    id="password"
                    type="password"
-                   placeholder="Password"
+                   placeholder="Hasło"
                    formControlName="password">
             <mat-error *ngIf="loginForm.getError('required', ['password'])">
-              Password is required
+              Hasło nie może być puste
             </mat-error>
           </mat-form-field>
 
@@ -41,7 +41,7 @@
                     [disabled]="this.loginForm.invalid"
                     (click)="onSubmit()"
                     class="btn btn-success form-button">
-              Sign in
+              Zaloguj
             </button>
           </div>
 
@@ -49,7 +49,7 @@
       </mat-card-content>
       <mat-card-footer>
         <p class="text-center">
-          Are you a new user? Sign up <strong><a routerLink="/register" routerLinkActive="true">here.</a></strong>
+          Jesteś nowy? Stwórz konto <strong><a routerLink="/register" routerLinkActive="true">tutaj.</a></strong>
         </p>
       </mat-card-footer>
     </mat-card>

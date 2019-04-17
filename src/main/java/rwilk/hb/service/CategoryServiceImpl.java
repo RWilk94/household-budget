@@ -25,10 +25,8 @@ public class CategoryServiceImpl implements CategoryService {
 
   @Autowired
   private CategoryRepository categoryRepository;
-
   @Autowired
   private UserRepository userRepository;
-
   @Autowired
   private ModuleRepository moduleRepository;
   @Autowired
@@ -38,7 +36,12 @@ public class CategoryServiceImpl implements CategoryService {
 
   @Override
   public List<Category> getUserCategories(String username) {
-    return categoryRepository.findAllByUserIsNullOrUser_Username(username);
+    return categoryRepository.findAllByUser_Username(username);
+  }
+
+  @Override
+  public List<Category> getUserCategories(String username, Long moduleId) {
+    return categoryRepository.findAllByModule_IdAndUser_Username(moduleId, username);
   }
 
   @Override
@@ -78,16 +81,15 @@ public class CategoryServiceImpl implements CategoryService {
     Optional<Module> moduleOptional = moduleRepository.findById(moduleId);
     if (!moduleOptional.isPresent())
       throw new IllegalArgumentException();
-    List<Category> categories = categoryRepository.findAllByUserIsNullOrUser_UsernameAndModule(username, moduleOptional.get().getId());
+    List<Category> categories = categoryRepository.findAllByUser_UsernameAndModule(username, moduleOptional.get().getId());
 
     Calendar firstDay = Utils.setFirstDayOfYear(year);
     Calendar lastDay = Utils.setLastDayOfYear(year);
     List<CategorySpending> actualSpending = Utils.mapToCategorySpending(
-        spendingRepository.findAllByDateIsBetweenAndUser_UsernameAndGroupByCategory(firstDay, lastDay, username));
+        spendingRepository.findAllByDateIsBetweenAndUser_UsernameAndGroupByCategory(firstDay, lastDay, username, moduleId));
     List<CategorySpending> plannedSpending = Utils.mapToCategorySpending(
-        plannedSpendRepository.findAllByDateIsBetweenAndUser_UsernameAndGroupByCategory(year, 1, 12, username));
+        plannedSpendRepository.findAllByDateIsBetweenAndUser_UsernameAndGroupByCategory(year, 1, 12, username, moduleId));
     return categories.stream()
-        .filter(category -> category.getModule().getId() == moduleId)
         .map(category ->
             ModuleVO.builder()
                 .id(category.getId())
@@ -108,15 +110,14 @@ public class CategoryServiceImpl implements CategoryService {
 
   @Override
   public List<ModuleVO> getCategoriesVOsByMonth(String username, Long moduleId, Integer year, Integer month) {
-    List<Category> categories = this.getUserCategories(username);
+    List<Category> categories = this.getUserCategories(username, moduleId);
     Calendar firstDay = Utils.setFirstDayOfMonth(year, month);
     Calendar lastDay = Utils.setLastDayOfMonth(year, month);
     List<CategorySpending> actualSpending = Utils.mapToCategorySpending(
-        spendingRepository.findAllByDateIsBetweenAndUser_UsernameAndGroupByCategory(firstDay, lastDay, username));
+        spendingRepository.findAllByDateIsBetweenAndUser_UsernameAndGroupByCategory(firstDay, lastDay, username, moduleId));
     List<CategorySpending> plannedSpending = Utils.mapToCategorySpending(
-        plannedSpendRepository.findAllByDateIsBetweenAndUser_UsernameAndGroupByCategory(year, month, month, username));
+        plannedSpendRepository.findAllByDateIsBetweenAndUser_UsernameAndGroupByCategory(year, month, month, username, moduleId));
     return categories.stream()
-        .filter(category -> category.getModule().getId() == moduleId)
         .map(category ->
             ModuleVO.builder()
                 .id(category.getId())

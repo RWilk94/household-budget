@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {MenuItem} from "../models/menu-item";
+import {MenuItem} from '../models/menu-item';
 
 @Injectable({
   providedIn: 'root'
@@ -11,41 +11,41 @@ export class NavigationMenuService {
 
   menuItems: MenuItem[] = [
     {
-      displayName: 'Dashboard',
+      displayName: 'Tablica',
       iconName: 'dashboard',
       route: 'dashboard'
     },
     {
-      displayName: 'Calendar',
+      displayName: 'Kalendarz',
       iconName: 'date_range',
       route: 'dashboard/calendar'
     },
     {
-      displayName: 'Overview',
+      displayName: 'Przegląd',
       iconName: 'explore',
       route: 'dashboard/overview'
     },
     {
-      displayName: 'Planning Spending',
-      iconName: 'shop',
-      route: 'dashboard/planning_spending'
-    },
-    {
-      displayName: 'Spending',
+      displayName: 'Wydatki',
       iconName: 'payment',
       route: 'dashboard/spending'
     },
     {
-      displayName: 'Credits',
+      displayName: 'Prognozy',
+      iconName: 'bar_chart',
+      route: 'dashboard/predict-spend'
+    },
+    {
+      displayName: 'Kalkulator kredytowy',
       iconName: 'money',
       route: 'dashboard/credits'
     },
     {
-      displayName: 'Settings',
+      displayName: 'Ustawienia',
       iconName: 'settings',
       children: [
         {
-          displayName: 'Categories',
+          displayName: 'Kategorie',
           iconName: 'category',
           route: 'dashboard/category'
         }

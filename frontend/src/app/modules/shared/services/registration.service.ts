@@ -1,30 +1,33 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {User} from "../models/user";
-import {CookieService} from "ngx-cookie-service";
-import {Router} from "@angular/router";
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {User} from '../models/user';
+import {CookieService} from 'ngx-cookie-service';
+import {Router} from '@angular/router';
+import {EnvironmentConfigService} from './environment-config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegistrationService {
 
+  private readonly requestUrl;
   private header = new HttpHeaders({'Content-Type': 'application/json'});
-  private link = 'https://rwilk-household-budget.cfapps.io';
-  // private link = 'http://localhost:8080';
 
   constructor(private http: HttpClient,
               private cookie: CookieService,
-              private router: Router) {
+              private router: Router,
+              private envConfig: EnvironmentConfigService) {
+    this.requestUrl = this.envConfig.getBackendUrl();
   }
 
   register(user: User) {
-    let url = this.link + '/registration';
+    const url = this.requestUrl + '/registration';
     return this.http.post(url, user, {headers: this.header});
   }
 
   login(user: User) {
-    let url = this.link + '/login';
+    const url = this.requestUrl + '/login';
+    this.cookie.set('username', user.username);
     return this.http.post(url, user, {headers: this.header});
   }
 
@@ -34,10 +37,10 @@ export class RegistrationService {
   }
 
   isLogin(): boolean {
-    return this.cookie.get('username') != null
-      && this.cookie.get('username') != ''
-      && this.cookie.get('token') != null
-      && this.cookie.get('token') != ''
+    return this.cookie.get('username') !== null
+      && this.cookie.get('username') !== ''
+      && this.cookie.get('token') !== null
+      && this.cookie.get('token') !== '';
   }
 
 }

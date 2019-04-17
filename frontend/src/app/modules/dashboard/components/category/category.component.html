@@ -4,21 +4,24 @@
 <mat-card style="height: 100%; overflow: auto; margin: 0; padding: 0 8px;">
   <mat-card-content>
 
-    <mat-form-field class="filter-field">
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-    </mat-form-field>
+    <div style="width: 100%;">
+      <mat-form-field style="width: 78%; margin: 1px 3px">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtruj">
+      </mat-form-field>
+      <button class="btn btn-success btn-sm" style="margin: 1px; width: 20%; float: end" (click)="createRowInTable()">Dodaj</button>
+    </div>
 
     <table mat-table [dataSource]="dataSource" matSort="" fxLayout="column wrap">
 
       <ng-container matColumnDef="{{columns[0]}}">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header" width="{{width[0].width}}%">No.</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header" width="{{width[0].width}}%">Lp.</th>
         <td mat-cell *matCellDef="let element" width="{{width[0].width}}%">
           {{element.position}}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="{{columns[1]}}">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header" width="{{width[1].width}}%">Name</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header" width="{{width[1].width}}%">Nazwa</th>
         <td mat-cell *matCellDef="let element" width="{{width[1].width}}%">
           <ng-container *ngIf="!element.isEditing">{{element.name}}</ng-container>
 
@@ -31,7 +34,7 @@
       </ng-container>
 
       <ng-container matColumnDef="{{columns[2]}}">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header" width="{{width[2].width}}%">Module</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header" width="{{width[2].width}}%">Moduł</th>
         <td mat-cell *matCellDef="let element" width="{{width[2].width}}%">
           <ng-container *ngIf="!element.isEditing">{{element.module.name}}</ng-container>
 
@@ -49,8 +52,8 @@
       <ng-container matColumnDef="{{columns[3]}}">
         <th mat-header-cell *matHeaderCellDef mat-sort-header width="{{width[3].width}}%">
           <button id="options-button" class="th-header">
-            <b matTooltip="You can edit custom categories only.">Options</b>
-            <mat-icon class="mat-icon" style="color: green;" matTooltip="Add record" (click)="createRowInTable()">add
+            <b>Opcje</b>
+            <mat-icon class="mat-icon" style="color: green;" matTooltip="Dodaj wpis" (click)="createRowInTable()">add
             </mat-icon>
           </button>
         </th>
@@ -59,26 +62,26 @@
           <ng-container *ngIf="element.isCustom || element.isNew">
             <mat-icon class="mat-icon" *ngIf="!element.isEditing" (click)="enableElementEditMode(element)"
                       style="color: dodgerblue;"
-                      matTooltip="Edit">edit
+                      matTooltip="Edytuj">edit
             </mat-icon>
             <mat-icon class="mat-icon" *ngIf="!element.isEditing" (click)="showDeleteDialog(element)"
-                      style="color: red;" matTooltip="Delete">
+                      style="color: red;" matTooltip="Usuń">
               delete
             </mat-icon>
 
             <mat-icon class="mat-icon" *ngIf="element.isEditing && !element.isNew"
-                      (click)="updateExistingElement(element)" style="color: green;" matTooltip="Save">save
+                      (click)="updateExistingElement(element)" style="color: green;" matTooltip="Zapisz">save
             </mat-icon>
             <mat-icon class="mat-icon" *ngIf="element.isEditing && !element.isNew"
-                      (click)="cancelElementEditMode(element)" style="color: grey;" matTooltip="Cancel">cancel
+                      (click)="cancelElementEditMode(element)" style="color: grey;" matTooltip="Anuluj">cancel
             </mat-icon>
 
             <mat-icon class="mat-icon" *ngIf="element.isEditing && element.isNew" (click)="insertElement(element)"
                       style="color: green;"
-                      matTooltip="Insert">save
+                      matTooltip="Zapisz">save
             </mat-icon>
             <mat-icon class="mat-icon" *ngIf="element.isEditing && element.isNew"
-                      (click)="cancelNewElementEditMode(element)" style="color: grey;" matTooltip="Cancel">cancel
+                      (click)="cancelNewElementEditMode(element)" style="color: grey;" matTooltip="Anuluj">cancel
             </mat-icon>
           </ng-container>
         </td>

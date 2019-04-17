@@ -1,4 +1,4 @@
-import {Toast} from "angular2-toaster";
+import {Toast} from 'angular2-toaster';
 
 export class ToastBuilder {
 
@@ -7,87 +7,98 @@ export class ToastBuilder {
   static successRegisterUser(): Toast {
     return {
       type: 'success',
-      title: 'User registered successfully',
+      // title: 'User registered successfully',
+      title: 'Użytkownik został stworzony.',
       body: ''
     };
   }
 
-  static errorWhileUpdatingItem() : Toast {
+  static errorWhileUpdatingItem(): Toast {
     return {
       type: 'error',
-      title: 'Error while updating item',
+      // title: 'Error while updating item',
+      title: 'Błąd podczas aktualizacji rekordu.',
       body: ''
     };
   }
 
-  static errorWhileInsertingItem() : Toast {
+  static errorWhileInsertingItem(): Toast {
     return {
       type: 'error',
-      title: 'Error while inserting item',
+      // title: 'Error while inserting item',
+      title: 'Błąd podczas dodawania rekordu.',
       body: ''
     };
   }
 
-  static errorWhileDeletingItem() : Toast {
+  static errorWhileDeletingItem(): Toast {
     return {
       type: 'error',
-      title: 'Error while deleting item',
+      // title: 'Error while deleting item',
+      title: 'Błąd podczas usuwania rekordu.',
       body: ''
     };
   }
 
-  static errorWhileRegisterUser() : Toast {
+  static errorWhileRegisterUser(): Toast {
     return {
       type: 'error',
-      title: 'Error while register user',
+      // title: 'Error while register user',
+      title: 'Błąd podczas tworzenia użytkownika.',
       body: ''
     };
   }
 
-  static errorEmptyName() : Toast {
+  static errorEmptyName(): Toast {
     return {
       type: 'error',
-      title: 'Name can not be empty',
+      // title: 'Name can not be empty',
+      title: 'Nazwa nie może być pusta.',
       body: ''
     };
   }
 
-  static errorIncorrectName() : Toast {
+  static errorIncorrectName(): Toast {
     return {
       type: 'error',
-      title: 'Name must have at least 1 character and max 255 characters.',
+      // title: 'Name must have at least 1 character and max 255 characters.',
+      title: 'Nazwa musi zawierać przynajmniej od 1 do 255 znaków.',
       body: ''
     };
   }
 
-  static errorEmptyModule() : Toast {
+  static errorEmptyModule(): Toast {
     return {
       type: 'error',
-      title: 'Module can not be empty',
+      // title: 'Module can not be empty',
+      title: 'Moduł nie może być pusty.',
       body: ''
     };
   }
 
-  static errorEmptyCategory() : Toast {
+  static errorEmptyCategory(): Toast {
     return {
       type: 'error',
-      title: 'Category can not be empty',
+      // title: 'Category can not be empty',
+      title: 'Kategoria nie może być pusta.',
       body: ''
     };
   }
 
-  static errorWrongValue() : Toast {
+  static errorWrongValue(): Toast {
     return {
       type: 'error',
-      title: 'Value must be greater than 0',
+      // title: 'Value must be greater than 0',
+      title: 'Wartość musi być większa od 0.',
       body: ''
     };
   }
 
-  static errorEmptyDate() : Toast {
+  static errorEmptyDate(): Toast {
     return {
       type: 'error',
-      title: 'Date can not be empty',
+      // title: 'Date can not be empty',
+      title: 'Data nie może być pusta.',
       body: ''
     };
   }
@@ -95,7 +106,8 @@ export class ToastBuilder {
   static successUpdateItem(): Toast {
     return {
       type: 'success',
-      title: 'Item updated successfully',
+      // title: 'Item updated successfully',
+      title: 'Wpis został zaktualizowany.',
       body: ''
     };
   }
@@ -103,7 +115,8 @@ export class ToastBuilder {
   static successInsertItem(): Toast {
     return {
       type: 'success',
-      title: 'Item inserted successfully',
+      // title: 'Item inserted successfully',
+      title: 'Wpis został dodany.',
       body: ''
     };
   }
@@ -111,15 +124,17 @@ export class ToastBuilder {
   static successDeleteItem(): Toast {
     return {
       type: 'success',
-      title: 'Item deleted successfully',
+      // title: 'Item deleted successfully',
+      title: 'Wpis został usunięty.',
       body: ''
     };
   }
 
-  static warningTemplateForRecordAlreadyAdded() : Toast {
+  static warningTemplateForRecordAlreadyAdded(): Toast {
     return {
       type: 'warning',
-      title: 'Template for the record already added',
+      // title: 'Template for the record already added',
+      title: 'Pusty wpis został już stworzony.',
       body: ''
     };
   }

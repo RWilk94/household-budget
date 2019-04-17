@@ -8,6 +8,6 @@ export class ModuleVO {
   plannedSpending: number;
   actualSpending: number;
   percent?: number;
-  difference?: number
+  difference?: number;
 
 }

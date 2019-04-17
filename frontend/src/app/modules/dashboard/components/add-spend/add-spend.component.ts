@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {Spend} from "../../models/spend";
-import {ModuleService} from "../../services/module.service";
-import {Router} from "@angular/router";
-import {SpendingService} from "../../services/spending.service";
-import {CookieService} from "ngx-cookie-service";
-import {Module} from "../../models/module";
-import {Category} from "../../models/category";
-import {CategoryService} from "../../services/category.service";
-import {ToastBuilder} from "../../../shared/utils/toast-builder";
-import {Toast, ToasterService} from "angular2-toaster";
-import {User} from "../../../shared/models/user";
+import {Spend} from '../../models/spend';
+import {ModuleService} from '../../services/module.service';
+import {Router} from '@angular/router';
+import {SpendingService} from '../../services/spending.service';
+import {CookieService} from 'ngx-cookie-service';
+import {Module} from '../../models/module';
+import {Category} from '../../models/category';
+import {CategoryService} from '../../services/category.service';
+import {ToastBuilder} from '../../../shared/utils/toast-builder';
+import {Toast, ToasterService} from 'angular2-toaster';
+import {User} from '../../../shared/models/user';
 
 @Component({
   selector: 'app-add-spend',
@@ -40,23 +40,23 @@ export class AddSpendComponent implements OnInit {
               private cookie: CookieService,
               private toasterService: ToasterService) {
     this.spend.category = new Category();
-    this.spend.category.module = new Module();
-  }
+    this.spend.category.module = new Module();  }
 
   ngOnInit() {
-    this.id = this.router.url.toString().substring(this.router.url.toString().lastIndexOf("/") + 1);
-    if (!Number.isNaN(Number.parseInt(this.id))) {
-      this.spendingService.getSpendingById(this.cookie.get('username'), Number.parseInt(this.id)).subscribe(spend => {
+    this.id = this.router.url.toString().substring(this.router.url.toString().lastIndexOf('/') + 1);
+    if (!Number.isNaN(Number.parseInt(this.id, 10))) {
+      this.spendingService.getSpendingById(this.cookie.get('username'), Number.parseInt(this.id, 10)).subscribe(spend => {
         this.spend = spend;
         this.setSelectedCategory();
         this.setSelectedModule();
-        let date = new Date(this.spend.date);
+        const date = new Date(this.spend.date);
         this.date = {year: date.getUTCFullYear(), month: date.getUTCMonth() + 1, day: date.getUTCDate()};
       });
     } else {
       this.spend.user = new User();
       this.spend.user.username = this.cookie.get('username');
       this.date = this.spendingService.calendarDate;
+      this.selectDateNgModelChange();
     }
 
     this.moduleService.getModules().subscribe(modules => {
@@ -71,21 +71,21 @@ export class AddSpendComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.validateSpend(this.spend) && !Number.isNaN(Number.parseInt(this.id))) {
+    if (this.validateSpend(this.spend) && !Number.isNaN(Number.parseInt(this.id, 10))) {
       this.spendingService.updateSpend(this.spend).subscribe(spend => {
         this.alert = {
           type: 'success',
-          message: 'Record updated successfully.',
+          message: 'Rekord został zaktualizowany.',
         };
       }, error => {
         console.log(error);
         this.displayToast(ToastBuilder.errorWhileUpdatingItem());
       });
-    } else if (this.validateSpend(this.spend) && Number.isNaN(Number.parseInt(this.id))) {
+    } else if (this.validateSpend(this.spend) && Number.isNaN(Number.parseInt(this.id, 10))) {
       this.spendingService.addSpend(this.spend).subscribe(spend => {
         this.alert = {
           type: 'success',
-          message: 'Record added successfully.',
+          message: 'Rekord został dodany.',
         };
       }, error => {
         console.log(error);
@@ -112,7 +112,7 @@ export class AddSpendComponent implements OnInit {
 
   mapModulesIntoModuleSelect(): any {
     this.modulesSelectItem = this.modules.map(module => {
-      return {id: module.id, name: module.name}
+      return {id: module.id, name: module.name};
     });
   }
 
@@ -132,7 +132,7 @@ export class AddSpendComponent implements OnInit {
         && this.selectedModule.id !== undefined && this.selectedModule.id !== null
         && category.module.id === this.selectedModule.id && category.module.name === this.selectedModule.name)
       .map(category => {
-        return {id: category.id, name: category.name}
+        return {id: category.id, name: category.name};
       });
   }
 

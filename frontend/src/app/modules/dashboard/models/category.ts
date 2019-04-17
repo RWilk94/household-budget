@@ -1,6 +1,6 @@
-import {User} from "../../shared/models/user";
-import {Module} from "./module";
-import {PlannedSpend} from "./planned-spend";
+import {User} from '../../shared/models/user';
+import {Module} from './module';
+import {PlannedSpend} from './planned-spend';
 
 export class Category {
   id: number;
