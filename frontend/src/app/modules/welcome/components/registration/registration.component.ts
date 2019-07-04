@@ -45,7 +45,8 @@ export class RegistrationComponent implements OnInit {
       this.registrationService.register(this.user).subscribe(data => {
           this.alert = {
             type: 'success',
-            message: 'User registered successfully',
+            message: 'Rejestracja zakończona powodzeniem',
+            // message: 'User registered successfully',
           };
         },
         error => this.handleError(error)

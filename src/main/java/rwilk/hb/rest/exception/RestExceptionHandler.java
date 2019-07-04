@@ -47,7 +47,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     ErrorResponse response = ErrorResponse.builder()
         .status(HttpStatus.BAD_REQUEST.value())
-        .message("Record already exists.")
+//        .message("Record already exists.")
+        .message("Rekord już istnieje.")
         .timeStamp(System.currentTimeMillis())
         .details(exception.getMostSpecificCause().toString())
         .build();

@@ -34,16 +34,19 @@ public class UserServiceImpl implements UserService {
   @Override
   public User register(User user) {
     if (!StringUtils.equals(user.getPassword(), user.getConfirmPassword())) {
-      throw new IllegalArgumentException("Password and confirm password must be the same!");
+      throw new IllegalArgumentException("Podane hasła muszą być identyczne.");
+//      throw new IllegalArgumentException("Password and confirm password must be the same!");
     }
     user.setPassword(passwordEncoder.encode(user.getPassword()));
     Optional<User> userOptional = userRepository.findByEmailOrUsername(user.getEmail(), user.getUsername());
     if (userOptional.isPresent()) {
       if (userOptional.get().getUsername().equalsIgnoreCase(user.getUsername())) {
-        throw new UserAlreadyExistsException("The username is already taken.");
+        throw new UserAlreadyExistsException("Nazwa użytkownika jest zajęta.");
+//        throw new UserAlreadyExistsException("The username is already taken.");
       }
       if (userOptional.get().getEmail().equalsIgnoreCase(user.getEmail())) {
-        throw new UserAlreadyExistsException("The email is already taken.");
+        throw new UserAlreadyExistsException("Podany email został już użyty.");
+//        throw new UserAlreadyExistsException("The email is already taken.");
       }
     }
     user = userRepository.save(user);

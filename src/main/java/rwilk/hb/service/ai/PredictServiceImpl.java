@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,10 +20,13 @@ import rwilk.hb.repository.SpendingRepository;
 import rwilk.hb.repository.UserRepository;
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
+import weka.classifiers.functions.LinearRegression;
 import weka.core.Instance;
 import weka.core.Instances;
+import weka.core.SelectedTag;
 import weka.core.converters.ArffLoader;
 
+@SuppressWarnings("Duplicates")
 @Slf4j
 @Service
 public class PredictServiceImpl implements PredictService {
@@ -30,7 +34,7 @@ public class PredictServiceImpl implements PredictService {
   private static final String HEATING_BILL = "Ogrzewanie";
   private static final String PHONE_BILL = "Telefon";
 
-  private static final Integer HEATING_CLASS_INDEX = 3;
+  private static final Integer HEATING_CLASS_INDEX = 2;
   private static final String HEATING_DATA_SET_TEMPLATE = "/ai/heating.arff";
   private static final String HEATING_PREDICT_DATA_SET_TEMPLATE = "/ai/heating-predict.arff";
 
@@ -89,9 +93,12 @@ public class PredictServiceImpl implements PredictService {
 
   private Double predictValue(Instances trainingDataset, Instances predictDataset)
       throws Exception {
-    Classifier classifier = new weka.classifiers.functions.LinearRegression();
+    LinearRegression classifier = new weka.classifiers.functions.LinearRegression();
+    classifier.setAttributeSelectionMethod(
+        new SelectedTag(LinearRegression.SELECTION_NONE, LinearRegression.TAGS_SELECTION));
     classifier.buildClassifier(trainingDataset);
     Evaluation evaluation = new Evaluation(trainingDataset);
+    // evaluation.crossValidateModel(classifier, trainingDataset, 10, new Random());
     evaluation.evaluateModel(classifier, trainingDataset);
     return classifier.classifyInstance(predictDataset.get(0));
   }
@@ -100,12 +107,22 @@ public class PredictServiceImpl implements PredictService {
     Instances dataset = loadArffTemplate(HEATING_DATA_SET_TEMPLATE, HEATING_CLASS_INDEX);
     Instance instance = dataset.get(0);
     dataset.remove(0);
-
+//    int[] array = new int[]{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+//    int month = spending.get(spending.size() - 1).getDate().get(Calendar.MONTH) + 1;
+//    if (month > 12) {
+//      month -= 12;
+//    }
+//    final int month2 = month;
     spending.forEach(spend -> {
-      instance.setValue(0, spending.indexOf(spend) + 1);
-      instance.setValue(1, 30);
-      instance.setValue(2, avgTemperatures.get(spend.getDate().get(Calendar.MONTH)).getValue());
-      instance.setValue(3, spend.getValue());
+      // instance.setValue(0, spending.indexOf(spend) + 1);
+      int[] array = new int[]{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+      int month = spend.getDate().get(Calendar.MONTH) + 1;
+      if (month > 12) {
+        month -= 12;
+      }
+      instance.setValue(0, array[month-1]);
+      instance.setValue(1, avgTemperatures.get(spend.getDate().get(Calendar.MONTH)).getValue());
+      instance.setValue(2, spend.getValue());
       dataset.add(instance);
     });
     return dataset;
@@ -115,14 +132,14 @@ public class PredictServiceImpl implements PredictService {
     Instances dataset = loadArffTemplate(HEATING_PREDICT_DATA_SET_TEMPLATE, HEATING_CLASS_INDEX);
     Instance instance = dataset.get(0);
     dataset.remove(0);
-
+    int[] array = new int[]{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     int month = spending.get(spending.size() - 1).getDate().get(Calendar.MONTH) + 1;
     if (month > 12) {
       month -= 12;
     }
-    instance.setValue(0, spending.size());
-    instance.setValue(1, 30);
-    instance.setValue(2, avgTemperatures.get(month).getValue());
+    // instance.setValue(0, spending.size());
+    instance.setValue(0, array[month]);
+    instance.setValue(1, avgTemperatures.get(month).getValue());
     dataset.add(instance);
     return dataset;
   }

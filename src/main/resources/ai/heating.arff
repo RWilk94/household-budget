@@ -1,10 +1,9 @@
 @relation heating.symbolic
 
 
-@attribute id numeric
 @attribute days numeric
 @attribute temperature numeric
 @attribute cost numeric
 
 @data
-1,31,-2.3,200
+31,-2.3,200

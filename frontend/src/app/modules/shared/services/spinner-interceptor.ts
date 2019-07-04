@@ -42,12 +42,14 @@ export class SpinnerInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    this.status.resetHttpStatus(false);
     this.status.setHttpStatus(true);
     return next.handle(request).pipe(tap((event: HttpEvent<any>) => {
       if (event instanceof HttpResponse) {
         this.status.setHttpStatus(false);
       }
     }, (error: any) => {
+      this.status.setHttpStatus(false);
       this.status.resetHttpStatus(false);
     }));
   }

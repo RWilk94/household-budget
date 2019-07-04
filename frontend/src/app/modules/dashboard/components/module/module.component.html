@@ -105,7 +105,7 @@
             <td width="175px">{{row.actualSpending}}zł</td>
             <td width="150px"
                 [ngClass]="{'negative-difference': row.difference<0, 'positive-difference': row.difference>0}">
-              {{row.difference}}zł
+              {{row.difference | number : '1.2-2'}}zł
             </td>
             <td width="150px">{{row.percent}}%</td>
             <td width="275px">

@@ -3,4 +3,6 @@ applications:
 - name: rwilk-budget
   host: rwilk-budget
   memory: 1024M
-  buildpack: java_buildpack
+  disk_quota: 1G
+  instances: 1
+  buildpack: java_buildpack_offline-3_8_1
